@@ -1,0 +1,6 @@
+{
+  "appId": "com.jwgray1010.sedanhousepoints",
+  "appName": "Sedan House Points",
+  "webDir": "build",
+  "bundledWebRuntime": false
+}
