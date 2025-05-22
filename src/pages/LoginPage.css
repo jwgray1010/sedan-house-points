@@ -1,0 +1,50 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.login-logo {
+  width: 120px;
+  margin-bottom: 1rem;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 5px gold); }
+  50% { filter: drop-shadow(0 0 15px gold); }
+  100% { filter: drop-shadow(0 0 5px gold); }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 0.5rem;
+}
+
+input {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+.error-msg {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+.google-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+}

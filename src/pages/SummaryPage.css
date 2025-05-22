@@ -1,0 +1,27 @@
+.summary-page {
+  padding: 2rem;
+  position: relative;
+  z-index: 1; /* keep above the animated backdrop */
+}
+
+.summary-container {
+  background: rgba(255, 255, 255, 0.85); /* semi-opaque white */
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Headings & paragraphs */
+.summary-container h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.summary-container p,
+.summary-container li {
+  font-size: 1rem;
+  line-height: 1.5;
+}

@@ -1,0 +1,25 @@
+.steps-page {
+  padding: 2rem;
+  text-align: center;
+}
+
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.step-card {
+  background: #f0f4f8;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.step-card h2 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}

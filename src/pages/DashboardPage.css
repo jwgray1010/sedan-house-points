@@ -1,0 +1,633 @@
+/* DashboardPage.css - Polished ClassDojo-inspired UI + Custom Header */
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.header-icon {
+  width: 60px;
+  height: auto;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  line-height: 1.4;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.subtext {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #555;
+  margin-top: 0.25rem;
+}
+
+.house-card-container {
+  background: #fefaf5;
+  border-radius: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.house-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 130px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin: 0.5rem;
+}
+
+.house-card img {
+  width: 60px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background: #3498db;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+select {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+}
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.student-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+
+.student-card:hover {
+  transform: translateY(-4px);
+}
+
+.step-indicator {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: #e67e22;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 0.5rem;
+  background: #ddd;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.points {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.buttons button {
+  margin: 0 0.25rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.buttons button:hover {
+  background: #dcdde1;
+}
+.shield-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+.house-card-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #fefaf5;
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.house-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 130px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.shield-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.house-card p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.leader {
+  border: 2px solid #f39c12;
+  box-shadow: 0 0 10px #f39c12;
+}
+.notification-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  z-index: 1000;
+  animation: slide-down 0.3s ease;
+}
+
+.notification-banner.positive {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.notification-banner.negative {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.logout-button {
+  background: #e74c3c;
+  color: white;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.bubble-counters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.bubble {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.green {
+  background-color: #27ae60;
+}
+
+.red {
+  background-color: #e74c3c;
+}
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.bubble.pop {
+  animation: pop 0.3s ease;
+}
+
+.bubble.green:active,
+.bubble.red:active {
+  transform: scale(1.15);
+}
+.bubble-counters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.bubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.bubble.green {
+  background-color: #27ae60;
+}
+
+.bubble.red {
+  background-color: #e74c3c;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.bubble.pop {
+  animation: pop 0.3s ease;
+}
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.header-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: auto;
+}
+
+.dropbtn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 140px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dropdown-content button {
+  background: none;
+  border: none;
+  color: #333;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.dropdown-content button:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-header > div:nth-child(2) {
+  flex: 1;
+  text-align: center;
+}
+/* Add to DashboardPage.css */
+
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  z-index: 100;
+}
+
+.dropdown-content button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  width: 200px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-content button:hover {
+  background: #f0f0f0;
+}
+/* DashboardPage.css */
+
+/* Page header readability enhancements */
+.page-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  z-index: 1;
+}
+.page-header h1 {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  line-height: 1.1;
+  margin: 0;
+}
+.page-header p.subtext,
+.page-header p.reset-note {
+  color: #ddd;
+}
+
+/* Dropdown positioning fix */
+.dropdown {
+  position: relative;
+}
+.dropdown .dropdown-content {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  display: none;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  z-index: 100;
+}
+.dropdown .dropdown-content.show {
+  display: flex;
+}
+.dropdown .dropdown-content button {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.dropdown .dropdown-content button:hover {
+  background: #f0f0f0;
+}
+
+/* Teacher filter select label update if needed */
+.controls select {
+  min-width: 160px;
+}
+/* Increase the Sedan logo size */
+.header-icon {
+  width: 120px;   /* make this whatever you like */
+  height: auto;
+}
+/* Make the “hamburger” icon larger */
+.dropbtn {
+  font-size: 1.75rem;    /* increase the icon size */
+  padding: 0.5rem;       /* enlarge hit area */
+}
+
+/* Position the dropdown button at top-right of the header */
+.page-header {
+  position: relative;    /* needed for absolute children */
+}
+
+.dropdown {
+  position: absolute;
+  top: 1rem;             /* nudge it down a bit from the very top */
+  right: 1rem;           /* space it in from the right edge */
+  z-index: 200;          /* sit above other elements */
+}
+/* Glow for the leading house card */
+.house-card.leader {
+  /* subtle enlargement */
+  transform: scale(1.05);
+  /* golden glow */
+  box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Optional: animate the glow pulsing */
+@keyframes houseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.8);
+  }
+}
+
+.house-card.leader {
+  animation: houseGlow 2s infinite ease-in-out;
+}
+.page-header {
+  position: relative;       /* needed for absolute centering */
+}
+
+/* absolutely center the title block */
+.header-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* if you want the logos and dropdown higher, you can nudge .header-icon and .dropdown: */
+.header-icon {
+  width: 120px;             /* your chosen size */
+  /* you can adjust margin-top if needed */
+}
+
+.dropdown {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.header-title h1 {
+  font-size: 2rem;   /* down from 2.5rem */
+  line-height: 1.1;
+}
+/* Ensure both controls are the same height and font */
+.controls button,
+.controls select {
+  height: 2.5rem;       /* match heights */
+  font-size: 1rem;      /* match font size */
+  line-height: 1;       /* for vertical centering */
+  padding: 0 0.75rem;   /* consistent horizontal padding */
+  border-radius: 4px;
+}
+
+/* Add spacing between them */
+.controls button {
+  margin-right: 0.75rem;
+}
+
+.controls select {
+  margin-left: 0.25rem;
+}
+/* Tweak the controls container */
+.controls {
+  margin-top: -0.50rem;   /* move up a little more */
+  margin-bottom: .50rem;
+}
+
+/* Make both elements a bit smaller and same height */
+.controls button,
+.controls select {
+  height: 2rem;           /* slightly shorter */
+  font-size: 0.9rem;      /* slightly smaller text */
+  padding: 0 0.5rem;      /* adjust horizontal padding */
+}
+
+/* Fine-tune spacing between them */
+.controls button {
+  margin-right: 0.5rem;
+}
+.controls select {
+  margin-left: 0.25rem;
+}
+.back-button {
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.back-button:hover {
+  background: #fff;
+}

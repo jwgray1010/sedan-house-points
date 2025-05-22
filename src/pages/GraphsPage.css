@@ -1,0 +1,49 @@
+/* GraphsPage.css - Light Theme & White Text */
+
+.graph-container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+/* Headings and control text */
+.graph-container h1,
+.graph-container h3,
+.graph-container .back-button {
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Axis ticks and labels */
+.graph-container text,
+.graph-container .recharts-cartesian-axis-tick-value {
+  fill: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Axis lines and grid strokes */
+.graph-container .recharts-cartesian-grid line,
+.graph-container .recharts-cartesian-axis-line {
+  stroke: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Legend text */
+.graph-container .recharts-legend-item-text {
+  fill: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+}
+
+/* Tooltip styling */
+.graph-container .recharts-tooltip-wrapper {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+.graph-container .recharts-tooltip-label,
+.graph-container .recharts-tooltip-item-value {
+  color: #000 !important;
+}

@@ -1,0 +1,346 @@
+/* HallOfFamePage.css */
+.hall-page {
+  padding: 2rem;
+  background: linear-gradient(to bottom, #ffffff, #e8eaf6);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.filter-toggle {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-toggle button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #dfe4ea;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-toggle button.active {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.filter-toggle button:hover {
+  background-color: #b0bec5;
+}
+
+.winner-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.winner-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  width: 220px;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: podiumEnter 0.6s ease forwards;
+}
+
+.winner-card.rank-3 { animation-delay: 0.2s; }
+.winner-card.rank-2 { animation-delay: 0.4s; }
+.winner-card.rank-1 { animation-delay: 0.6s; }
+
+@keyframes podiumEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.trophy-icon {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  animation: bounceGlow 2s infinite;
+  z-index: 1;
+}
+
+@keyframes bounceGlow {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+    opacity: 1;
+  }
+}
+
+.medal {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 24px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  background-color: #3f51b5;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.info {
+  text-align: center;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.meta {
+  font-size: 12px;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.category {
+  margin-top: 0.5rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+}
+
+.rank-1 { border: 2px solid gold; }
+.rank-2 { border: 2px solid silver; }
+.rank-3 { border: 2px solid #cd7f32; }
+
+.winner-card.trophy {
+  border: 3px solid #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+.leader-section {
+  margin-top: 3rem;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 3rem auto 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leader-section h2 {
+  margin-bottom: 0.5rem;
+  font-size: 20px;
+  color: #3f51b5;
+}
+
+.leader-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.leader-list li {
+  font-size: 16px;
+  padding: 6px 0;
+  border-bottom: 1px dashed #ccc;
+  opacity: 0;
+  animation: slideFadeIn 0.5s ease forwards;
+}
+
+.leader-list li:nth-child(1) { animation-delay: 0.1s; }
+.leader-list li:nth-child(2) { animation-delay: 0.2s; }
+.leader-list li:nth-child(3) { animation-delay: 0.3s; }
+.leader-list li:nth-child(4) { animation-delay: 0.4s; }
+.leader-list li:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sparkle {
+  position: relative;
+}
+
+.sparkle::after {
+  content: '✨';
+  position: absolute;
+  top: 0;
+  right: -25px;
+  font-size: 18px;
+  animation: sparkleTwinkle 1.2s infinite ease-in-out;
+}
+
+@keyframes sparkleTwinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.9) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3) rotate(20deg);
+  }
+}
+/* HallOfFamePage.css */
+
+/* Transparent wrapper for dashboard background */
+.dashboard-container.hall-page,
+.hall-page {
+  background: transparent;
+  position: relative;
+}
+
+/* Back button (top-left) */
+.back-button {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 100;
+}
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* White headings */
+.page-title, .section-title, .filter-toggle button {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Winner cards text */
+.winner-card .name,
+.winner-card .meta,
+.leader-section h2,
+.leader-list li {
+  color: #fff;
+}
+
+/* Other styling (preserve existing) */
+/* HallOfFamePage.css - Shared Background & Styling */
+
+/* Transparent container to reveal dashboard gradient */
+.dashboard-container.hall-page,
+.hall-page {
+  background: transparent;
+  position: relative;
+}
+
+/* Back to Dashboard button (top-left) */
+.back-button {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 100;
+}
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* Main title and section titles */
+.page-title {
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  margin-top: 2rem;
+}
+.filter-toggle button {
+  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.7);
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+.filter-toggle button.active,
+.filter-toggle button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Winner grid styling */
+.winner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+.winner-card {
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+  text-align: center;
+}
+.winner-card .name,
+.winner-card .meta,
+.winner-card .category,
+.winner-card .medal,
+.winner-card .avatar {
+  color: #333;
+}
+
+/* Leader sections overrides for black text */
+.leader-section h2 {
+  color: #000 !important;
+  text-shadow: none !important;
+  margin-top: 2rem;
+}
+.leader-list li {
+  color: #000 !important;
+  list-style: none;
+  margin: 0.25rem 0;
+}
+
+/* Confetti wrapper sits above everything */
+.react-confetti {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 50;
+}

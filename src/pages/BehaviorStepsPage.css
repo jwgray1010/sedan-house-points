@@ -1,0 +1,41 @@
+.steps-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff9f4;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.subtext {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.step {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.remind { background: #fff3e0; }
+.pause { background: #ffe0e0; }
+.office { background: #ffe8f0; }
+.call { background: #f0e4ff; }
+.suspend { background: #e0e0ff; }
+
+.reset, .note, .escalation {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f6f6f6;
+  border-left: 4px solid #d5a6bd;
+  border-radius: 6px;
+}
+
+.escalation ul {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+}

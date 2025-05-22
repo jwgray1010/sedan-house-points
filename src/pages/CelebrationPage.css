@@ -1,0 +1,35 @@
+.celebration-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f4f9ff;
+}
+
+.winner {
+  font-size: 2rem;
+  color: gold;
+  margin-bottom: 2rem;
+}
+
+.house-tiles {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.house-tile {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.house-tile img {
+  height: 100px;
+}
+
+.house-tile.glow {
+  box-shadow: 0 0 20px 5px gold;
+  transform: scale(1.05);
+}
