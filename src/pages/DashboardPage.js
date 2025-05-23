@@ -69,28 +69,26 @@ const DashboardPage = () => {
     fetchLogs();
   }, []);
 
-  // init user
-  useEffect(() => {
-    const initUser = async () => {
-      const user = auth.currentUser;
-      if (!user) return;
-      const email = user.email || '';
-      const adminStatus = email === ADMIN_EMAIL;
-      setIsAdmin(adminStatus);
+ // init user
+useEffect(() => {
+  const initUser = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
 
-      // get display name from teachers collection
-      const ref = doc(db, 'teachers', user.uid);
-      const snap = await getDoc(ref);
-      if (snap.exists()) {
-        setTeacherName(snap.data().name);
-        if (!adminStatus) {
-          // non-admins default filter to their own email
-          setSelectedTeacher(email);
-        }
-      }
-    };
-    initUser();
-  }, []);
+    const email = user.email || '';
+    const adminStatus = email === ADMIN_EMAIL;
+    setIsAdmin(adminStatus);
+
+    // get display name from teachers collection
+    const ref = doc(db, 'teachers', user.uid);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      setTeacherName(snap.data().name);
+    }
+  };
+
+  initUser();
+}, []);
 
   const showNotification = (message, type) => {
     setNotification({ message, type });
@@ -190,51 +188,38 @@ const DashboardPage = () => {
           {notification.message}
         </div>
       )}
+      <div className="header-bar">
+  <div className="page-header">
+    <img src={sedanLogo} className="header-icon" alt="Sedan Logo" />
+    <div className="header-title">
+      <h1>
+        Sedan Elementary<br/>
+        Behavior Tracker
+      </h1>
+      <p className="subtext">Logged in as {teacherName}</p>
+      <p className="reset-note">* Steps reset daily at midnight</p>
+    </div>
+    <div className="dropdown">
+      {/* your menu button & dropdown content */}
+    </div>
+  </div>
 
-      {/* header */}
-      <div className="page-header">
-        <img src={sedanLogo} className="header-icon" alt="Sedan Logo" />
-        <div className="header-title">
-          <h1>
-            Sedan Elementary
-            <br />
-            Behavior Tracker
-          </h1>
-          <p className="subtext">Logged in as {teacherName}</p>
-          <p className="reset-note">* Steps reset daily at midnight</p>
-        </div>
-        <div className="dropdown">
-          <button
-            className="dropbtn"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <Menu size={20} />
-          </button>
-          <div className={`dropdown-content ${menuOpen ? 'show' : ''}`}>
-            <button onClick={() => navigate('/summary')}>
-              <List size={16} /> Summary
-            </button>
-            <button onClick={() => navigate('/graphs')}>
-              <BarChart2 size={16} /> Graphs
-            </button>
-            <button onClick={() => navigate('/podium')}>
-              <Award size={16} /> Podium
-            </button>
-            <button onClick={() => navigate('/hall-of-fame')}>
-              <Trophy size={16} /> Hall of Fame
-            </button>
-            <button
-              onClick={() => {
-                signOut(auth);
-                navigate('/login');
-              }}
-            >
-              <LogOut size={16} /> Logout
-            </button>
-          </div>
-        </div>
-      </div>
-
+  {/* ← Paste your controls here, inside header-bar */}
+  <div className="controls">
+    <button onClick={() => navigate('/steps')}>
+      View Behavior Steps
+    </button>
+    <select
+      value={selectedTeacher}
+      onChange={e => setSelectedTeacher(e.target.value)}
+    >
+      <option value="All">All Teachers</option>
+      {teacherList.map(t => (
+        <option key={t} value={t}>{t}</option>
+      ))}
+    </select>
+  </div>
+</div>
       {/* controls */}
       <div className="controls">
         <button onClick={() => navigate('/steps')}>
