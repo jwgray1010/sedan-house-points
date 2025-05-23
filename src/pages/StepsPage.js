@@ -1,6 +1,7 @@
-// StepsPage.js
 import React from 'react';
-import './StepsPage.css';
+import { useNavigate } from 'react-router-dom';
+import './StepsPage.css'; // Ensure you have this file or adjust accordingly
+
 
 const steps = [
   { step: 1, label: 'Reminder', description: 'Give the student a gentle verbal reminder of expectations.' },
@@ -11,9 +12,14 @@ const steps = [
 ];
 
 const StepsPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="steps-page">
-      <h1>Behavior Steps</h1>
+      <button className="back-button" onClick={() => navigate('/dashboard')}>
+        ← Back to Dashboard
+      </button>
+      <h1 className="steps-title">Behavior Steps</h1>
       <div className="steps-container">
         {steps.map((s) => (
           <div key={s.step} className={`step-card step-${s.step}`}>

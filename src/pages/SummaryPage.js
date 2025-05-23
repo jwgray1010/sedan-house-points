@@ -1,4 +1,4 @@
-// src/pages/SummaryPage.js - Updated with Summary Container
+// src/pages/SummaryPage.js - Updated with Summary Container + Mobile Styles
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -67,32 +67,34 @@ const SummaryPage = () => {
             ))}
           </select>
         </div>
-        <table className="behavior-table">
-          <thead>
-            <tr>
-              <th>Student</th>
-              <th>Teacher</th>
-              <th>Direction</th>
-              <th>Reason</th>
-              <th>Note</th>
-              <th>House</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredLogs.map(log => (
-              <tr key={log.id}>
-                <td>{log.studentName}</td>
-                <td>{log.teacher}</td>
-                <td>{log.direction}</td>
-                <td>{log.reason}</td>
-                <td>{log.note}</td>
-                <td>{log.house}</td>
-                <td>{log.timestamp?.toDate?.().toLocaleDateString() || ''}</td>
+        <div className="table-container">
+          <table className="behavior-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Teacher</th>
+                <th>Direction</th>
+                <th>Reason</th>
+                <th>Note</th>
+                <th>House</th>
+                <th>Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredLogs.map(log => (
+                <tr key={log.id}>
+                  <td>{log.studentName}</td>
+                  <td>{log.teacher}</td>
+                  <td>{log.direction}</td>
+                  <td>{log.reason}</td>
+                  <td>{log.note}</td>
+                  <td>{log.house}</td>
+                  <td>{log.timestamp?.toDate?.().toLocaleDateString() || ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

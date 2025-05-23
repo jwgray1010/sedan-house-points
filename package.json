@@ -23,13 +23,15 @@
     "react-use": "^17.6.0",
     "recharts": "^2.15.3",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+   },
+"scripts": {
+  "start": "react-scripts start",
+  "predeploy": "npm run build",
+  "build": "react-scripts build",
+  "deploy": "gh-pages -d build",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject"
+},
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -49,3 +51,4 @@
     ]
   }
 }
+

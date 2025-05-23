@@ -56,9 +56,9 @@
   z-index: 1;
 }
 
-.spot-1 { height: 200px; background: linear-gradient(to top, gold, #ffe680); }
-.spot-2 { height: 150px; background: linear-gradient(to top, silver, #e0e0e0); }
-.spot-3 { height: 120px; background: linear-gradient(to top, #cd7f32, #f4b27d); }
+.spot-1 { height: 250px; background: linear-gradient(to top, gold, #ffe680); }
+.spot-2 { height: 225px; background: linear-gradient(to top, silver, #e0e0e0); }
+.spot-3 { height: 200px; background: linear-gradient(to top, #cd7f32, #f4b27d); }
 
 .podium-rank {
   font-size: 2rem;
@@ -332,4 +332,50 @@
 }
 @keyframes confettiFall {
   to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+/* ✅ Mobile Adjustments - KEEP ALL ABOVE STYLES UNTOUCHED */
+@media (max-width: 600px) {
+  .podium {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .podium-spot {
+    width: 90%;
+    max-width: 280px;
+    padding: 1rem;
+  }
+
+  .podium-rank {
+    font-size: 1.25rem;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .name {
+    font-size: 0.9rem;
+  }
+
+  .score {
+    font-size: 0.75rem;
+  }
+
+  .back-button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .spotlight-beam {
+    width: 100px;
+    height: 200px;
+  }
 }

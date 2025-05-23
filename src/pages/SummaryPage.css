@@ -25,3 +25,67 @@
   font-size: 1rem;
   line-height: 1.5;
 }
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.behavior-table {
+  width: 100%;
+  min-width: 600px;
+}
+/* SummaryPage.css */
+
+.summary-page {
+  padding: 1rem;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.summary-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.summary-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.summary-controls button,
+.summary-controls select {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.behavior-table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+}
+
+.behavior-table th,
+.behavior-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.behavior-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
