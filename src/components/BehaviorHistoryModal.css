@@ -44,3 +44,27 @@ th, td {
   border: 1px solid #ccc;
   text-align: left;
 }
+
+@media (max-width: 600px) {
+  .history-modal {
+    padding: 0.5rem;
+    width: 98vw;
+    max-width: 98vw;
+    font-size: 0.95rem;
+  }
+  .close-btn {
+    top: 6px;
+    right: 6px;
+    font-size: 1.5rem;
+    padding: 0.25rem 0.5rem;
+  }
+  table {
+    font-size: 0.95rem;
+    min-width: 350px;
+  }
+}
+
+/* Optional: Make table scrollable horizontally if needed */
+.history-modal {
+  overflow-x: auto;
+}

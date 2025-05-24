@@ -1,9 +1,9 @@
-/* 1. Reset scroll rules */
+/* Reset scroll rules and box sizing */
 html, body, #root {
-  height: 100;  
-  width: 100;     /* allow content to grow */
-  overflow-x: hidden; /* prevent horizontal scroll */
-  overflow-y: auto;   /* enable vertical scroll */
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   -webkit-overflow-scrolling: touch;
@@ -11,22 +11,20 @@ html, body, #root {
 * {
   box-sizing: border-box;
 }
-/* 2. Animated gradient on body */
+
+/* Animated gradient on body */
 body {
   background: linear-gradient(45deg, #614385, #516395, #3494E6, #61E294);
   background-size: 800% 800%;
   animation: gradientBG 15s ease infinite;
-  position: relative;  /* keep for stacking */
+  position: relative;
 }
 
-/* 3. Move the starfield overlay to #root */
+/* Starfield overlay */
 #root::before {
   content: '';
-  position: fixed;     /* stay in place while scrolling */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
   background-image: radial-gradient(white 1px, transparent 1px);
   background-size: 50px 50px;
   opacity: 0.1;
@@ -34,188 +32,30 @@ body {
   z-index: 0;
 }
 
-/* 4. Ensure your page containers sit above the backdrop */
+/* Page containers above backdrop */
 .dashboard-container,
 .podium-page,
 .hall-page,
-.badges-page {
+.badges-page,
+.steps-page {
   position: relative;
   z-index: 1;
-  background: transparent;  /* let the gradient show through */
+  background: transparent;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  box-sizing: border-box;
 }
 
-/* 5. Keyframes for the gradient */
+/* Keyframes for the gradient */
 @keyframes gradientBG {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-/* Global animated gradient + starfield */
-body {
-  background: linear-gradient(45deg, #614385, #516395, #3494E6, #61E294);
-  background-size: 800% 800%;
-  animation: gradientBG 15s ease infinite;
-  position: relative;
-}
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-#root::before {
-  content: '';
-  position: fixed;
-  top:0; left:0; width:100%; height:100%;
-  background-image: radial-gradient(white 1px, transparent 1px);
-  background-size: 50px 50px;
-  opacity: 0.1;
-  pointer-events: none;
-  z-index: 0;
-}
-/* -----------------------------------------------------------------------------
-   iOS Notch + Full-Width Viewport Support
------------------------------------------------------------------------------ */
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-/* Enable full-bleed behind the notch on iOS */
-meta[name="viewport"][content*="width=device-width"] {
-  content: "width=device-width, initial-scale=1, viewport-fit=cover";
-}
-
-/* Honor the iPhone safe-area insets */
-.dashboard-container,
-.podium-page,
-.hall-page,
-.steps-page {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  box-sizing: border-box;
-}
-
-/* Mobile layout tweaks */
-@media (max-width: 600px) {
-  .page-header {
-    padding: env(safe-area-inset-top) 1rem 1rem;
-    flex-direction: row;
-    align-items: center;
-  }
-  .page-header h1 {
-    font-size: 1.4rem;
-  }
-  .page-header p {
-    font-size: 0.8rem;
-  }
-  .controls {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-  }
-  .controls button,
-  .controls select {
-    flex: 1 1 45%;
-    font-size: 0.85rem;
-    height: 2rem;
-  }
-  .house-card-container {
-    gap: 0.75rem;
-    padding: 0.5rem;
-  }
-  .student-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 0.75rem;
-  }
-}
-/* -----------------------------------------------------------------------------
-   iOS Notch + Full-Width Viewport Support
------------------------------------------------------------------------------ */
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-/* Honor the iPhone safe-area insets */
-.dashboard-container,
-.podium-page,
-.hall-page,
-.steps-page {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  box-sizing: border-box;
-}
-
-/* Mobile layout tweaks */
-@media (max-width: 600px) {
-  .page-header {
-    padding: env(safe-area-inset-top) 1rem 1rem;
-    flex-direction: row;
-    align-items: center;
-  }
-  .page-header h1 {
-    font-size: 1.4rem;
-  }
-  .page-header p {
-    font-size: 0.8rem;
-  }
-  .controls {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-  }
-  .controls button,
-  .controls select {
-    flex: 1 1 45%;
-    font-size: 0.85rem;
-    height: 2rem;
-  }
-  .house-card-container {
-    gap: 0.75rem;
-    padding: 0.5rem;
-  }
-  .student-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 0.75rem;
-  }
-}
-
-/* -----------------------------------------------------------------------------
-   iOS Notch + Full-Width Viewport Support
------------------------------------------------------------------------------ */
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-/* Honor the iPhone safe-area insets */
-.dashboard-container,
-.podium-page,
-.hall-page,
-.steps-page {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  box-sizing: border-box;
-}
-
-/* Mobile layout tweaks */
+/* Mobile responsiveness */
 @media (max-width: 600px) {
   .page-header {
     padding: env(safe-area-inset-top) 1rem 1rem;

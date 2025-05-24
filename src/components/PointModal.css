@@ -51,3 +51,24 @@
 .cancel {
   background: #ccc;
 }
+
+@media (max-width: 600px) {
+  .modal {
+    width: 98vw;
+    max-width: 98vw;
+    padding: 1rem;
+    font-size: 0.98rem;
+  }
+  .modal-buttons {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .modal-buttons button {
+    width: 100%;
+    min-height: 44px;
+    margin-left: 0;
+    font-size: 1rem;
+  }
+}
