@@ -10,26 +10,28 @@ const BehaviorHistoryModal = ({ student, logs, onClose }) => {
         {logs.length === 0 ? (
           <p>No logs found.</p>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Direction</th>
-                <th>Reason</th>
-                <th>Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              {logs.map((log) => (
-                <tr key={log.id}>
-                  <td>{log.timestamp?.toDate?.().toLocaleDateString()}</td>
-                  <td>{log.direction === 'positive' ? '✅' : '❌'}</td>
-                  <td>{log.reason}</td>
-                  <td>{log.note}</td>
+          <div style={{overflowX: 'auto'}}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Direction</th>
+                  <th>Reason</th>
+                  <th>Note</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {logs.map((log) => (
+                  <tr key={log.id}>
+                    <td>{log.timestamp?.toDate?.().toLocaleDateString()}</td>
+                    <td>{log.direction === 'positive' ? '✅' : '❌'}</td>
+                    <td>{log.reason}</td>
+                    <td>{log.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

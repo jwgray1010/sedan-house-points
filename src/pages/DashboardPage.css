@@ -10,7 +10,7 @@ body {
 }
 
 /* ─── Container ───────────────────────────────────────────────────────────── */
-.dashboard-container {
+.container {
   max-width: 1024px;
   margin: 0 auto;
   padding: 0 1rem;
@@ -24,24 +24,26 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
+  min-height: 140px; /* Increased height */
 }
 .page-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
+  justify-content: center; /* Center content horizontally */
+  padding: 3rem 1.5rem 2rem; /* More top/bottom padding */
   position: relative;
 }
 .header-icon {
   width: 48px;
   height: auto;
   flex-shrink: 0;
+  margin-top: 0.5rem;
 }
 .header-title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: static; /* Remove absolute positioning */
+  transform: none;
+  left: auto;
+  top: auto;
   text-align: center;
   flex: 1;
 }
@@ -288,7 +290,7 @@ body {
 
 /* ─── Responsive Tweaks ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .dashboard-container { padding: 1rem; }
+  .container { padding: 1rem; }
   .student-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
   .student-card { padding: 0.75rem; }
   .avatar { width: 50px; height: 50px; font-size: 1.25rem; }
@@ -297,176 +299,93 @@ body {
   .house-card-container { padding: 0.5rem; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; }
   .house-card { flex: 0 0 120px; scroll-snap-align: start; }
   .dropdown { top: 0.75rem; right: 0.75rem; }
-  /* Keep controls inline on mobile too */
   .controls { flex-wrap: wrap; gap: 0.5rem; }
   .controls button, .controls select { width: auto; }
-}
-
-@media (max-width: 600px) {
-  .header-bar { padding-top: env(safe-area-inset-top, 20px); }
-  .page-header { padding: 0.5rem 1rem; }
-  .header-icon { width: 32px; }
-  .header-title h1 { font-size: 1.4rem; }
-  .header-title .subtext, .header-title .reset-note { font-size: 0.7rem; }
-}
-/* DashboardPage.css - Updated Styling */
-
-/* ─── Global Reset & Vars ─────────────────────────────────────────────────── */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
-}
-
-/* ─── Container ───────────────────────────────────────────────────────────── */
-.dashboard-container {
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* ─── Header Bar ──────────────────────────────────────────────────────────── */
-.header-bar {
-  width: 100%;
-  background: #2e2e4e;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2rem 1.5rem 1rem; /* increased top padding */
-  position: relative;
-}
-.header-icon {
-  width: 48px;
-  height: auto;
-  flex-shrink: 0;
-  margin-top: 0.5rem; /* nudge logo down */
-}
-.header-title {
-  position: absolute;
-  left: 50%;
-  top: 60%;      /* lower title slightly */
-  transform: translate(-50%, -50%);
-  text-align: center;
-  flex: 1;
-}
-.header-title h1 {
-  margin: 0;
-  line-height: 1.2;
-  font-size: 1.8rem;
-  color: #fff;
-}
-.header-title .subtext,
-.header-title .reset-note {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #ddd;
-}
-.dropdown {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 200;
-}
-.dropdown .dropbtn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-  font-size: 1.5rem;
-}
-.dropdown .dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.5rem);
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  border-radius: 6px;
-  overflow: hidden;
-  flex-direction: column;
-  z-index: 100;
-}
-.dropdown .dropdown-content.show {
-  display: flex;
-}
-.dropdown .dropdown-content button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: auto;
-  padding: 0.5rem 1rem;
-  background: transparent;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.dropdown .dropdown-content button:hover {
-  background: #f0f0f0;
-}
-
-/* ─── Controls & Back Button ─────────────────────────────────────────────── */
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
-}
-.controls button,
-.controls select {
-  height: 2rem;
-  font-size: 0.9rem;
-  line-height: 1;
-  padding: 0 0.5rem;
-  border-radius: 4px;
-}
-.controls button {
-  background: #3498db;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.controls button:hover {
-  background: #2980b9;
-}
-.controls select {
-  border: 1px solid #ccc;
-  background: #fff;
-  font-weight: bold;
-}
-.back-button {
-  display: inline-block;
-  margin: 1rem 0;
-  padding: 0.5rem 1rem;
-  background: rgba(255,255,255,0.9);
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.back-button:hover {
-  background: #fff;
-}
-
-/* Other sections remain unchanged ... */
-@media (max-width: 768px) {
   .page-header { padding: 1.5rem 1rem 0.5rem; }
   .header-title { top: 65%; }
 }
 
+/* ─── Mobile-First: All-in-One for ≤600px ────────────────────────────────── */
 @media (max-width: 600px) {
-  .page-header { padding: 1rem 0.5rem; }
-  .header-icon { width: 32px; margin-top: 0; }
-  .header-title { top: 60%; }
+  .container {
+    padding: 8px;
+  }
+  .header-bar {
+    padding-top: env(safe-area-inset-top, 20px);
+  }
+  .page-header {
+    padding: 0.5rem 0.5rem;
+  }
+  .header-icon {
+    width: 32px;
+    margin-top: 0;
+  }
+  .header-title {
+    top: 60%;
+  }
+  .header-title h1 {
+    font-size: 1.2rem;
+  }
+  .header-title .subtext,
+  .header-title .reset-note {
+    font-size: 0.7rem;
+  }
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .controls button,
+  .controls select {
+    width: 100%;
+    min-height: 44px;
+    font-size: 1rem;
+  }
+  .house-card-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  .house-card {
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+    height: auto;
+  }
+  .student-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .student-card {
+    padding: 0.5rem;
+  }
+  .avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+  .bubble {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Center the logo horizontally */
+.sedan-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* Optionally, set a max-width or width */
+  max-width: 200px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* for vertical centering */
 }

@@ -7,6 +7,7 @@ import DashboardPage from './pages/DashboardPage';
 import StepsPage from './pages/StepsPage';
 import SummaryPage from './pages/SummaryPage';
 import GraphsPage from './pages/GraphsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const AppRouter = () => {
   return (
@@ -18,6 +19,7 @@ const AppRouter = () => {
         <Route path="/steps" element={<StepsPage />} />
         <Route path="/summary" element={<SummaryPage />} />
         <Route path="/graphs" element={<GraphsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

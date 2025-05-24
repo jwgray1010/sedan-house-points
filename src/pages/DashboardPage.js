@@ -181,147 +181,157 @@ useEffect(() => {
       ? students
       : students.filter(s => s.teacher === selectedTeacher);
 
-  return (
-    <div className="dashboard-container">
-      {notification && (
-        <div className={`notification-banner ${notification.type}`}>
-          {notification.message}
+return (
+  <div className="dashboard-container">
+    {notification && (
+      <div className={`notification-banner ${notification.type}`}>
+        {notification.message}
+      </div>
+    )}
+
+    {/* ─── Header Bar ─── */}
+    <div className="header-bar">
+      <div className="page-header">
+        <img src={sedanLogo} className="header-icon" alt="Sedan Logo" />
+
+        <div className="header-title">
+          <h1>
+            Sedan Elementary<br/>
+            Behavior Tracker
+          </h1>
+          <p className="subtext">Logged in as {teacherName}</p>
+          <p className="reset-note">* Steps reset daily at midnight</p>
         </div>
-      )}
-      <div className="header-bar">
-  <div className="page-header">
-    <img src={sedanLogo} className="header-icon" alt="Sedan Logo" />
-    <div className="header-title">
-      <h1>
-        Sedan Elementary<br/>
-        Behavior Tracker
-      </h1>
-      <p className="subtext">Logged in as {teacherName}</p>
-      <p className="reset-note">* Steps reset daily at midnight</p>
-    </div>
-    <div className="dropdown">
-      {/* your menu button & dropdown content */}
-    </div>
-  </div>
 
-  {/* ← Paste your controls here, inside header-bar */}
-  <div className="controls">
-    <button onClick={() => navigate('/steps')}>
-      View Behavior Steps
-    </button>
-    <select
-      value={selectedTeacher}
-      onChange={e => setSelectedTeacher(e.target.value)}
-    >
-      <option value="All">All Teachers</option>
-      {teacherList.map(t => (
-        <option key={t} value={t}>{t}</option>
-      ))}
-    </select>
-  </div>
-</div>
-      {/* controls */}
-      <div className="controls">
-        <button onClick={() => navigate('/steps')}>
-          View Behavior Steps
-        </button>
-        <select
-          value={selectedTeacher}
-          onChange={(e) => setSelectedTeacher(e.target.value)}
-        >
-          <option value="All">All Teachers</option>
-          {teacherList.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* house cards */}
-      <div className="house-card-container">
-        {['Storm', 'Meadow', 'Flint', 'Ember'].map((h) => (
-          <div
-            key={h}
-            className={`house-card ${
-              housePoints[h] === maxPts ? 'leader' : ''
-            }`}
-          >
-            <img
-              src={
-                { Storm: houseStorm,
-                  Meadow: houseMeadow,
-                  Flint: houseFlint,
-                  Ember: houseEmber }[h]
-              }
-              alt={h}
-              className="shield-img"
-            />
-            <p>
-              {h}: {housePoints[h]} pts
-            </p>
+        {/* Menu button + dropdown content */}
+        <div className="dropdown">
+          <button className="dropbtn" onClick={() => setMenuOpen(o => !o)}>
+            <Menu size={24} />
+          </button>
+          <div className={`dropdown-content ${menuOpen ? 'show' : ''}`}>
+            <button onClick={() => navigate('/summary')}>
+              <List size={16} /> Summary
+            </button>
+            <button onClick={() => navigate('/graphs')}>
+              <BarChart2 size={16} /> Graphs
+            </button>
+            <button onClick={() => navigate('/podium')}>
+              <Award size={16} /> Podium
+            </button>
+            <button onClick={() => navigate('/hall-of-fame')}>
+              <Trophy size={16} /> Hall of Fame
+            </button>
+            <button onClick={() => { signOut(auth); navigate('/login'); }}>
+              <LogOut size={16} /> Logout
+            </button>
           </div>
-        ))}
+        </div>
       </div>
-
-      {/* student grid */}
-      <div className="student-grid">
-        {filteredStudents.map((student) => {
-          const step = getCurrentStep(student.id);
-          const atMaxStep = step >= 5;
-          return (
-            <div
-              key={student.id}
-              className="student-card"
-              onClick={() => setHistoryStudent(student)}
-            >
-              <div className="step-indicator">Step {step}</div>
-              <div className="avatar">
-                {student.name?.[0] || '?'}
-              </div>
-              <div className="name">{student.name}</div>
-              <div className="bubble-counters">
-                {['positive', 'negative'].map((dir) => (
-                  <div
-                    key={dir}
-                    className={`bubble ${
-                      dir === 'positive' ? 'green' : 'red'
-                    } ${atMaxStep ? 'disabled' : ''}`}
-                    onClick={(e) => {
-                      if (atMaxStep) return;
-                      e.stopPropagation();
-                      handlePoint(student, dir);
-                      const el = e.currentTarget;
-                      el.classList.add('pop');
-                      setTimeout(() => el.classList.remove('pop'), 300);
-                    }}
-                  >
-                    {getTodaysLogs(student.id, dir).length}
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* modals */}
-      {selectedStudent && (
-        <PointModal
-          student={selectedStudent}
-          direction={selectedDirection}
-          onClose={() => setSelectedStudent(null)}
-          onSubmit={handleSubmitPoint}
-        />
-      )}
-      {historyStudent && (
-        <BehaviorHistoryModal
-          student={historyStudent}
-          logs={behaviorLogs.filter((l) => l.studentId === historyStudent.id)}
-          onClose={() => setHistoryStudent(null)}
-        />
-      )}
     </div>
+
+    {/* ─── Controls (moved _outside_ header-bar) ─── */}
+    <div className="controls">
+      <button onClick={() => navigate('/steps')}>
+        View Behavior Steps
+      </button>
+      <select
+        value={selectedTeacher}
+        onChange={e => setSelectedTeacher(e.target.value)}
+      >
+        <option value="All">All Teachers</option>
+        {teacherList.map(t => (
+          <option key={t} value={t}>{t}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* ─── The rest of your page: house cards, student grid, etc. ─── */}
+    {/* ... */}
+
+    {/* house cards */}
+    <div className="house-card-container">
+      {['Storm', 'Meadow', 'Flint', 'Ember'].map((h) => (
+        <div
+          key={h}
+          className={`house-card ${
+            housePoints[h] === maxPts ? 'leader' : ''
+          }`}
+        >
+          <img
+            src={
+              { Storm: houseStorm,
+                Meadow: houseMeadow,
+                Flint: houseFlint,
+                Ember: houseEmber }[h]
+            }
+            alt={h}
+            className="shield-img"
+          />
+          <p>
+            {h}: {housePoints[h]} pts
+          </p>
+        </div>
+      ))}
+    </div>
+
+    {/* student grid */}
+    <div className="student-grid">
+      {filteredStudents.map((student) => {
+        const step = getCurrentStep(student.id);
+        const atMaxStep = step >= 5;
+        return (
+          <div
+            key={student.id}
+            className="student-card"
+            onClick={() => setHistoryStudent(student)}
+          >
+            <div className="step-indicator">Step {step}</div>
+            <div className="avatar">
+              {student.name?.[0] || '?'}
+            </div>
+            <div className="name">{student.name}</div>
+            <div className="bubble-counters">
+              {['positive', 'negative'].map((dir) => (
+                <div
+                  key={dir}
+                  className={`bubble ${
+                    dir === 'positive' ? 'green' : 'red'
+                  } ${atMaxStep ? 'disabled' : ''}`}
+                  onClick={(e) => {
+                    if (atMaxStep) return;
+                    e.stopPropagation();
+                    handlePoint(student, dir);
+                    const el = e.currentTarget;
+                    el.classList.add('pop');
+                    setTimeout(() => el.classList.remove('pop'), 300);
+                  }}
+                >
+                  {getTodaysLogs(student.id, dir).length}
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    {/* modals */}
+    {selectedStudent && (
+      <PointModal
+        student={selectedStudent}
+        direction={selectedDirection}
+        onClose={() => setSelectedStudent(null)}
+        onSubmit={handleSubmitPoint}
+      />
+    )}
+    {historyStudent && (
+      <BehaviorHistoryModal
+        student={historyStudent}
+        logs={behaviorLogs.filter((l) => l.studentId === historyStudent.id)}
+        onClose={() => setHistoryStudent(null)}
+      />
+    )}
+  </div>
   );
 };
 
