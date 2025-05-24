@@ -344,3 +344,33 @@
   pointer-events: none;
   z-index: 50;
 }
+
+@media (max-width: 600px) {
+  .container {
+    padding: 8px;
+  }
+  h1, h2, h3 {
+    font-size: 1.2rem;
+  }
+  .card, .panel, .summary-box {
+    width: 100%;
+    max-width: 100%;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  .grid, .row {
+    display: block;
+  }
+  button, select, input[type="text"], input[type="number"] {
+    width: 100%;
+    min-height: 44px;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .chart-container {
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto;
+  }
+}
