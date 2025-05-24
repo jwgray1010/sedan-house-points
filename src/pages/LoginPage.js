@@ -1,8 +1,8 @@
 // LoginPage.js - With Firestore Save, Google Sign-In Restriction, and Session Tracking
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import './LoginPage.css';
@@ -13,6 +13,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const saveTeacher = async (user) => {
     const { displayName, email, uid } = user;
@@ -54,6 +55,15 @@ const LoginPage = () => {
       setError('❌ Google Sign-In failed');
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (!user && location.pathname !== '/login') {
+        navigate('/login');
+      }
+    });
+    return unsubscribe;
+  }, [navigate, location]);
 
   return (
     <div className="login-container">

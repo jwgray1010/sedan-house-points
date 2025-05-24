@@ -8,6 +8,7 @@ import PodiumPage from './pages/PodiumPage';
 import HallOfFamePage from './pages/HallOfFamePage';
 import SplashScreen from './pages/SplashScreen';
 import StepsPage from './pages/StepsPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/podium" element={<PodiumPage />} />
         <Route path="/hall-of-fame" element={<HallOfFamePage />} />
         <Route path="/steps" element={<StepsPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );
