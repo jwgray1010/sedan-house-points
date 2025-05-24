@@ -43,13 +43,13 @@ const DashboardPage = () => {
   const [students, setStudents] = useState([]);
   const [behaviorLogs, setBehaviorLogs] = useState([]);
   const [teacherName, setTeacherName] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
   const [selectedTeacher, setSelectedTeacher] = useState('All');
   const [notification, setNotification] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [selectedDirection, setSelectedDirection] = useState(null);
   const [historyStudent, setHistoryStudent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // load students back
   useEffect(() => {
@@ -330,6 +330,12 @@ return (
         logs={behaviorLogs.filter((l) => l.studentId === historyStudent.id)}
         onClose={() => setHistoryStudent(null)}
       />
+    )}
+
+    {isAdmin && (
+      <div className="admin-panel">
+        {/* Admin-only content here */}
+      </div>
     )}
   </div>
   );
