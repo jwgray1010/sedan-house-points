@@ -80,6 +80,9 @@ const BadgesPage = () => {
                 <div className="medal">{badge.medal}</div>
                 <div className="avatar">{s.name?.[0]}</div>
                 <div className="name">{s.name}</div>
+                {s.badges && s.badges.includes("30-Day Behavior Anniversary") && (
+                  <span className="milestone-badge" title="30-Day Behavior Anniversary">🏆</span>
+                )}
               </div>
             ))}
             {badge.students.length === 0 && <p>No winner today</p>}
@@ -91,3 +94,11 @@ const BadgesPage = () => {
 };
 
 export default BadgesPage;
+
+// Add badge to student.badges array if streak is 30 days
+students.forEach(student => {
+  const streak = calculateStreak(student.id); // Assume this function calculates the streak
+  if (streak >= 30 && !student.badges.includes("30-Day Behavior Anniversary")) {
+    // Add badge to student.badges array
+  }
+});

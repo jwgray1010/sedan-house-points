@@ -9,8 +9,12 @@ import HallOfFamePage from './pages/HallOfFamePage';
 import SplashScreen from './pages/SplashScreen';
 import StepsPage from './pages/StepsPage';
 import LoginPage from './pages/LoginPage';
+import CertificatesPage from './pages/CertificatesPage';
+import RewardStorePage from './pages/RewardStorePage';
 
 function App() {
+    // TODO: Replace this with your actual logic for determining if the user is a teacher
+  const isTeacher = true; // Replace with actual logic, e.g., check user email or role
   return (
     <Router>
       <Routes>
@@ -22,6 +26,8 @@ function App() {
         <Route path="/hall-of-fame" element={<HallOfFamePage />} />
         <Route path="/steps" element={<StepsPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/certificates" element={<CertificatesPage />} />
+        <Route path="/reward-store" element={<RewardStorePage isTeacher={isTeacher} />} />
       </Routes>
     </Router>
   );
