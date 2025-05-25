@@ -17,45 +17,50 @@ const CertificatesPage = () => {
 
   useEffect(() => {
     const fetchPositiveStepsAndStudents = async () => {
-      const start = startOfWeek(new Date());
-      const end = endOfWeek(new Date());
+      try {
+        const start = startOfWeek(new Date());
+        const end = endOfWeek(new Date());
 
-      // Fetch step counts
-      const logsRef = collection(db, 'behaviorLogs');
-      const qSteps = query(
-        logsRef,
-        where('step', '==', 0),
-        where('timestamp', '>=', start),
-        where('timestamp', '<=', end)
-      );
-      const snapshot = await getDocs(qSteps);
-      const counts = {};
-      snapshot.forEach(doc => {
-        const { studentId } = doc.data();
-        counts[studentId] = (counts[studentId] || 0) + 1;
-      });
-      setStepCounts(counts);
+        // Fetch step counts
+        const logsRef = collection(db, 'behaviorLogs');
+        const qSteps = query(
+          logsRef,
+          where('step', '==', 0),
+          where('timestamp', '>=', start),
+          where('timestamp', '<=', end)
+        );
+        const snapshot = await getDocs(qSteps);
+        const counts = {};
+        snapshot.forEach(doc => {
+          const { studentId } = doc.data();
+          counts[studentId] = (counts[studentId] || 0) + 1;
+        });
+        setStepCounts(counts);
 
-      // Fetch students with comments
-      const studentsSnap = await getDocs(collection(db, 'students'));
-      const allStudents = await Promise.all(
-        studentsSnap.docs.map(async doc => {
-          const student = { id: doc.id, ...doc.data() };
-          const qComments = query(
-            logsRef,
-            where('studentId', '==', doc.id),
-            where('direction', '==', 'positive'),
-            where('timestamp', '>=', start),
-            where('timestamp', '<=', end)
-          );
-          const logsSnap = await getDocs(qComments);
-          student.positiveComments = logsSnap.docs
-            .map(logDoc => logDoc.data().reason)
-            .filter(Boolean);
-          return student;
-        })
-      );
-      setStudents(allStudents);
+        // Fetch students with comments
+        const studentsSnap = await getDocs(collection(db, 'students'));
+        const allStudents = await Promise.all(
+          studentsSnap.docs.map(async doc => {
+            const student = { id: doc.id, ...doc.data() };
+            const qComments = query(
+              logsRef,
+              where('studentId', '==', doc.id),
+              where('direction', '==', 'positive'),
+              where('timestamp', '>=', start),
+              where('timestamp', '<=', end)
+            );
+            const logsSnap = await getDocs(qComments);
+            student.positiveComments = logsSnap.docs
+              .map(logDoc => logDoc.data().reason)
+              .filter(Boolean);
+            return student;
+          })
+        );
+        setStudents(allStudents);
+        console.log("Fetched students:", allStudents);
+      } catch (err) {
+        console.error("Error fetching students or logs:", err);
+      }
     };
 
     fetchPositiveStepsAndStudents();
@@ -100,6 +105,8 @@ const CertificatesPage = () => {
 
   const weekStart = format(startOfWeek(new Date()), 'MMM d');
   const weekEnd = format(endOfWeek(new Date()), 'MMM d, yyyy');
+
+  console.log("students state:", students);
 
   return (
     <div className="certificates-page">
