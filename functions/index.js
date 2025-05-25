@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+/* eslint-disable indent */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
@@ -20,58 +21,60 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 });
 
 // Scheduled function to send weekly certificates
-exports.sendWeeklyCertificates = functions.pubsub.schedule("every friday 16:00")
-    .timeZone("America/Chicago")
-    .onRun(async (context) => {
-      const db = admin.firestore();
-      const studentsSnap = await db.collection("students").get();
+exports.sendWeeklyCertificates = functions
+  .region("us-central1")
+  .pubsub.schedule("every friday 16:00")
+  .timeZone("America/Chicago")
+  .onRun(async (context) => {
+    const db = admin.firestore();
+    const studentsSnap = await db.collection("students").get();
 
-      // Calculate week start and end
-      const now = new Date();
-      const weekStart = new Date(now);
-      weekStart.setDate(now.getDate() - now.getDay());
-      const weekEnd = new Date(weekStart);
-      weekEnd.setDate(weekStart.getDate() + 6);
-      const weekStartStr = weekStart.toLocaleDateString();
-      const weekEndStr = weekEnd.toLocaleDateString();
+    // Calculate week start and end
+    const now = new Date();
+    const weekStart = new Date(now);
+    weekStart.setDate(now.getDate() - now.getDay());
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    const weekStartStr = weekStart.toLocaleDateString();
+    const weekEndStr = weekEnd.toLocaleDateString();
 
-      for (const studentDoc of studentsSnap.docs) {
-        const student = studentDoc.data();
-        if (!student.parentEmail) continue;
+    for (const studentDoc of studentsSnap.docs) {
+      const student = studentDoc.data();
+      if (!student.parentEmail) continue;
 
-        // Fetch positive points for the week
-        const logsSnap = await db.collection("behaviorLogs")
-            .where("studentId", "==", studentDoc.id)
-            .where("direction", "==", "positive")
-            .where("timestamp", ">=", weekStart)
-            .where("timestamp", "<=", weekEnd)
-            .get();
+      // Fetch positive points for the week
+      const logsSnap = await db.collection("behaviorLogs")
+          .where("studentId", "==", studentDoc.id)
+          .where("direction", "==", "positive")
+          .where("timestamp", ">=", weekStart)
+          .where("timestamp", "<=", weekEnd)
+          .get();
 
-        const count = logsSnap.size;
+      const count = logsSnap.size;
 
-        // Compose certificate HTML
-        const certificateHtml = `
-        <div style="font-family: 'Georgia', serif; text-align: center; background: #fffbe7; border-radius: 18px; border: 4px double #4a418a; max-width: 600px; margin: 2rem auto; padding: 2rem;">
-          <h2>Way to Go, ${student.name}!</h2>
-          <p>You earned <strong>${count}</strong> positive points this week!</p>
-          <p>Positive points are awarded for showing responsibility, kindness, and effort at school.</p>
-          <p>Keep up the great work!</p>
-          <p style="margin-top:1.5rem; font-family: 'Pacifico', cursive, 'Georgia', serif; font-size: 1.1rem; color: #888;">– Mr. Gray, Principal</p>
-          <p style="font-size:1rem; color:#555;">Week of ${weekStartStr} – ${weekEndStr}</p>
-        </div>
-      `;
+      // Compose certificate HTML
+      const certificateHtml = `
+      <div style="font-family: 'Georgia', serif; text-align: center; background: #fffbe7; border-radius: 18px; border: 4px double #4a418a; max-width: 600px; margin: 2rem auto; padding: 2rem;">
+        <h2>Way to Go, ${student.name}!</h2>
+        <p>You earned <strong>${count}</strong> positive points this week!</p>
+        <p>Positive points are awarded for showing responsibility, kindness, and effort at school.</p>
+        <p>Keep up the great work!</p>
+        <p style="margin-top:1.5rem; font-family: 'Pacifico', cursive, 'Georgia', serif; font-size: 1.1rem; color: #888;">– Mr. Gray, Principal</p>
+        <p style="font-size:1rem; color:#555;">Week of ${weekStartStr} – ${weekEndStr}</p>
+      </div>
+    `;
 
-        const msg = {
-          to: student.parentEmail,
-          from: "john.gray@usd286.org",
-          subject: `Way to Go, ${student.name}!`,
-          html: certificateHtml,
-        };
+      const msg = {
+        to: student.parentEmail,
+        from: "john.gray@usd286.org",
+        subject: `Way to Go, ${student.name}!`,
+        html: certificateHtml,
+      };
 
-        await transporter.sendMail(msg);
-      }
-      return null;
-    });
+      await transporter.sendMail(msg);
+    }
+    return null;
+  });
 
 // Scheduled function to send weekly certificates with comments
 exports.sendWeeklyCertificatesWithComments = functions.pubsub.schedule("every friday 15:00")

@@ -36,3 +36,9 @@ const CelebrationPage = ({ housePoints, student }) => {
 };
 
 export default CelebrationPage;
+
+exports.sendWeeklyCertificates = functions.pubsub.schedule("every friday 16:00")
+  .timeZone("America/Chicago")
+  .onRun(async (context) => {
+    // ...function code...
+  });
