@@ -13,6 +13,7 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/student/:studentId" element={<StudentProfile />} />
         <Route path="/" element={<SplashScreen />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />

@@ -6,14 +6,19 @@
     "@capacitor/cli": "^7.2.0",
     "@capacitor/core": "^7.2.0",
     "@capacitor/ios": "^7.2.0",
+    "@sendgrid/mail": "^8.1.5",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "date-fns": "^4.1.0",
     "emailjs-com": "^3.2.0",
     "file-saver": "^2.0.5",
-    "firebase": "^11.8.0",
+    "firebase/auth": "^10.3.0",
+    "firebase/firestore": "^10.3.0",
+    "html2pdf.js": "^0.10.3",
     "lucide-react": "^0.511.0",
+    "nodemailer": "^7.0.3",
     "papaparse": "^5.5.3",
     "react": "^19.1.0",
     "react-confetti": "^6.4.0",
@@ -23,15 +28,19 @@
     "react-use": "^17.6.0",
     "recharts": "^2.15.3",
     "web-vitals": "^2.1.4"
-   },
-"scripts": {
-  "start": "react-scripts start",
-  "predeploy": "npm run build",
-  "build": "react-scripts build",
-  "deploy": "gh-pages -d build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-},
+  },
+  "devDependencies": {
+    "firebase-admin": "^11.5.0",
+    "firebase-functions": "^4.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -51,4 +60,3 @@
     ]
   }
 }
-

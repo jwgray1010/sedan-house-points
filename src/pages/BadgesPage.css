@@ -111,3 +111,20 @@
     opacity: 0;
   }
 }
+
+.birthday-banner {
+  background: #ffd700;
+  color: #4a418a;
+  font-weight: bold;
+  padding: 0.5em 1em;
+  border-radius: 12px;
+  margin-bottom: 0.5em;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.milestone-badge {
+  font-size: 2rem;
+  margin-bottom: 0.5em;
+  display: block;
+}

@@ -7,9 +7,9 @@ import {
   addDoc,
   serverTimestamp,
   doc,
-  getDoc
+  getDoc,
+  updateDoc
 } from 'firebase/firestore';
-import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import {
   Menu,
@@ -30,9 +30,16 @@ import {
   houseEmber
 } from '../assets/assets';
 import './DashboardPage.css';
+import Confetti from 'react-confetti'; // npm install react-confetti
 
 const EMAIL_ALERT_STEPS = [3, 4, 5];
 const ADMIN_EMAIL = 'john.gray@usd286.org';
+
+const BADGE_MILESTONES = [
+  { days: 20, label: "Blue Devil Champion", color: "#e53935" },
+  { days: 10, label: "Self Manager", color: "#1e88e5" },
+  { days: 5, label: "Consistency Star", color: "#ffd600" },
+];
 
 const ding = new Audio('/ding.mp3');
 const alertSound = new Audio('/alert.mp3');
@@ -181,163 +188,249 @@ useEffect(() => {
       ? students
       : students.filter(s => s.teacher === selectedTeacher);
 
-return (
-  <div className="dashboard-container">
-    {notification && (
-      <div className={`notification-banner ${notification.type}`}>
-        {notification.message}
-      </div>
-    )}
+  useEffect(() => {
+    if (!students.length || !behaviorLogs.length) return;
 
-    {/* ─── Header Bar ─── */}
-    <div className="header-bar">
-      <div className="page-header">
-        <img src={sedanLogo} className="header-icon" alt="Sedan Logo" />
+    const today = new Date().toISOString().slice(0, 10);
 
-        <div className="header-title">
-          <h1>
-            Sedan Elementary<br/>
-            Behavior Tracker
-          </h1>
-          <p className="subtext">Logged in as {teacherName}</p>
-          <p className="reset-note">* Steps reset daily at midnight</p>
-        </div>
+    students.forEach(async (student) => {
+      // Get logs for this student, sorted by date descending
+      const logs = behaviorLogs
+        .filter(l => l.studentId === student.id)
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-        {/* Menu button + dropdown content */}
-        <div className="dropdown">
-          <button className="dropbtn" onClick={() => setMenuOpen(o => !o)}>
-            <Menu size={24} />
-          </button>
-          <div className={`dropdown-content ${menuOpen ? 'show' : ''}`}>
-            <button onClick={() => navigate('/summary')}>
-              <List size={16} /> Summary
-            </button>
-            <button onClick={() => navigate('/graphs')}>
-              <BarChart2 size={16} /> Graphs
-            </button>
-            <button onClick={() => navigate('/podium')}>
-              <Award size={16} /> Podium
-            </button>
-            <button onClick={() => navigate('/hall-of-fame')}>
-              <Trophy size={16} /> Hall of Fame
-            </button>
-            <button onClick={() => { signOut(auth); navigate('/login'); }}>
-              <LogOut size={16} /> Logout
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      // Calculate streak
+      let streak = 0;
+      let currentDate = new Date(today);
+      let streakBroken = false;
 
-    {/* ─── Controls (moved _outside_ header-bar) ─── */}
-    <div className="controls">
-      <button onClick={() => navigate('/steps')}>
-        View Behavior Steps
-      </button>
-      <select
-        value={selectedTeacher}
-        onChange={e => setSelectedTeacher(e.target.value)}
-      >
-        <option value="All">All Teachers</option>
-        {teacherList.map(t => (
-          <option key={t} value={t}>{t}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* ─── The rest of your page: house cards, student grid, etc. ─── */}
-    {/* ... */}
-
-    {/* house cards */}
-    <div className="house-card-container">
-      {['Storm', 'Meadow', 'Flint', 'Ember'].map((h) => (
-        <div
-          key={h}
-          className={`house-card ${
-            housePoints[h] === maxPts ? 'leader' : ''
-          }`}
-        >
-          <img
-            src={
-              { Storm: houseStorm,
-                Meadow: houseMeadow,
-                Flint: houseFlint,
-                Ember: houseEmber }[h]
-            }
-            alt={h}
-            className="shield-img"
-          />
-          <p>
-            {h}: {housePoints[h]} pts
-          </p>
-        </div>
-      ))}
-    </div>
-
-    {/* student grid */}
-    <div className="student-grid">
-      {filteredStudents.map((student) => {
-        const step = getCurrentStep(student.id);
-        const atMaxStep = step >= 5;
-        return (
-          <div
-            key={student.id}
-            className="student-card"
-            onClick={() => setHistoryStudent(student)}
-          >
-            <div className="step-indicator">Step {step}</div>
-            <div className="avatar">
-              {student.name?.[0] || '?'}
-            </div>
-            <div className="name">{student.name}</div>
-            <div className="bubble-counters">
-              {['positive', 'negative'].map((dir) => (
-                <div
-                  key={dir}
-                  className={`bubble ${
-                    dir === 'positive' ? 'green' : 'red'
-                  } ${atMaxStep ? 'disabled' : ''}`}
-                  onClick={(e) => {
-                    if (atMaxStep) return;
-                    e.stopPropagation();
-                    handlePoint(student, dir);
-                    const el = e.currentTarget;
-                    el.classList.add('pop');
-                    setTimeout(() => el.classList.remove('pop'), 300);
-                  }}
-                >
-                  {getTodaysLogs(student.id, dir).length}
-                </div>
-              ))}
-            </div>
-          </div>
+      while (!streakBroken) {
+        const dateStr = currentDate.toISOString().slice(0, 10);
+        const dayLogs = logs.filter(
+          l => l.timestamp?.toDate?.().toISOString().slice(0, 10) === dateStr ||
+               l.timestamp?.slice?.(0, 10) === dateStr // fallback for string timestamps
         );
-      })}
-    </div>
+        if (dayLogs.length === 0) break;
+        if (dayLogs.some(l => l.step > 0)) break; // any negative step breaks streak
+        streak++;
+        currentDate.setDate(currentDate.getDate() - 1);
+      }
 
-    {/* modals */}
-    {selectedStudent && (
-      <PointModal
-        student={selectedStudent}
-        direction={selectedDirection}
-        onClose={() => setSelectedStudent(null)}
-        onSubmit={handleSubmitPoint}
-      />
-    )}
-    {historyStudent && (
-      <BehaviorHistoryModal
-        student={historyStudent}
-        logs={behaviorLogs.filter((l) => l.studentId === historyStudent.id)}
-        onClose={() => setHistoryStudent(null)}
-      />
-    )}
+      // Badge logic
+      let newBadges = [];
+      if (streak >= 30) newBadges.push("30-Day Behavior Anniversary");
+      else if (streak >= 20) newBadges.push("Blue Devil Champion");
+      else if (streak >= 10) newBadges.push("Self Manager");
+      else if (streak >= 5) newBadges.push("Consistency Star");
 
-    {isAdmin && (
-      <div className="admin-panel">
-        {/* Admin-only content here */}
+      // Only update Firestore if values have changed
+      if (
+        student.streakCount !== streak ||
+        student.lastStreakDate !== today ||
+        JSON.stringify(student.badges) !== JSON.stringify(newBadges)
+      ) {
+        await updateDoc(doc(db, "students", student.id), {
+          streakCount: streak,
+          lastStreakDate: today,
+          badges: newBadges,
+        });
+      }
+    });
+  }, [students, behaviorLogs]);
+
+  const todayStr = new Date().toISOString().slice(5, 10); // "MM-DD"
+
+  // filter students with birthdays today
+  const birthdayStudents = students.filter(s => s.birthday && s.birthday.slice(5, 10) === todayStr);
+
+  return (
+    <div className="dashboard-container">
+      {notification && (
+        <div className={`notification-banner ${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
+
+      {/* ─── Header Bar ─── */}
+      <div className="header-bar">
+        <div className="page-header">
+          <img src={sedanLogo} className="header-icon" alt="Sedan Logo" />
+
+          <div className="header-title">
+            <h1>
+              Sedan Elementary<br/>
+              Behavior Tracker
+            </h1>
+            <p className="subtext">Logged in as {teacherName}</p>
+            <p className="reset-note">* Steps reset daily at midnight</p>
+          </div>
+
+          {/* Menu button + dropdown content */}
+          <div className="dropdown">
+            <button className="dropbtn" onClick={() => setMenuOpen(o => !o)}>
+              <Menu size={24} />
+            </button>
+            <div className={`dropdown-content ${menuOpen ? 'show' : ''}`}>
+              <button onClick={() => navigate('/summary')}>
+                <List size={16} /> Summary
+              </button>
+              <button onClick={() => navigate('/graphs')}>
+                <BarChart2 size={16} /> Graphs
+              </button>
+              <button onClick={() => navigate('/podium')}>
+                <Award size={16} /> Podium
+              </button>
+              <button onClick={() => navigate('/hall-of-fame')}>
+                <Trophy size={16} /> Hall of Fame
+              </button>
+              <button onClick={() => navigate('/certificates')}>
+                Certificates
+              </button>
+              <button onClick={() => navigate('/reward-store')}>
+                Reward Store
+              </button>
+              <button onClick={() => {/* logout logic */}}>
+                <LogOut size={16} /> Logout
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    )}
-  </div>
+
+      {/* ─── Controls (moved _outside_ header-bar) ─── */}
+      <div className="controls">
+        <button onClick={() => navigate('/steps')}>
+          View Behavior Steps
+        </button>
+        <select
+          value={selectedTeacher}
+          onChange={e => setSelectedTeacher(e.target.value)}
+        >
+          <option value="All">All Teachers</option>
+          {teacherList.map(t => (
+            <option key={t} value={t}>{t}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* ─── The rest of your page: house cards, student grid, etc. ─── */}
+      {/* ... */}
+
+      {/* house cards */}
+      <div className="house-card-container">
+        {['Storm', 'Meadow', 'Flint', 'Ember'].map((h) => (
+          <div
+            key={h}
+            className={`house-card ${
+              housePoints[h] === maxPts ? 'leader' : ''
+            }`}
+          >
+            <img
+              src={
+                { Storm: houseStorm,
+                  Meadow: houseMeadow,
+                  Flint: houseFlint,
+                  Ember: houseEmber }[h]
+              }
+              alt={h}
+              className="shield-img"
+            />
+            <p>
+              {h}: {housePoints[h]} pts
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* student grid */}
+      <div className="student-grid">
+        {filteredStudents.map((student) => {
+          const step = getCurrentStep(student.id);
+          const atMaxStep = step >= 5;
+          const streak = student.streakCount || 0;
+          const badge = BADGE_MILESTONES.find(b => streak >= b.days);
+          const isBirthday = student.birthday && student.birthday.slice(5, 10) === todayStr;
+
+          return (
+            <div
+              key={student.id}
+              className="student-card"
+              onClick={() => setHistoryStudent(student)}
+            >
+              {isBirthday && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+              {isBirthday && <div className="birthday-banner">🎉 Happy Birthday! 🎂</div>}
+              {badge && (
+                <div
+                  className="streak-badge"
+                  style={{ background: badge.color }}
+                  title={`${badge.label} (${streak}-Day Streak)`}
+                >
+                  🏅 {badge.label}
+                </div>
+              )}
+              <div className="step-indicator">Step {step}</div>
+              <div className="avatar">
+                {student.name?.[0] || '?'}
+              </div>
+              <div className="name">{student.name}</div>
+              <div className="bubble-counters">
+                {['positive', 'negative'].map((dir) => (
+                  <div
+                    key={dir}
+                    className={`bubble ${
+                      dir === 'positive' ? 'green' : 'red'
+                    } ${atMaxStep ? 'disabled' : ''}`}
+                    onClick={(e) => {
+                      if (atMaxStep) return;
+                      e.stopPropagation();
+                      handlePoint(student, dir);
+                      const el = e.currentTarget;
+                      el.classList.add('pop');
+                      setTimeout(() => el.classList.remove('pop'), 300);
+                    }}
+                  >
+                    {getTodaysLogs(student.id, dir).length}
+                  </div>
+                ))}
+              </div>
+              {student.badges && student.badges.includes("30-Day Behavior Anniversary") && (
+                <span className="milestone-badge" title="30-Day Behavior Anniversary">🏆</span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* modals */}
+      {selectedStudent && (
+        <PointModal
+          student={selectedStudent}
+          direction={selectedDirection}
+          onClose={() => setSelectedStudent(null)}
+          onSubmit={handleSubmitPoint}
+        />
+      )}
+      {historyStudent && (
+        <BehaviorHistoryModal
+          student={historyStudent}
+          logs={behaviorLogs.filter((l) => l.studentId === historyStudent.id)}
+          onClose={() => setHistoryStudent(null)}
+        />
+      )}
+
+      {isAdmin && (
+        <div className="admin-panel">
+          {/* Admin-only content here */}
+        </div>
+      )}
+
+      {/* Birthday alert for teacher's students */}
+      {birthdayStudents.length > 0 && (
+        <div className="teacher-birthday-alert">
+          🎂 Today is {birthdayStudents.map(s => s.name).join(', ')}'s birthday!
+        </div>
+      )}
+    </div>
   );
 };
 

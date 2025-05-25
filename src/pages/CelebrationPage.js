@@ -10,7 +10,7 @@ const houses = [
   { name: 'Ember', image: houseEmber }
 ];
 
-const CelebrationPage = ({ housePoints }) => {
+const CelebrationPage = ({ housePoints, student }) => {
   const sorted = [...houses].sort((a, b) => (housePoints[b.name] || 0) - (housePoints[a.name] || 0));
   const winner = sorted[0];
 
@@ -25,6 +25,11 @@ const CelebrationPage = ({ housePoints }) => {
             <p>{h.name}: {housePoints[h.name] || 0} pts</p>
           </div>
         ))}
+      </div>
+      <div className="certificate" id={`cert-${student.id}`}>
+        <span className="corner-star-topright" />
+        <span className="corner-star-bottomleft" />
+        {/* ...rest of your certificate content... */}
       </div>
     </div>
   );

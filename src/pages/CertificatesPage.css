@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+.certificates-page {
+  padding: 2rem;
+  text-align: center;
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+.certificate-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.student-card {
+  background: #fffbe7;
+  border-radius: 18px;
+  padding: 1.5rem 1rem 2rem 1rem;
+  width: 270px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 2.5px dashed #ffd700;
+  position: relative;
+}
+
+.student-card h3 {
+  font-family: 'Fredoka One', 'Comic Sans MS', cursive, sans-serif;
+  color: #4a418a;
+  margin-bottom: 0.5rem;
+}
+
+.student-card button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  background: linear-gradient(90deg, #ffd700 60%, #ffb347 100%);
+  color: #4a418a;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  transition: background 0.2s;
+}
+.student-card button:hover {
+  background: linear-gradient(90deg, #ffb347 60%, #ffd700 100%);
+}
+
+.certificate {
+  width: 900px;
+  height: 600px;
+  font-family: 'Fredoka One', 'Comic Sans MS', cursive, sans-serif;
+  border: 6px dashed #ffd700;
+  background: #fff;
+  border-radius: 18px;
+  margin: 2rem auto;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* Landscape aspect ratio */
+}
+
+@media (max-width: 1000px) {
+  .certificate {
+    width: 98vw;
+    height: auto;
+    padding: 1rem;
+  }
+}
+
+.certificate-logo {
+  width: 120px;
+  margin-bottom: 1.2rem;
+  filter: drop-shadow(0 2px 6px #ffd70088);
+}
+
+.diploma-title {
+  font-family: 'Fredoka One', 'Comic Sans MS', cursive, sans-serif;
+  font-size: 2.7rem;
+  color: #ff9800;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 2px 0 #ffe082;
+  text-align: center;
+}
+
+.diploma-body {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 2.2rem;
+  font-family: 'Georgia', serif;
+}
+
+.student-name {
+  font-family: 'Fredoka One', 'Comic Sans MS', cursive, sans-serif;
+  font-size: 2.2rem;
+  color: #1976d2;
+  margin: 0.5rem 0 1rem 0;
+  letter-spacing: 1px;
+}
+
+.diploma-signature {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.sig-line-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px; /* Match the line and image width */
+  margin: 0 auto;
+}
+
+.sig-image {
+  width: 220px;      /* Match the line width */
+  height: auto;
+  display: block;
+  margin-bottom: -10px; /* Pull image closer to the line */
+}
+
+.sig-line {
+  border-bottom: 1.5px solid #4a418a;
+  width: 220px;
+  height: 0.5rem;
+  margin: 0 auto 0.2rem auto;
+}
+
+/* Add a gold star emoji in the corner */
+.certificate::before,
+.certificate::after,
+.certificate .corner-star-topright,
+.certificate .corner-star-bottomleft {
+  content: "🌟";
+  position: absolute;
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px #ffd70088);
+  z-index: 2;
+}
+
+.certificate::before {
+  top: 18px;
+  left: 18px;
+}
+.certificate::after {
+  bottom: 18px;
+  right: 18px;
+}
+
+/* Add these two spans inside your .certificate JSX: */
+.corner-star-topright {
+  top: 18px;
+  right: 18px;
+  position: absolute;
+}
+.corner-star-bottomleft {
+  bottom: 18px;
+  left: 18px;
+  position: absolute;
+}
+
+/* New styles for certificate comments */
+.certificate-comments {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  color: #444;
+  text-align: left;
+  max-width: 600px;
+}
+.certificate-comments h4 {
+  color: #ff9800;
+  margin-bottom: 0.5rem;
+  font-family: 'Fredoka One', 'Comic Sans MS', cursive, sans-serif;
+}
+.certificate-comments ul {
+  padding-left: 1.2em;
+}
+.certificate-comments li {
+  margin-bottom: 0.3em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .certificate-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .student-card {
+    width: 95vw;
+    max-width: 340px;
+  }
+  .certificate {
+    max-width: 95vw;
+    padding: 1.2rem 0.5rem;
+  }
+}
