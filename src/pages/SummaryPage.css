@@ -1,6 +1,6 @@
 .summary-page {
   padding: 1rem;
-  background-color: #f5f7fa;
+  background-color: rgba(0, 0, 0, 0.6);
   min-height: 100vh;
   position: relative;
   z-index: 1;

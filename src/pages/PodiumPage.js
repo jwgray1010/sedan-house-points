@@ -11,13 +11,24 @@ const getTopThree = (students, key) =>
     .sort((a, b) => (b[key] || 0) - (a[key] || 0))
     .slice(0, 3);
 
-const PodiumVisual = ({ students, pointsKey }) => {
+const PodiumVisual = ({ students }) => {
+  // Ensure always 3 slots
   const podiums = [null, null, null];
   students.forEach((s, i) => { podiums[i] = s; });
-  const heights = [150, 110, 90];
+
+  // Podium heights (center is tallest)
+  const heights = [110, 150, 90]; // [2nd, 1st, 3rd]
+
+  // Podium positions: left (2nd), center (1st), right (3rd)
+  const positions = [
+    { left: '10%', bottom: `${heights[0] + 60}px`, zIndex: 1 }, // 2nd
+    { left: '50%', bottom: `${heights[1] + 60}px`, zIndex: 2, transform: 'translateX(-50%)' }, // 1st
+    { left: '80%', bottom: `${heights[2] + 60}px`, zIndex: 1 }, // 3rd
+  ];
 
   return (
-    <div className="podium-visual">
+    <div className="podium-visual-single">
+      {/* Podium avatars */}
       {[1, 0, 2].map((place, idx) => {
         const student = podiums[place];
         const initials = student?.name
@@ -26,20 +37,17 @@ const PodiumVisual = ({ students, pointsKey }) => {
         return (
           <div
             key={place}
-            className={`podium-level ${['second', 'first', 'third'][idx]}`}
-            style={{ height: heights[place] + 80 }}
+            className={`podium-avatar-bounce-single place-${place + 1}`}
+            style={positions[idx]}
+            aria-label={student?.name || 'Empty'}
           >
-            <div className="podium-avatar-bounce">
-              <div className="podium-avatar">{initials}</div>
-            </div>
-            <img src={podium} alt="" className="podium-img" />
-            <div className="podium-info">
-              <div className="podium-rank">{place + 1}</div>
-              <div className="podium-student">{student?.name || <span className="empty">-</span>}</div>
-            </div>
+            <div className="podium-avatar">{initials}</div>
+            <div className="podium-student">{student?.name || <span className="empty">-</span>}</div>
           </div>
         );
       })}
+      {/* Single podium image */}
+      <img src={podium} alt="Podium" className="podium-img-single" />
     </div>
   );
 };
@@ -58,21 +66,6 @@ const PodiumSection = ({ title, students, pointsKey, triggerCelebrate }) => {
     <section className="podium-section">
       <h3>{title}</h3>
       <PodiumVisual students={students} pointsKey={pointsKey} />
-      <ol className="podium-list">
-        {students.length === 0 ? (
-          <li className="podium-empty">No students yet</li>
-        ) : (
-          students.map((student, idx) => (
-            <li key={student.id} className={`podium-place place-${idx + 1}`}>
-              <span className="podium-medal">
-                {idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'}
-              </span>
-              <span className="podium-name">{student.name}</span>
-              <span className="podium-points">{student[pointsKey] || 0} pts</span>
-            </li>
-          ))
-        )}
-      </ol>
     </section>
   );
 };

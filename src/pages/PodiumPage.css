@@ -389,3 +389,61 @@ button:focus-visible {
   color: #222;
   outline: 2px solid #ffd700;
 }
+
+.podium-visual-single {
+  position: relative;
+  width: 420px;
+  height: 320px;
+  margin: 2rem auto 1rem auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.podium-img-single {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.podium-avatar-bounce-single {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: bounceAvatar 1.2s infinite alternate;
+}
+
+.podium-avatar {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #3f51b5 60%, #ffd700 100%);
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px #ffd70055;
+  margin-bottom: 0.3rem;
+}
+
+.podium-student {
+  font-size: 1rem;
+  color: #ffd700;
+  text-align: center;
+  margin-top: 0.2rem;
+}
+
+/* Bouncing animation */
+@keyframes bounceAvatar {
+  0% { transform: translateY(0);}
+  50% { transform: translateY(-18px);}
+  100% { transform: translateY(0);}
+}
