@@ -51,11 +51,4 @@ CelebrationPage.propTypes = {
 
 export default CelebrationPage;
 
-exports.sendWeeklyCertificates = functions.pubsub.schedule("every friday 16:00")
-  .timeZone("America/Chicago")
-  .onRun(async (context) => {
-    // ...function code...
-  });
 
-// Usage example (this line should be in the parent component where CelebrationPage is used)
-// <CelebrationPage housePoints={housePoints} students={winningStudentsArray} />

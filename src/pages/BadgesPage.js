@@ -97,11 +97,3 @@ const BadgesPage = () => {
 };
 
 export default BadgesPage;
-
-// Add badge to student.badges array if streak is 30 days
-students.forEach(student => {
-  const streak = calculateStreak(student.id); // Assume this function calculates the streak
-  if (streak >= 30 && !student.badges.includes("30-Day Behavior Anniversary")) {
-    // Add badge to student.badges array
-  }
-});
