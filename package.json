@@ -39,6 +39,7 @@
     "predeploy": "npm run build",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
+
     "test": "react-scripts test --env=jsdom --watchAll=false --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .js,.jsx"

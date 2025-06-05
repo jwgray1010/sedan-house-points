@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from '../firebase.js';
 
 const StudentProfile = () => (
   <div style={{ textAlign: 'center', marginTop: '3rem' }}>
