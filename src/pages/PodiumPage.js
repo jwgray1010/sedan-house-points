@@ -4,6 +4,7 @@ import { db } from '../firebase.js';
 import './PodiumPage.css';
 import Confetti from 'react-confetti';
 import { useNavigate } from 'react-router-dom';
+import { podium } from '../assets/assets.js';
 
 const getTopThree = (students, key) =>
   [...students]
@@ -12,54 +13,36 @@ const getTopThree = (students, key) =>
 
 const PodiumVisual = ({ students, pointsKey }) => {
   // Pad with empty slots if less than 3 students
-  const podium = [null, null, null];
-  students.forEach((s, i) => { podium[i] = s; });
+  const podiums = [null, null, null];
+  students.forEach((s, i) => { podiums[i] = s; });
 
-  // Fun emoji for each place
-  const placeEmojis = ['👑', '🥈', '🥉'];
-
-  // Fun gradient backgrounds for each place
-  const bgStyles = [
-    { background: 'linear-gradient(180deg, #ffe066 0%, #ffd700 100%)', height: 150 },
-    { background: 'linear-gradient(180deg, #e0e0e0 0%, #bdbdbd 100%)', height: 110 },
-    { background: 'linear-gradient(180deg, #ffb47b 0%, #cd7f32 100%)', height: 90 }
-  ];
+  // Heights for each podium (1st is tallest)
+  const heights = [150, 110, 90];
 
   return (
     <div className="podium-visual">
-      {/* 2nd Place */}
-      <div className="podium-level second" style={bgStyles[1]}>
-        <div className="podium-emoji">{placeEmojis[1]}</div>
-        <div className="podium-box">
-          <div className="podium-rank">2</div>
-          <div className="podium-student">
-            {podium[1]?.name || <span className="empty">-</span>}
-            <div className="podium-points">{podium[1]?.[pointsKey] || 0} pts</div>
+      {[1, 0, 2].map((place, idx) => {
+        const student = podiums[place];
+        const initials = student?.name
+          ? student.name.split(' ').map(n => n[0]).join('').toUpperCase()
+          : '-';
+        return (
+          <div
+            key={place}
+            className={`podium-level ${['second', 'first', 'third'][idx]}`}
+            style={{ height: heights[place] + 80 }}
+          >
+            <div className="podium-avatar-bounce">
+              <div className="podium-avatar">{initials}</div>
+            </div>
+            <img src={podium} alt="" className="podium-img" />
+            <div className="podium-info">
+              <div className="podium-rank">{place + 1}</div>
+              <div className="podium-student">{student?.name || <span className="empty">-</span>}</div>
+            </div>
           </div>
-        </div>
-      </div>
-      {/* 1st Place */}
-      <div className="podium-level first" style={bgStyles[0]}>
-        <div className="podium-emoji">{placeEmojis[0]}</div>
-        <div className="podium-box">
-          <div className="podium-rank">1</div>
-          <div className="podium-student">
-            {podium[0]?.name || <span className="empty">-</span>}
-            <div className="podium-points">{podium[0]?.[pointsKey] || 0} pts</div>
-          </div>
-        </div>
-      </div>
-      {/* 3rd Place */}
-      <div className="podium-level third" style={bgStyles[2]}>
-        <div className="podium-emoji">{placeEmojis[2]}</div>
-        <div className="podium-box">
-          <div className="podium-rank">3</div>
-          <div className="podium-student">
-            {podium[2]?.name || <span className="empty">-</span>}
-            <div className="podium-points">{podium[2]?.[pointsKey] || 0} pts</div>
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 };

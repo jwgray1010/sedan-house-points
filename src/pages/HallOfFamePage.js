@@ -209,9 +209,7 @@ function HallOfFamePage({ winners = [] }) {
       <audio ref={victoryAudioRef} src="/victory.mp3" preload="auto" />
 
       {/* Back button top-left */}
-      <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
-        Back to Dashboard
-      </button>
+      <a className="back-dashboard-btn" href="#/dashboard">Back to Dashboard</a>
 
       {/* Confetti overlay */}
       {showConfetti && (
@@ -379,35 +377,26 @@ function HallOfFamePage({ winners = [] }) {
   );
 }
 
-function WinnerCard({ student, rank }) {
-  const medals = ['🏆', '🥈', '🥉'];
-  const borderClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
+function WinnerCard({ student }) {
+  const initials = student?.name
+    ? student.name.split(' ').map(n => n[0]).join('').toUpperCase()
+    : '?';
   return (
-    <div className={`winner-card ${borderClass}`}>
-      <div className="medal">{medals[rank - 1] || '⭐'}</div>
-      <div className="trophy-icon">{medals[rank - 1] || '⭐'}</div>
-      <div className="avatar">{student?.name?.[0] || '?'}</div>
-      <div className="info">
-        <div className="name">{student?.name || 'Unknown'}</div>
-        <div className="meta">{student?.grade ? `${student.grade} Grade` : ''}</div>
-        <div className="category">{student?.category || ''}</div>
+    <div className="winner-card column-style">
+      <div className="winner-avatar-bounce">
+        <div className="winner-avatar">{initials}</div>
+      </div>
+      <img src="/assets/column.png" alt="" className="winner-column-img" />
+      <div className="winner-info">
+        <div className="winner-name">{student?.name}</div>
+        <div className="winner-medal">🥇</div>
       </div>
     </div>
   );
 }
 
 function Fireworks({ active }) {
-  const ref = useRef();
-  useEffect(() => {
-    if (active && ref.current) {
-      ref.current({
-        particleCount: 200,
-        spread: 120,
-        origin: { y: 0.7 }
-      });
-    }
-  }, [active]);
+  // Placeholder for fireworks effect; currently just renders Confetti
   return <Confetti style={{position:'fixed',pointerEvents:'none',top:0,left:0,width:'100vw',height:'100vh',zIndex:999}} />;
 }
-
 export default HallOfFamePage;

@@ -258,6 +258,9 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
+  color: #ffd700;
+  /* Remove or comment out any text-shadow here */
+  /* text-shadow: 1px 1px 4px #000; */
 }
 .bubble-counters {
   display: flex;

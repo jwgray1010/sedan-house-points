@@ -4,6 +4,8 @@ import houseMeadow from './house_meadow.png';
 import houseFlint from './house_flint.png';
 import houseEmber from './house_ember.png';
 import sedanLogo from './sedan_logo.png';
+import column from './column.png';
+import podium from './podium.png'
 
 export {
   glowingShieldLogo,
@@ -11,5 +13,7 @@ export {
   houseMeadow,
   houseFlint,
   houseEmber,
-  sedanLogo
+  sedanLogo,
+  column,
+  podium,
 };

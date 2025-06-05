@@ -179,7 +179,7 @@
 
 .winner-card.trophy {
   border: 3px solid #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  box-shadow: 0 0 20px rgba(255,215,0,0.6);
 }
 
 .leader-section {
@@ -413,4 +413,79 @@ button:focus, .filter-toggle button:focus {
   text-align: center;
   margin: 1rem 0;
   animation: bounce 1.2s infinite alternate;
+}
+
+.winner-card.column-style {
+  background: none;
+  border: none;
+  box-shadow: none;
+  position: relative;
+  width: 160px;
+  min-width: 140px;
+  padding: 0;
+  margin: 2rem 1rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.winner-column-img {
+  width: 100%;
+  max-width: 120px;
+  margin-top: 40px;
+  z-index: 1;
+}
+
+.winner-avatar-bounce {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounceAvatar 1.2s infinite alternate;
+}
+
+@keyframes bounceAvatar {
+  0% { transform: translateX(-50%) translateY(0);}
+  50% { transform: translateX(-50%) translateY(-18px);}
+  100% { transform: translateX(-50%) translateY(0);}
+}
+
+.winner-avatar {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #3f51b5 60%, #ffd700 100%);
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px #ffd70055;
+  margin: 0 auto;
+}
+
+.winner-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.winner-name {
+  font-size: 1rem;
+  color: #ffd700;
+  margin-top: 0.2rem;
+  letter-spacing: 1px;
+  text-align: center;
+  /* Remove or comment out the text-shadow line */
+  /* text-shadow: 1px 1px 4px #000; */
+}
+
+.winner-medal {
+  font-size: 1.7rem;
+  margin-top: 0.1rem;
+  text-align: center;
 }
