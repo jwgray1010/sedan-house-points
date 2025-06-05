@@ -74,7 +74,7 @@ const DashboardPage = () => {
     if (teacherName && teacherName !== selectedTeacher) {
       setSelectedTeacher(teacherName);
     }
-  }, [teacherName]);
+  }, [teacherName, selectedTeacher]);
 
   // Example teacher list from backend data
   const teacherList = ['All', ...teachers.map(t => t.name)];
