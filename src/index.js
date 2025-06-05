@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 // Use AppRouter for routing all pages
-import AppRouter from './AppRouter';
+import AppRouter from './AppRouter.js';
 import reportWebVitals from './reportWebVitals';
 
 // If you use context providers (e.g., AuthProvider, ThemeProvider), import and wrap here:
