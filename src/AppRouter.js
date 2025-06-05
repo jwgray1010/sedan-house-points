@@ -12,7 +12,7 @@ import StudentProfile from './pages/StudentProfile.js';
 import PodiumPage from './pages/PodiumPage.js';
 import HallOfFamePage from './pages/HallOfFamePage.js';
 import CertificatesPage from './pages/CertificatesPage.js';
-import RewardStorePage from './pages/RewardStorePage.js';
+import RewardStorePage from './pages/RewardsPage.js';
 import BadgesPage from './pages/BadgesPage.js';
 import CelebrationPage from './pages/CelebrationPage.js';
 import BehaviorLogPage from './pages/BehaviorLogPage.js';

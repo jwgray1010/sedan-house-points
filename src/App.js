@@ -10,7 +10,7 @@ import SplashScreen from './pages/SplashScreen.js';
 import StepsPage from './pages/StepsPage.js';
 import LoginPage from './pages/LoginPage.js';
 import CertificatesPage from './pages/CertificatesPage.js';
-import RewardStorePage from './pages/RewardStorePage.js';
+import RewardStorePage from './pages/RewardsPage.js';
 import BadgesPage from './pages/BadgesPage.js';
 import CelebrationPage from './pages/CelebrationPage.js';
 import BehaviorLogPage from './pages/BehaviorLogPage.js';
