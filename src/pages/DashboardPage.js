@@ -1,6 +1,6 @@
 // src/pages/DashboardPage.js
-import React, { useState } from 'react';
-import { auth } from '../firebase.js';
+import React, { useState, useEffect } from 'react';
+import { auth, db } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import {
   Menu,
@@ -23,6 +23,7 @@ import './DashboardPage.css';
 import Confetti from 'react-confetti';
 import { signOut } from 'firebase/auth';
 import emailjs from 'emailjs-com';
+import { collection, getDocs } from 'firebase/firestore';
 
 const ADMIN_EMAIL = 'john.gray@usd286.org';
 
@@ -38,18 +39,36 @@ const alertSound = new Audio('/alert.mp3');
 const DashboardPage = () => {
   const navigate = useNavigate();
 
-  const [students] = useState([]);
-  const [teacherName] = useState('');
+  // State for students and teachers
+  const [students, setStudents] = useState([]);
+  const [teachers, setTeachers] = useState([]);
+  const [teacherName, setTeacherName] = useState('');
   const [selectedTeacher, setSelectedTeacher] = useState('All');
   const [notification, setNotification] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [selectedDirection] = useState(null);
   const [historyStudent, setHistoryStudent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  // (No code needed here; remove the empty useState)
 
-  // Example teacher list (replace with your real data if needed)
-  const teacherList = ['All', 'Mr. Smith', 'Ms. Johnson', 'Mrs. Lee'];
+  // Fetch students and teachers on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetch students
+      const studentsSnapshot = await getDocs(collection(db, 'students'));
+      setStudents(studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+      // Fetch teachers
+      const teachersSnapshot = await getDocs(collection(db, 'teachers'));
+      setTeachers(teachersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+      // Example: set teacher name from auth or other source
+      setTeacherName('Mr. Smith');
+    };
+    fetchData();
+  }, []);
+
+  // Example teacher list from backend data
+  const teacherList = ['All', ...teachers.map(t => t.name)];
 
   // Example house points (replace with your real logic)
   const housePoints = {
