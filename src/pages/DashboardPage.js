@@ -320,22 +320,20 @@ const DashboardPage = () => {
         })}
       </div>
 
-      /* ─── Modals ─── */
-        {selectedStudent && (
-          <PointModal
-            student={selectedStudent}
-            direction={selectedDirection}
-            onClose={() => setSelectedStudent(null)}
-            onSubmit={handleSubmitPoint}
-          />
-        )}
-        {historyStudent && (
-          <BehaviorHistoryModal
-            student={historyStudent}
-            onClose={() => setHistoryStudent(null)}
-          />
-        )}}
-        </div>
+      {/* ─── Modals ─── */}
+      {selectedStudent && (
+        <PointModal
+          student={selectedStudent}
+          direction={selectedDirection}
+          onClose={() => setSelectedStudent(null)}
+          onSubmit={handleSubmitPoint}
+        />
+      )}
+      {historyStudent && (
+        <BehaviorHistoryModal
+          student={historyStudent}
+          onClose={() => setHistoryStudent(null)}
+        />
       )}
 
       {/* Birthday alert for teacher's students */}
