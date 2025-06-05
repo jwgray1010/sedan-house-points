@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase.js';
 import './PodiumPage.css';
-// If you use canvas-confetti, install it: npm install canvas-confetti
-import confetti from 'canvas-confetti';
+import Confetti from 'react-confetti';
 
 const getTopThree = (students, key) =>
   [...students]
@@ -11,8 +10,7 @@ const getTopThree = (students, key) =>
     .slice(0, 3);
 
 const PodiumSection = ({ title, students, pointsKey, triggerCelebrate }) => {
-  // Play confetti and sound when top 3 changes
-  const prevTop = useRef([]);
+  const prevTop = useRef('');
   useEffect(() => {
     const ids = students.map(s => s.id).join(',');
     if (ids && prevTop.current !== ids) {
@@ -46,6 +44,7 @@ const PodiumSection = ({ title, students, pointsKey, triggerCelebrate }) => {
 const PodiumPage = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showConfetti, setShowConfetti] = useState(false);
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -68,23 +67,19 @@ const PodiumPage = () => {
 
   // Confetti and sound
   const celebrate = () => {
+    setShowConfetti(true);
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
+    setTimeout(() => setShowConfetti(false), 3000);
   };
-
-  const topStudents = useMemo(() => getTopStudents(), []);
 
   return (
     <div className="podium-page">
       <h1>🏆 Podium</h1>
       <audio ref={audioRef} src="/victory.mp3" preload="auto" />
+      {showConfetti && <Confetti />}
       {loading ? (
         <p>Loading...</p>
       ) : (
