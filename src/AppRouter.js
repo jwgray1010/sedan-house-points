@@ -12,7 +12,6 @@ import StudentProfile from './pages/StudentProfile.js';
 import PodiumPage from './pages/PodiumPage.js';
 import HallOfFamePage from './pages/HallOfFamePage.js';
 import CertificatesPage from './pages/CertificatesPage.js';
-import RewardStorePage from './pages/RewardsPage.js';
 import BadgesPage from './pages/BadgesPage.js';
 import CelebrationPage from './pages/CelebrationPage.js';
 import BehaviorLogPage from './pages/BehaviorLogPage.js';
@@ -36,7 +35,6 @@ const AppRouter = () => {
         <Route path="/podium" element={<PodiumPage />} />
         <Route path="/hall-of-fame" element={<HallOfFamePage />} />
         <Route path="/certificates" element={<CertificatesPage />} />
-        <Route path="/reward-store" element={<RewardStorePage />} />
         <Route path="/badges" element={<BadgesPage />} />
         <Route path="/celebration" element={<CelebrationPage />} />
         <Route path="/behavior-log" element={<BehaviorLogPage />} />
