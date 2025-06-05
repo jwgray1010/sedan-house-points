@@ -9,5 +9,5 @@ export {
   houseStorm,
   houseMeadow,
   houseFlint,
-  houseEmber,
+  houseEmber
 };
