@@ -32,14 +32,18 @@ const BadgesPage = () => {
     return { ...student, todayNeg, todayPos };
   });
 
-  const perfectDay = scores.find(s => s.todayNeg === 0 && s.todayPos > 0);
-  const topEarner = scores.reduce((a, b) => (a.todayPos > b.todayPos ? a : b), {});
+  // Show all students with a perfect day
+  const perfectDay = scores.filter(s => s.todayNeg === 0 && s.todayPos > 0);
+  // Show all top earners (could be a tie)
+  const maxPos = Math.max(0, ...scores.map(s => s.todayPos));
+  const topEarners = scores.filter(s => s.todayPos === maxPos && maxPos > 0);
+
   const fireworksTrigger = scores.some(s => s.todayPos >= 5);
 
   useEffect(() => {
     setBadges([
-      { title: 'Perfect Day', medal: '🥇', students: perfectDay ? [perfectDay] : [] },
-      { title: 'Top Positive Earner', medal: '🥇', students: topEarner?.id ? [topEarner] : [] }
+      { title: 'Perfect Day', medal: '🥇', students: perfectDay },
+      { title: 'Top Positive Earner', medal: '🥇', students: topEarners }
     ]);
   }, [logs, students]);
 
@@ -75,17 +79,16 @@ const BadgesPage = () => {
         <div key={badge.title} className="badge-section">
           <h2>{badge.title}</h2>
           <div className="badge-students">
-            {badge.students.map(s => (
+            {badge.students.length > 0 ? badge.students.map(s => (
               <div key={s.id} className="badge-card">
                 <div className="medal">{badge.medal}</div>
-                <div className="avatar">{s.name?.[0]}</div>
+                <div className="avatar" aria-label={s.name}>{s.name?.[0]}</div>
                 <div className="name">{s.name}</div>
                 {s.badges && s.badges.includes("30-Day Behavior Anniversary") && (
                   <span className="milestone-badge" title="30-Day Behavior Anniversary">🏆</span>
                 )}
               </div>
-            ))}
-            {badge.students.length === 0 && <p>No winner today</p>}
+            )) : <p>No winner today</p>}
           </div>
         </div>
       ))}

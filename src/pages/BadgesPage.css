@@ -3,6 +3,8 @@
 .badges-page {
   padding: 2rem;
   text-align: center;
+  background: rgba(0, 0, 0, 0.6); /* dark overlay */
+  min-height: 100vh;
 }
 
 .badge-section {
@@ -127,4 +129,11 @@
   font-size: 2rem;
   margin-bottom: 0.5em;
   display: block;
+}
+
+@media (max-width: 500px) {
+  .badge-card {
+    width: 90vw;
+    min-width: 0;
+  }
 }

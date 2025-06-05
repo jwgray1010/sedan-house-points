@@ -105,11 +105,18 @@ useEffect(() => {
   // extract today's logs for counting
   const getTodaysLogs = (studentId, direction) => {
     const today = new Date().toISOString().slice(0, 10);
-    return behaviorLogs.filter(log =>
-      log.studentId === studentId &&
-      log.direction === direction &&
-      log.timestamp?.toDate?.().toISOString().slice(0, 10) === today
-    );
+    return behaviorLogs.filter(log => {
+      if (log.studentId !== studentId || log.direction !== direction) return false;
+      let logDate;
+      if (log.timestamp?.toDate) {
+        logDate = log.timestamp.toDate().toISOString().slice(0, 10);
+      } else if (log.timestamp instanceof Date) {
+        logDate = log.timestamp.toISOString().slice(0, 10);
+      } else if (typeof log.timestamp === "string") {
+        logDate = log.timestamp.slice(0, 10);
+      }
+      return logDate === today;
+    });
   };
 
   // current step = negative points + 1, capped at 5
@@ -144,15 +151,16 @@ useEffect(() => {
     const log = {
       studentId: student.id,
       studentName: student.name,
-      house: student.house,
+      house: student.house || "Unknown", // fallback to "Unknown" if missing
       teacher: auth.currentUser?.email || 'Unknown',
       direction,
       reason,
       note,
       points: direction === 'positive' ? 1 : -1,
-      timestamp: serverTimestamp()
+      timestamp: new Date() // Use local time for immediate UI update
     };
-    await addDoc(collection(db, 'behaviorLogs'), log);
+    await addDoc(collection(db, 'behaviorLogs'), { ...log, timestamp: serverTimestamp() });
+    setBehaviorLogs(prev => [...prev, { ...log, id: Math.random().toString(36).slice(2) }]);
 
     // refresh logs & play sound & maybe send alert
     const snap = await getDocs(collection(db, 'behaviorLogs'));
@@ -286,6 +294,18 @@ useEffect(() => {
               <button onClick={() => navigate('/certificates')}>
                 Certificates
               </button>
+              <button onClick={() => navigate('/badges')}>
+                Badges
+              </button>
+              <button onClick={() => navigate('/celebration')}>
+                Celebration
+              </button>
+              <button onClick={() => navigate('/behavior-log')}>
+                Behavior Log
+              </button>
+              <button onClick={() => navigate('/steps')}>
+                Behavior Steps
+              </button>
               <button onClick={() => navigate('/reward-store')}>
                 Reward Store
               </button>
@@ -355,7 +375,10 @@ useEffect(() => {
             <div
               key={student.id}
               className="student-card"
+              tabIndex={0}
+              aria-label={`View history for ${student.name}`}
               onClick={() => setHistoryStudent(student)}
+              onKeyDown={e => { if (e.key === 'Enter') setHistoryStudent(student); }}
             >
               {isBirthday && <Confetti width={window.innerWidth} height={window.innerHeight} />}
               {isBirthday && <div className="birthday-banner">🎉 Happy Birthday! 🎂</div>}
@@ -377,9 +400,9 @@ useEffect(() => {
                 {['positive', 'negative'].map((dir) => (
                   <div
                     key={dir}
-                    className={`bubble ${
-                      dir === 'positive' ? 'green' : 'red'
-                    } ${atMaxStep ? 'disabled' : ''}`}
+                    className={`bubble ${dir === 'positive' ? 'green' : 'red'} ${atMaxStep ? 'disabled' : ''}`}
+                    tabIndex={0}
+                    aria-label={`Add ${dir} point for ${student.name}`}
                     onClick={(e) => {
                       if (atMaxStep) return;
                       e.stopPropagation();
@@ -387,6 +410,11 @@ useEffect(() => {
                       const el = e.currentTarget;
                       el.classList.add('pop');
                       setTimeout(() => el.classList.remove('pop'), 300);
+                    }}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter' && !atMaxStep) {
+                        handlePoint(student, dir);
+                      }
                     }}
                   >
                     {getTodaysLogs(student.id, dir).length}

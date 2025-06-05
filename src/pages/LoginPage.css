@@ -29,9 +29,29 @@ input {
   font-size: 1rem;
 }
 
+input:focus, button:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
 button {
   padding: 0.5rem;
   font-weight: bold;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+button:hover, .google-button:hover {
+  background: #ffd700;
+  color: #222;
+}
+
+button:active, .google-button:active {
+  background: #ffe066;
 }
 
 .error-msg {
@@ -47,34 +67,36 @@ button {
   padding: 0.6rem;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
 }
 
 @media (max-width: 600px) {
-  .container {
+  .login-container {
     padding: 8px;
   }
   h1, h2, h3 {
     font-size: 1.2rem;
   }
-  .card, .panel, .summary-box {
+  .login-form {
     width: 100%;
-    max-width: 100%;
-    margin: 0.5rem 0;
-    padding: 1rem;
-    font-size: 1rem;
+    min-width: 0;
   }
-  .grid, .row {
-    display: block;
-  }
-  button, select, input[type="text"], input[type="number"] {
+  button, select, input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
     width: 100%;
     min-height: 44px;
     font-size: 1rem;
     margin-bottom: 0.5rem;
-  }
-  .chart-container {
-    width: 100% !important;
-    min-width: 0 !important;
-    overflow-x: auto;
   }
 }

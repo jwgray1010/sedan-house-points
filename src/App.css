@@ -72,11 +72,32 @@ button {
   background-color: #3498db;
   color: white;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s;
 }
 
 button:hover {
   background-color: #2980b9;
+}
+
+button:focus, select:focus, input:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+button:active {
+  background-color: #ffd700;
+  color: #222;
+}
+
+button:disabled {
+  background: #b0bec5;
+  color: #eee;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+button, select, input {
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 select {
@@ -85,6 +106,11 @@ select {
   padding: 0.4rem 0.6rem;
   border-radius: 6px;
   border: 1px solid #ccc;
+}
+
+/* Card, Panel, Summary Box Hover Effect */
+.card:hover, .panel:hover, .summary-box:hover {
+  box-shadow: 0 4px 16px rgba(52, 152, 219, 0.15);
 }
 
 /* Responsive Adjustments */
@@ -102,11 +128,12 @@ select {
 }
 
 @media (max-width: 600px) {
-  .container {
-    padding: 8px;
-  }
   h1, h2, h3 {
     font-size: 1.2rem;
+  }
+  /* Move these to component CSS if not used globally */
+  .container {
+    padding: 8px;
   }
   .card, .panel, .summary-box {
     width: 100%;
@@ -128,5 +155,56 @@ select {
     width: 100% !important;
     min-width: 0 !important;
     overflow-x: auto;
+  }
+
+  button, select, input {
+    min-height: 48px;
+  }
+}
+
+/* Accessibility & Focus Styles */
+a:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+.aria-live {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: more) {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  button, select {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+  }
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

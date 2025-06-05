@@ -430,3 +430,22 @@ body {
   margin-bottom: 0.5em;
   display: block;
 }
+
+/* Add this to your student list container */
+.student-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+/* Each student square */
+.student-square {
+  width: 180px;
+  min-height: 120px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+}

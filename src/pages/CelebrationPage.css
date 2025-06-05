@@ -1,7 +1,7 @@
 .celebration-container {
   text-align: center;
   padding: 2rem;
-  background-color: #f4f9ff;
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .winner {

@@ -7,7 +7,8 @@ const BehaviorStepsPage = () => {
       <h2>Sedan Elem. Behavior Steps</h2>
       <p className="subtext">Teach self-regulation through gentle guidance, repair, and routine.</p>
 
-      <div className="step remind">STEP 1 – REMIND
+      <div className="step remind">
+        <h3>STEP 1 – REMIND</h3>
         <p>Teacher gives a verbal reminder and uses proximity/redirection.<br />No office involvement.</p>
       </div>
 

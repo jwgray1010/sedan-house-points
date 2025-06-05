@@ -11,10 +11,14 @@ import StepsPage from './pages/StepsPage';
 import LoginPage from './pages/LoginPage';
 import CertificatesPage from './pages/CertificatesPage';
 import RewardStorePage from './pages/RewardStorePage';
+import BadgesPage from './pages/BadgesPage';
+import CelebrationPage from './pages/CelebrationPage';
+import BehaviorLogPage from './pages/BehaviorLogPage';
+
+// TODO: Replace with actual authentication/role logic
+const isTeacher = true;
 
 function App() {
-    // TODO: Replace this with your actual logic for determining if the user is a teacher
-  const isTeacher = true; // Replace with actual logic, e.g., check user email or role
   return (
     <Router>
       <Routes>
@@ -28,6 +32,11 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/certificates" element={<CertificatesPage />} />
         <Route path="/reward-store" element={<RewardStorePage isTeacher={isTeacher} />} />
+        <Route path="/badges" element={<BadgesPage />} />
+        <Route path="/celebration" element={<CelebrationPage />} />
+        <Route path="/behavior-log" element={<BehaviorLogPage />} />
+        {/* Optionally, add a catch-all route for 404s */}
+        {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>
     </Router>
   );

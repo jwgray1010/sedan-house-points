@@ -1,0 +1,53 @@
+/* Rewards styled like GraphsPage */
+
+.rewards-container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+.reward-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(74,65,138,0.08);
+  transition: transform 0.1s;
+}
+
+.reward-card:hover {
+  transform: scale(1.02);
+  border-color: #ff9800;
+}
+
+.reward-card h3 {
+  margin-top: 0;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.reward-card .cost {
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.reward-card .description {
+  color: #e0e0e0;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .rewards-container {
+    padding: 8px;
+  }
+  .reward-card {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}

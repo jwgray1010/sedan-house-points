@@ -6,7 +6,7 @@ const BehaviorHistoryModal = ({ student, logs, onClose }) => {
     <div className="history-modal-backdrop">
       <div className="history-modal">
         <h2>{student.name}'s Behavior History</h2>
-        <button className="close-btn" onClick={onClose}>✖</button>
+        <button className="close-btn" onClick={onClose} aria-label="Close">✖</button>
         {logs.length === 0 ? (
           <p>No logs found.</p>
         ) : (
@@ -23,7 +23,13 @@ const BehaviorHistoryModal = ({ student, logs, onClose }) => {
               <tbody>
                 {logs.map((log) => (
                   <tr key={log.id}>
-                    <td>{log.timestamp?.toDate?.().toLocaleDateString()}</td>
+                    <td>
+                      {log.timestamp
+                        ? (log.timestamp.toDate
+                            ? log.timestamp.toDate().toLocaleDateString()
+                            : new Date(log.timestamp).toLocaleDateString())
+                        : ''}
+                    </td>
                     <td>{log.direction === 'positive' ? '✅' : '❌'}</td>
                     <td>{log.reason}</td>
                     <td>{log.note}</td>

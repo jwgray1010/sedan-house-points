@@ -22,12 +22,33 @@
   border: none;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.reward-form input:focus,
+.reward-form button:focus,
+.reward-card button:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+.reward-form button:hover,
+.reward-card button:hover {
+  background: #ffd700;
+  color: #222;
+}
+.reward-form button:active,
+.reward-card button:active {
+  background: #ffe066;
+}
+.reward-store {
+  text-align: center;
+  padding: 2rem;
 }
 .reward-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
+  margin-top: 2rem;
 }
 .reward-card {
   background: #fffbe7;
@@ -39,11 +60,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: box-shadow 0.2s;
+}
+.reward-card:hover, .reward-card:focus-within {
+  box-shadow: 0 4px 16px rgba(52, 152, 219, 0.15);
 }
 .reward-cost {
   font-size: 1.2rem;
   color: #1976d2;
   margin: 0.5rem 0;
+}
+.store-message {
+  margin: 1rem 0;
+  color: #388e3c;
+  font-weight: bold;
+}
+.store-error {
+  color: #e53935;
+  font-weight: bold;
+  margin: 1rem 0;
 }
 .reward-card button {
   margin-top: 0.5rem;
@@ -53,9 +88,56 @@
   border-radius: 6px;
   padding: 0.4em 1em;
   cursor: pointer;
-}
-.store-message {
-  margin: 1rem 0;
-  color: #388e3c;
   font-weight: bold;
+  transition: background 0.2s, color 0.2s;
+}
+.reward-card button:hover,
+.reward-card button:focus {
+  background: #ffd700;
+  color: #222;
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+.reward-card button:active {
+  background: #ffe066;
+}
+.reward-card button:disabled {
+  background: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .reward-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .reward-card {
+    width: 95vw;
+    min-width: 0;
+    padding: 1rem;
+  }
+  .reward-store {
+    padding: 1rem;
+  }
+}
+
+/* Accessibility: focus style for reward cards */
+.reward-card:focus-within {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+/* Visually hidden utility for screen readers */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
 }

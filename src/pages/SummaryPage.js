@@ -1,4 +1,4 @@
-// src/pages/SummaryPage.js - Updated with Summary Container + Mobile Styles
+// src/pages/SummaryPage.js - Updated with Summary Container + Mobile Styles and Accessibility/Polish
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -11,13 +11,16 @@ const SummaryPage = () => {
   const [logs, setLogs] = useState([]);
   const [studentFilter, setStudentFilter] = useState('All');
   const [teacherFilter, setTeacherFilter] = useState('All');
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLogs = async () => {
+      setLoading(true);
       const snapshot = await getDocs(collection(db, 'behaviorLogs'));
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setLogs(data);
+      setLoading(false);
     };
     fetchLogs();
   }, []);
@@ -38,7 +41,8 @@ const SummaryPage = () => {
       Reason: log.reason,
       Note: log.note,
       House: log.house,
-      Date: log.timestamp?.toDate?.().toLocaleDateString() || ''
+      Date: log.timestamp?.toDate?.().toLocaleDateString() ||
+        (typeof log.timestamp === 'string' ? new Date(log.timestamp).toLocaleDateString() : '')
     }));
     const csv = Papa.unparse(csvData);
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -48,18 +52,34 @@ const SummaryPage = () => {
   return (
     <div className="summary-page">
       <div className="summary-container">
-        <h2>Behavior Summary</h2>
+        <h2 tabIndex={-1}>Behavior Summary</h2>
         <div className="summary-controls">
-          <button onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
-          <button onClick={handleExport}>Export CSV</button>
-          <select value={studentFilter} onChange={e => setStudentFilter(e.target.value)}>
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="back-button"
+            aria-label="Back to Dashboard"
+          >
+            Back to Dashboard
+          </button>
+          <button onClick={handleExport} aria-label="Export filtered logs as CSV">
+            Export CSV
+          </button>
+          <select
+            value={studentFilter}
+            onChange={e => setStudentFilter(e.target.value)}
+            aria-label="Filter by student"
+          >
             {students.map(name => (
               <option key={name} value={name}>
                 {name === 'All' ? 'All Students' : name}
               </option>
             ))}
           </select>
-          <select value={teacherFilter} onChange={e => setTeacherFilter(e.target.value)}>
+          <select
+            value={teacherFilter}
+            onChange={e => setTeacherFilter(e.target.value)}
+            aria-label="Filter by teacher"
+          >
             {teachers.map(name => (
               <option key={name} value={name}>
                 {name === 'All' ? 'All Teachers' : name}
@@ -67,33 +87,44 @@ const SummaryPage = () => {
             ))}
           </select>
         </div>
-        <div className="table-container">
-          <table className="behavior-table">
-            <thead>
-              <tr>
-                <th>Student</th>
-                <th>Teacher</th>
-                <th>Direction</th>
-                <th>Reason</th>
-                <th>Note</th>
-                <th>House</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredLogs.map(log => (
-                <tr key={log.id}>
-                  <td>{log.studentName}</td>
-                  <td>{log.teacher}</td>
-                  <td>{log.direction}</td>
-                  <td>{log.reason}</td>
-                  <td>{log.note}</td>
-                  <td>{log.house}</td>
-                  <td>{log.timestamp?.toDate?.().toLocaleDateString() || ''}</td>
+        <div className="table-container" tabIndex={0} aria-label="Behavior logs table">
+          {loading ? (
+            <div className="loading-msg" aria-live="polite">Loading...</div>
+          ) : filteredLogs.length === 0 ? (
+            <div className="no-data" aria-live="polite">No logs found for this filter.</div>
+          ) : (
+            <table className="behavior-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Teacher</th>
+                  <th>Direction</th>
+                  <th>Reason</th>
+                  <th>Note</th>
+                  <th>House</th>
+                  <th>Date</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredLogs.map(log => (
+                  <tr key={log.id}>
+                    <td>{log.studentName}</td>
+                    <td>{log.teacher}</td>
+                    <td>{log.direction}</td>
+                    <td>{log.reason}</td>
+                    <td>{log.note}</td>
+                    <td>{log.house}</td>
+                    <td>
+                      {log.timestamp?.toDate?.().toLocaleDateString() ||
+                        (typeof log.timestamp === 'string'
+                          ? new Date(log.timestamp).toLocaleDateString()
+                          : '')}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

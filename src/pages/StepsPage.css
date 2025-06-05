@@ -1,54 +1,11 @@
 .steps-page {
   padding: 2rem;
   text-align: center;
-}
-
-.steps-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.step-card {
-  background: #f0f4f8;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  text-align: left;
-}
-
-.step-card h2 {
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-.back-button {
-  background: #007bff;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: bold;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  cursor: pointer;
-  z-index: 100;
-  transition: background 0.3s ease;
-}
-
-.back-button:hover {
-  background: #0056b3;
-}
-/* StepsPage.css */
-.steps-page {
-  padding: 1rem;
-  text-align: center;
   font-family: 'Poppins', sans-serif;
   background-color: #f5f7fa;
   min-height: 100vh;
   box-sizing: border-box;
+  position: relative;
 }
 
 .back-button {
@@ -60,10 +17,17 @@
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 1rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  transition: background 0.3s;
 }
-
-.back-button:hover {
+.back-button:hover,
+.back-button:focus {
   background: #2980b9;
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
 }
 
 .steps-title {
@@ -87,6 +51,12 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   text-align: left;
+  transition: box-shadow 0.2s;
+}
+.step-card:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px #ffd70044, 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .step-card h2 {
@@ -102,51 +72,26 @@
 }
 
 /* Responsive Tweaks */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+  .steps-page {
+    padding: 1rem;
+  }
   .steps-title {
     font-size: 1.5rem;
   }
-
   .step-card h2 {
     font-size: 1.1rem;
   }
-
   .step-card p {
     font-size: 0.95rem;
   }
-
   .back-button {
     font-size: 0.9rem;
     padding: 0.4rem 0.8rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .container {
-    padding: 8px;
-  }
-  h1, h2, h3 {
-    font-size: 1.2rem;
-  }
-  .card, .panel, .summary-box {
-    width: 100%;
-    max-width: 100%;
-    margin: 0.5rem 0;
-    padding: 1rem;
-    font-size: 1rem;
-  }
-  .grid, .row {
-    display: block;
-  }
-  button, select, input[type="text"], input[type="number"] {
-    width: 100%;
-    min-height: 44px;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-  .chart-container {
-    width: 100% !important;
-    min-width: 0 !important;
-    overflow-x: auto;
+    position: static;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    left: unset;
+    top: unset;
   }
 }

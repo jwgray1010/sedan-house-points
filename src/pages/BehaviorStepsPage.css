@@ -2,10 +2,11 @@
   max-width: 700px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background: #fff9f4;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
   font-family: 'Arial', sans-serif;
+  color: #fff;
 }
 
 .subtext {
@@ -19,18 +20,21 @@
   margin-bottom: 1rem;
   border-radius: 8px;
   font-weight: bold;
+  background: #fffbe722;
+  color: #222;
 }
 
-.remind { background: #fff3e0; }
-.pause { background: #ffe0e0; }
-.office { background: #ffe8f0; }
-.call { background: #f0e4ff; }
-.suspend { background: #e0e0ff; }
+.remind { background: #fff3e033; }
+.pause { background: #ffe0e033; }
+.office { background: #ffe8f033; }
+.call { background: #f0e4ff33; }
+.suspend { background: #e0e0ff33; }
 
 .reset, .note, .escalation {
   margin-top: 1rem;
   padding: 1rem;
-  background: #f6f6f6;
+  background: #22222233;
+  color: #fff;
   border-left: 4px solid #d5a6bd;
   border-radius: 6px;
 }
@@ -38,6 +42,11 @@
 .escalation ul {
   margin-top: 0.5rem;
   padding-left: 1.5rem;
+}
+
+h2, h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 @media (max-width: 600px) {

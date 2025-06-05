@@ -3,9 +3,10 @@ import { collection, getDocs, addDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from 'react-router-dom';
 import './RewardStorePage.css';
+import { rewards as staticRewards } from "../data/rewards";
 
 const RewardStorePage = ({ isTeacher }) => {
-  const [rewards, setRewards] = useState([]);
+  const [rewards, setRewards] = useState(staticRewards);
   const [name, setName] = useState('');
   const [cost, setCost] = useState('');
   const [description, setDescription] = useState('');
@@ -95,3 +96,8 @@ const RewardStorePage = ({ isTeacher }) => {
 };
 
 export default RewardStorePage;
+
+// In App.js or your router file
+import RewardsPage from "./pages/RewardsPage";
+// ...
+<Route path="/rewards" element={<RewardsPage />} />

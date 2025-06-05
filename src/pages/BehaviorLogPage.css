@@ -1,0 +1,43 @@
+.behavior-log-page {
+  background: rgba(0,0,0,0.6);
+  min-height: 100vh;
+  padding: 2rem;
+  color: #fff;
+}
+
+.behavior-log-page table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fffbe7;
+  color: #222;
+  overflow-x: auto;
+  display: block;
+}
+
+.behavior-log-page th, .behavior-log-page td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+.behavior-log-page tbody tr:hover {
+  background: #f0f0f0;
+}
+
+.steps-container {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+
+.remind { background: #4a418a22; }
+.pause { background: #ff980022; }
+.office { background: #e040fb22; }
+.call { background: #7c4dff22; }
+.suspend { background: #00bcd422; }
+.sorted {
+  background: #ffe082;
+}
+
+h2, h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}

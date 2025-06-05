@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './StepsPage.css'; // Ensure you have this file or adjust accordingly
-
+import './StepsPage.css';
 
 const steps = [
   { step: 1, label: 'Reminder', description: 'Give the student a gentle verbal reminder of expectations.' },
@@ -16,13 +15,26 @@ const StepsPage = () => {
 
   return (
     <div className="steps-page">
-      <button className="back-button" onClick={() => navigate('/dashboard')}>
+      {/* Accessibility: aria-label for back button */}
+      <button
+        className="back-button"
+        onClick={() => navigate('/dashboard')}
+        aria-label="Back to Dashboard"
+        autoFocus
+      >
         ← Back to Dashboard
       </button>
-      <h1 className="steps-title">Behavior Steps</h1>
-      <div className="steps-container">
+      {/* Visually hidden heading for screen readers */}
+      <h1 className="steps-title" tabIndex={-1}>Behavior Steps</h1>
+      <div className="steps-container" role="list">
         {steps.map((s) => (
-          <div key={s.step} className={`step-card step-${s.step}`}>
+          <div
+            key={s.step}
+            className={`step-card step-${s.step}`}
+            role="listitem"
+            tabIndex={0}
+            aria-label={`Step ${s.step}: ${s.label}. ${s.description}`}
+          >
             <h2>Step {s.step}: {s.label}</h2>
             <p>{s.description}</p>
           </div>

@@ -1,5 +1,6 @@
 // CelebrationPage.js
 import React from 'react';
+import PropTypes from 'prop-types';
 import { houseStorm, houseMeadow, houseFlint, houseEmber } from '../assets/assets';
 import './CelebrationPage.css';
 
@@ -10,7 +11,7 @@ const houses = [
   { name: 'Ember', image: houseEmber }
 ];
 
-const CelebrationPage = ({ housePoints, student }) => {
+const CelebrationPage = ({ housePoints, students = [] }) => {
   const sorted = [...houses].sort((a, b) => (housePoints[b.name] || 0) - (housePoints[a.name] || 0));
   const winner = sorted[0];
 
@@ -26,13 +27,26 @@ const CelebrationPage = ({ housePoints, student }) => {
           </div>
         ))}
       </div>
-      <div className="certificate" id={`cert-${student.id}`}>
-        <span className="corner-star-topright" />
-        <span className="corner-star-bottomleft" />
-        {/* ...rest of your certificate content... */}
-      </div>
+      {students.length > 0 && (
+        <div className="certificates-list">
+          {students.map(student => (
+            <div className="certificate" id={`cert-${student.id}`} key={student.id}>
+              <span className="corner-star-topright" />
+              <span className="corner-star-bottomleft" />
+              {/* ...rest of your certificate content for {student.name} ... */}
+              <h3>Certificate for {student.name}</h3>
+              {/* Add more certificate details here */}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
+};
+
+CelebrationPage.propTypes = {
+  housePoints: PropTypes.object.isRequired,
+  students: PropTypes.array // Array of student objects
 };
 
 export default CelebrationPage;
@@ -42,3 +56,6 @@ exports.sendWeeklyCertificates = functions.pubsub.schedule("every friday 16:00")
   .onRun(async (context) => {
     // ...function code...
   });
+
+// Usage example (this line should be in the parent component where CelebrationPage is used)
+// <CelebrationPage housePoints={housePoints} students={winningStudentsArray} />

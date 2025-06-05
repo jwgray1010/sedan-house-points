@@ -18,10 +18,12 @@
   width: 350px;
   max-width: 90%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  outline: none;
 }
 
-.modal h3 {
+.modal h2 {
   margin-top: 0;
+  font-size: 1.3rem;
 }
 
 .modal label {
@@ -30,26 +32,83 @@
   font-weight: bold;
 }
 
-.modal select, .modal textarea {
+.modal select,
+.modal textarea {
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.5rem;
   font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  resize: vertical;
 }
 
-.modal-buttons {
+.modal-actions {
   margin-top: 1.5rem;
   text-align: right;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
 }
 
-.modal-buttons button {
-  margin-left: 0.5rem;
+.modal-actions button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
 }
 
-.cancel {
+.submit-button {
+  background: #3498db;
+  color: #fff;
+}
+.submit-button:disabled,
+.submit-button[aria-disabled="true"] {
+  background: #b0bec5;
+  color: #eee;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.submit-button:hover:enabled,
+.submit-button:focus:enabled {
+  background: #ffd700;
+  color: #222;
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+.cancel-button {
   background: #ccc;
+  color: #222;
+}
+.cancel-button:hover,
+.cancel-button:focus {
+  background: #ffd700;
+  color: #222;
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+/* Accessibility: focus style for modal */
+.modal:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+/* Visually hidden utility for screen readers */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
 }
 
 @media (max-width: 600px) {
@@ -59,16 +118,15 @@
     padding: 1rem;
     font-size: 0.98rem;
   }
-  .modal-buttons {
-    text-align: center;
-    display: flex;
+  .modal-actions {
     flex-direction: column;
     gap: 0.5rem;
+    text-align: center;
+    align-items: stretch;
   }
-  .modal-buttons button {
+  .modal-actions button {
     width: 100%;
     min-height: 44px;
-    margin-left: 0;
     font-size: 1rem;
   }
 }
