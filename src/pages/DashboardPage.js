@@ -46,7 +46,7 @@ const DashboardPage = () => {
   const [selectedDirection] = useState(null);
   const [historyStudent, setHistoryStudent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [] = useState(false);
+  // (No code needed here; remove the empty useState)
 
   // Example teacher list (replace with your real data if needed)
   const teacherList = ['All', 'Mr. Smith', 'Ms. Johnson', 'Mrs. Lee'];
