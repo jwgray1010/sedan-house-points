@@ -407,7 +407,7 @@ function Fireworks({ active }) {
       });
     }
   }, [active]);
-  return <ReactCanvasConfetti refConfetti={ref} style={{position:'fixed',pointerEvents:'none',top:0,left:0,width:'100vw',height:'100vh',zIndex:999}} />;
+  return <ReactConfetti refConfetti={ref} style={{position:'fixed',pointerEvents:'none',top:0,left:0,width:'100vw',height:'100vh',zIndex:999}} />;
 }
 
 export default HallOfFamePage;
