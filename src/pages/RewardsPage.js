@@ -98,6 +98,6 @@ const RewardsPage = ({ isTeacher }) => {
 export default RewardsPage;
 
 // In App.js or your router file
-import RewardsPage from "./pages/RewardsPage";
+import RewardsPage from "./pages/RewardsPage.js";
 // ...
 <Route path="/rewards" element={<RewardsPage />} />
