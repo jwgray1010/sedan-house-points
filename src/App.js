@@ -10,7 +10,7 @@ import SplashScreen from './pages/SplashScreen.js';
 import StepsPage from './pages/StepsPage.js';
 import LoginPage from './pages/LoginPage.js';
 import CertificatesPage from './pages/CertificatesPage.js';
-import RewardStorePage from './pages/RewardsPage.js';
+import RewardsPage from './pages/RewardsPage.js';
 import BadgesPage from './pages/BadgesPage.js';
 import CelebrationPage from './pages/CelebrationPage.js';
 import BehaviorLogPage from './pages/BehaviorLogPage.js';
@@ -31,7 +31,7 @@ function App() {
         <Route path="/steps" element={<StepsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/certificates" element={<CertificatesPage />} />
-        <Route path="/reward-store" element={<RewardStorePage isTeacher={isTeacher} />} />
+        <Route path="/rewardspage" element={<RewardsPage isTeacher={isTeacher} />} />
         <Route path="/badges" element={<BadgesPage />} />
         <Route path="/celebration" element={<CelebrationPage />} />
         <Route path="/behavior-log" element={<BehaviorLogPage />} />
