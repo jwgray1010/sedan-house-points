@@ -98,10 +98,10 @@ const PodiumPage = () => {
       }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 3)
-  , [students, logs, todayKey]);
+  , [students, logs, todayKey, getTopStudents]);
 
-  const topWeek = useMemo(() => getTopStudents('week'), [students, logs]);
-  const topQuarter = useMemo(() => getTopStudents('quarter'), [students, logs]);
+  const topWeek = useMemo(() => getTopStudents('week'), [students, logs, getTopStudents]);
+  const topQuarter = useMemo(() => getTopStudents('quarter'), [students, logs, getTopStudents]);
 
   // Replay celebration
   const replayCelebration = () => {
@@ -115,7 +115,7 @@ const PodiumPage = () => {
 
   // Render a podium section
   const renderPodium = (title, list) => (
-    <section className="podium-section" key={title} role="region" aria-labelledby={title.replace(/\s/g, '-')}>
+    <section className="podium-section" key={title} aria-labelledby={title.replace(/\s/g, '-')}>
       <h2 className="section-title" id={title.replace(/\s/g, '-')}>{title}</h2>
       <div className="podium-container">
         <div className="podium">

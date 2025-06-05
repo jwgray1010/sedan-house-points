@@ -3,7 +3,7 @@ import sedanLogo from '../assets/sedan_logo.png';
 import signatureImg from '../assets/signature.png';
 import { db } from '../firebase.js';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { format, startOfWeek, endOfWeek, addWeeks, subWeeks } from 'date-fns';
+import { format, startOfWeek, endOfWeek, addWeeks } from 'date-fns';
 import './CertificatesPage.css';
 import { useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";

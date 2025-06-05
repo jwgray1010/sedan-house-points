@@ -45,7 +45,7 @@ const BadgesPage = () => {
       { title: 'Perfect Day', medal: '🥇', students: perfectDay },
       { title: 'Top Positive Earner', medal: '🥇', students: topEarners }
     ]);
-  }, [logs, students]);
+  }, [logs, students, perfectDay, topEarners]);
 
   useEffect(() => {
     if (fireworksTrigger) {
