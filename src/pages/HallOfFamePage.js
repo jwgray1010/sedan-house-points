@@ -7,7 +7,6 @@ import { db } from '../firebase.js';
 import html2pdf from 'html2pdf.js';
 import './HallOfFamePage.css';
 import { useNavigate } from 'react-router-dom';
-import Confetti from 'react-confetti';
 
 function HallOfFamePage({ winners = [] }) {
   const navigate = useNavigate();
