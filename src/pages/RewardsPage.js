@@ -95,7 +95,7 @@ const RewardsPage = ({ isTeacher }) => {
   );
 };
 
-export default RewardStorePage;
+export default RewardsPage;
 
 // In App.js or your router file
 import RewardsPage from "./pages/RewardsPage";
