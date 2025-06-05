@@ -43,7 +43,7 @@ const DashboardPage = () => {
   const [students, setStudents] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [teacherName, setTeacherName] = useState('');
-  const [selectedTeacher, setSelectedTeacher] = useState('All');
+  const [selectedTeacher, setSelectedTeacher] = useState('All'); // Default to 'All'
   const [notification, setNotification] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [selectedDirection] = useState(null);
@@ -61,26 +61,37 @@ const DashboardPage = () => {
       const teachersSnapshot = await getDocs(collection(db, 'teachers'));
       setTeachers(teachersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
-      // Example: set teacher name from auth or other source
-      setTeacherName('Mr. Smith');
+      // Set teacherName from auth
+      if (auth.currentUser) {
+        setTeacherName(auth.currentUser.displayName || auth.currentUser.email);
+      }
     };
     fetchData();
   }, []);
+
+  // After teacherName is set, update selectedTeacher if not already set
+  useEffect(() => {
+    if (teacherName && teacherName !== selectedTeacher) {
+      setSelectedTeacher(teacherName);
+    }
+  }, [teacherName]);
 
   // Example teacher list from backend data
   const teacherList = ['All', ...teachers.map(t => t.name)];
 
   // Example house points (replace with your real logic)
   const housePoints = {
-    Storm: 120,
-    Meadow: 110,
-    Flint: 95,
-    Ember: 130
+    Storm: 0,
+    Meadow: 0,
+    Flint: 0,
+    Ember: 0
   };
   const maxPts = Math.max(...Object.values(housePoints));
 
   // Example filtered students (replace with your real filter logic)
-  const filteredStudents = students; // or apply filter
+  const filteredStudents = selectedTeacher === 'All'
+    ? students
+    : students.filter(s => s.teacher === selectedTeacher);
 
   // Example current step function (replace with your real logic)
   const getCurrentStep = () => 1;
@@ -288,6 +299,19 @@ const DashboardPage = () => {
                 {student.name?.[0] || '?'}
               </div>
               <div className="name">{student.name}</div>
+              {student.house && (
+                <img
+                  src={{
+                    Storm: houseStorm,
+                    Meadow: houseMeadow,
+                    Flint: houseFlint,
+                    Ember: houseEmber
+                  }[student.house]}
+                  alt={student.house}
+                  className="student-house-shield"
+                  style={{ width: 32, height: 32, marginBottom: 4 }}
+                />
+              )}
               <div className="bubble-counters">
                 {['positive', 'negative'].map((dir) => (
                   <div
