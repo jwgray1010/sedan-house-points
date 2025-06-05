@@ -72,7 +72,8 @@ const DashboardPage = () => {
   const todayStr = new Date().toISOString().slice(5, 10);
 
   // Example handlePoint function (replace with your real logic)
-  const handlePoint = (student, dir) => {
+  const 
+  handlePoint = (student, dir) => {
     // ...your logic to update the student's step...
     const newStep = getCurrentStep(student.id) + (dir === 'positive' ? 1 : -1); // Example logic
 
