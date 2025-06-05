@@ -18,6 +18,8 @@
   color: #fff;
   box-shadow: 0 2px 8px rgba(74,65,138,0.08);
   transition: transform 0.1s;
+  cursor: pointer;
+  position: relative;
 }
 
 .reward-card:hover {
@@ -40,6 +42,37 @@
   color: #e0e0e0;
   font-size: 1rem;
   margin-top: 0.5rem;
+}
+
+.reward-card .badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ffd700;
+  color: #222;
+  border-radius: 999px;
+  padding: 0.2em 0.8em;
+  font-weight: bold;
+  font-size: 0.85em;
+}
+
+.reward-card .redeem-btn {
+  margin-top: 1rem;
+  background: #1976d2;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.4em 1.2em;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.reward-card .redeem-btn:disabled {
+  background: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 @media (max-width: 600px) {

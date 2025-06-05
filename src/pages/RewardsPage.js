@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth'; // <-- You need a hook or context to get current user
+import { useAuth } from '../hooks/useAuth.js'; // <-- You need a hook or context to get current user
 import './RewardsPage.css';
 import { rewards as staticRewards } from "../data/rewards.js";
-
-// Simulate user points (replace with real user points logic)
-// const mockUserPoints = 120;
 
 const RewardsPage = ({ isTeacher }) => {
   const { user } = useAuth(); // user.uid should be available
@@ -261,12 +258,11 @@ const RewardsPage = ({ isTeacher }) => {
         {paginatedRewards.map(reward => (
           <div className={`reward-card${reward.popular ? ' popular' : ''}`} key={reward.id}>
             {reward.popular && <span className="reward-badge">Popular</span>}
-            <div className="reward-name">{reward.name}</div>
+            <span className="reward-icon">{reward.icon}</span>
+            <span className="reward-name">{reward.name}</span>
+            <span className="reward-category">{reward.category}</span>
             <div className="reward-cost">{reward.cost} pts</div>
             <div className="reward-desc">{reward.description}</div>
-            {reward.category && (
-              <div className="reward-category">{reward.category}</div>
-            )}
             <div className="reward-actions">
               {isTeacher ? (
                 editId === reward.id ? (
