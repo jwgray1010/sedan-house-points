@@ -1,19 +1,19 @@
 // App.js
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import DashboardPage from './pages/DashboardPage';
-import SummaryPage from './pages/SummaryPage';
-import GraphsPage from './pages/GraphsPage';
-import PodiumPage from './pages/PodiumPage';
-import HallOfFamePage from './pages/HallOfFamePage';
-import SplashScreen from './pages/SplashScreen';
-import StepsPage from './pages/StepsPage';
-import LoginPage from './pages/LoginPage';
-import CertificatesPage from './pages/CertificatesPage';
-import RewardStorePage from './pages/RewardStorePage';
-import BadgesPage from './pages/BadgesPage';
-import CelebrationPage from './pages/CelebrationPage';
-import BehaviorLogPage from './pages/BehaviorLogPage';
+import DashboardPage from './pages/DashboardPage.js';
+import SummaryPage from './pages/SummaryPage.js';
+import GraphsPage from './pages/GraphsPage.js';
+import PodiumPage from './pages/PodiumPage.js';
+import HallOfFamePage from './pages/HallOfFamePage.js';
+import SplashScreen from './pages/SplashScreen.js';
+import StepsPage from './pages/StepsPage.js';
+import LoginPage from './pages/LoginPage.js';
+import CertificatesPage from './pages/CertificatesPage.js';
+import RewardStorePage from './pages/RewardStorePage.js';
+import BadgesPage from './pages/BadgesPage.js';
+import CelebrationPage from './pages/CelebrationPage.js';
+import BehaviorLogPage from './pages/BehaviorLogPage.js';
 
 // TODO: Replace with actual authentication/role logic
 const isTeacher = true;
