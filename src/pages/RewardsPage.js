@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, addDoc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { useNavigate } from 'react-router-dom';
 import './RewardsPage.css';
@@ -38,14 +38,13 @@ const RewardsPage = ({ isTeacher }) => {
     setCost('');
     setDescription('');
     setMessage("Reward added!");
-    // Refresh rewards
     const snap = await getDocs(collection(db, "rewards"));
     setRewards(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
   };
 
   // Remove a reward
   const handleDelete = async (id) => {
-    await deleteDoc(collection(db, "rewards").doc(id));
+    await deleteDoc(doc(db, "rewards", id));
     setRewards(rewards.filter(r => r.id !== id));
   };
 

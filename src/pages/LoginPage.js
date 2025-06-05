@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase.js';
 import { doc, setDoc } from 'firebase/firestore';
+import logo from './assets/glowing_logo.png';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
