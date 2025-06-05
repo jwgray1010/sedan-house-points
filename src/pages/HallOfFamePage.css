@@ -475,12 +475,10 @@ button:focus, .filter-toggle button:focus {
 }
 
 .winner-name {
-  font-size: 1rem;
   color: #ffd700;
-  margin-top: 0.2rem;
-  letter-spacing: 1px;
+  font-size: 1rem;
   text-align: center;
-  /* Remove or comment out the text-shadow line */
+  /* Remove or comment out any text-shadow here */
   /* text-shadow: 1px 1px 4px #000; */
 }
 

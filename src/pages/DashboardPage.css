@@ -255,12 +255,13 @@ body {
   justify-content: center;
 }
 .name {
-  font-size: 1.1rem;
+  color: #ffd700; /* or your preferred color */
   font-weight: bold;
-  margin-bottom: 0.25rem;
-  color: #ffd700;
-  /* Remove or comment out any text-shadow here */
-  /* text-shadow: 1px 1px 4px #000; */
+  font-size: 1.1rem;
+  text-shadow: none !important; /* Ensure NO glow, even for winning house */
+}
+.leader .name {
+  text-shadow: none !important;
 }
 .bubble-counters {
   display: flex;

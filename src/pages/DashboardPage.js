@@ -243,9 +243,6 @@ function DashboardPage() {
               <button onClick={() => navigate('/behavior-log')}>
                 Behavior Log
               </button>
-              <button onClick={() => navigate('/steps')}>
-                Behavior Steps
-              </button>
               <button onClick={() => navigate('/reward-store')}>
                 Rewards
               </button>
