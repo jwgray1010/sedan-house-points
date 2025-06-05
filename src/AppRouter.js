@@ -1,21 +1,21 @@
 // AppRouter.js - All main pages included, ready for future auth/role protection
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SplashScreen from './pages/SplashScreen';
-import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage';
-import StepsPage from './pages/StepsPage';
-import SummaryPage from './pages/SummaryPage';
-import GraphsPage from './pages/GraphsPage';
-import NotFoundPage from './pages/NotFoundPage';
-import StudentProfile from './pages/StudentProfile';
-import PodiumPage from './pages/PodiumPage';
-import HallOfFamePage from './pages/HallOfFamePage';
-import CertificatesPage from './pages/CertificatesPage';
-import RewardStorePage from './pages/RewardStorePage';
-import BadgesPage from './pages/BadgesPage';
-import CelebrationPage from './pages/CelebrationPage';
-import BehaviorLogPage from './pages/BehaviorLogPage';
+import SplashScreen from './pages/SplashScreen.js';
+import LoginPage from './pages/LoginPage.js';
+import DashboardPage from './pages/DashboardPage.js';
+import StepsPage from './pages/StepsPage.js';
+import SummaryPage from './pages/SummaryPage.js';
+import GraphsPage from './pages/GraphsPage.js';
+import NotFoundPage from './pages/NotFoundPage.js';
+import StudentProfile from './pages/StudentProfile.js';
+import PodiumPage from './pages/PodiumPage.js';
+import HallOfFamePage from './pages/HallOfFamePage.js';
+import CertificatesPage from './pages/CertificatesPage.js';
+import RewardStorePage from './pages/RewardStorePage.js';
+import BadgesPage from './pages/BadgesPage.js';
+import CelebrationPage from './pages/CelebrationPage.js';
+import BehaviorLogPage from './pages/BehaviorLogPage.js';
 
 // TODO: Add authentication/role-based route protection as needed
 
