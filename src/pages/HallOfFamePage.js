@@ -1,12 +1,12 @@
 // src/pages/HallOfFamePage.js - Unified Background, Audio, Confetti & Black Headings
 import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import { db } from '../firebase.js';
 import html2pdf from 'html2pdf.js';
 import './HallOfFamePage.css';
+import { useNavigate } from 'react-router-dom';
 
 const HallOfFamePage = () => {
   const navigate = useNavigate();
@@ -207,7 +207,9 @@ const HallOfFamePage = () => {
       <audio ref={victoryAudioRef} src="/victory.mp3" preload="auto" />
 
       {/* Back button top-left */}
-      <button className="back-button" aria-label="Back to Dashboard" onClick={() => navigate('/dashboard')}>← Back to Dashboard</button>
+      <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
+        Back to Dashboard
+      </button>
 
       {/* Confetti overlay */}
       {showConfetti && (

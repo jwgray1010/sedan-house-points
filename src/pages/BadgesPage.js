@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase.js';
 import './BadgesPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const celebrateAudio = new Audio('/celebrate.mp3');
 
@@ -10,6 +11,7 @@ const BadgesPage = () => {
   const [students, setStudents] = useState([]);
   const [logs, setLogs] = useState([]);
   const [badges, setBadges] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,6 +75,10 @@ const BadgesPage = () => {
           ))}
         </div>
       )}
+
+      <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
+        Back to Dashboard
+      </button>
 
       <h1>🏅 Student Medals</h1>
       {badges.map(badge => (

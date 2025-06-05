@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase.js';
+import { useNavigate } from 'react-router-dom';
 import './BehaviorLogPage.css';
 
 const BehaviorLogPage = () => {
@@ -11,6 +12,7 @@ const BehaviorLogPage = () => {
   const [sortAsc, setSortAsc] = useState(false);
   const [page, setPage] = useState(1);
   const logsPerPage = 20;
+  const navigate = useNavigate();
 
   // Fetch logs
   useEffect(() => {
@@ -80,6 +82,9 @@ const BehaviorLogPage = () => {
 
   return (
     <div className="behavior-log-page">
+      <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
+        Back to Dashboard
+      </button>
       <h1>Behavior Log</h1>
 
       {/* Filtering and Search */}

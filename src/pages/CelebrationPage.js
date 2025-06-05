@@ -1,6 +1,7 @@
 // CelebrationPage.js
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { houseStorm, houseMeadow, houseFlint, houseEmber } from '../assets/assets.js';
 import './CelebrationPage.css';
 
@@ -11,12 +12,23 @@ const houses = [
   { name: 'Ember', image: houseEmber }
 ];
 
-const CelebrationPage = ({ housePoints, students = [] }) => {
+// TEMP: Default data for testing
+const defaultHousePoints = { Storm: 100, Meadow: 80, Flint: 60, Ember: 90 };
+const defaultStudents = [
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" }
+];
+
+const CelebrationPage = ({ housePoints = defaultHousePoints, students = defaultStudents }) => {
+  const navigate = useNavigate();
   const sorted = [...houses].sort((a, b) => (housePoints[b.name] || 0) - (housePoints[a.name] || 0));
   const winner = sorted[0];
 
   return (
     <div className="celebration-container">
+      <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
+        Back to Dashboard
+      </button>
       <h1>🎉 House Celebration 🎉</h1>
       <h2 className="winner">🏆 Winner: {winner.name} 🏆</h2>
       <div className="house-tiles">

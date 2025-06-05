@@ -77,13 +77,16 @@ body {
   position: absolute;
   right: 0;
   top: calc(100% + 0.5rem);
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.97);
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   border-radius: 6px;
   overflow: hidden;
   flex-direction: column;
   z-index: 100;
+  min-width: 220px; /* Make dropdown wider for longer text */
+  width: max-content;
+  max-width: 320px;
 }
 .dropdown .dropdown-content.show {
   display: flex;
@@ -92,16 +95,22 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  width: auto;
-  padding: 0.5rem 1rem;
+  width: 100%;
+  padding: 0.5rem 1.2rem;
   background: transparent;
   border: none;
   text-align: left;
   cursor: pointer;
   transition: background 0.2s;
+  color: #222 !important; /* Black text */
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: normal;
+  word-break: break-word;
 }
 .dropdown .dropdown-content button:hover {
   background: #f0f0f0;
+  color: #222;
 }
 
 /* ─── Controls & Back Button ─────────────────────────────────────────────── */
@@ -448,4 +457,14 @@ body {
   margin-bottom: 1rem;
   padding: 1rem;
   box-sizing: border-box;
+}
+/* Example for DashboardPage.css */
+.dashboard-container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  margin: 2rem auto;
+  max-width: 1100px;
+  color: #fff;
 }

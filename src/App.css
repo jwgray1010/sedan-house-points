@@ -3,8 +3,8 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
+  background: linear-gradient(135deg, #23243a 0%, #2e2e4e 100%);
+  color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -207,4 +207,29 @@ a:focus {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+button, .btn, .reward-form button, .reward-card button, .back-dashboard-btn {
+  border-radius: 8px !important;
+}
+
+.back-dashboard-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6em 1.5em;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.back-dashboard-btn:hover,
+.back-dashboard-btn:focus {
+  background: #ffd700;
+  color: #222;
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
 }

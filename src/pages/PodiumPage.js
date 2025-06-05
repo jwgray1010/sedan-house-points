@@ -3,6 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase.js';
 import './PodiumPage.css';
 import Confetti from 'react-confetti';
+import { useNavigate } from 'react-router-dom';
 
 const getTopThree = (students, key) =>
   [...students]
@@ -46,6 +47,7 @@ const PodiumPage = () => {
   const [loading, setLoading] = useState(true);
   const [showConfetti, setShowConfetti] = useState(false);
   const audioRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -113,6 +115,11 @@ const PodiumPage = () => {
           </div>
         ))
       )}
+      <div className="page-container">
+        <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
+          Back to Dashboard
+        </button>
+      </div>
     </div>
   );
 };

@@ -18,6 +18,9 @@ import BehaviorLogPage from './pages/BehaviorLogPage.js';
 const isTeacher = true;
 
 function App() {
+  const housePoints = 100; // Example value, replace with actual state or prop
+  const students = []; // Example value, replace with actual state or prop
+
   return (
     <Router>
       <Routes>
@@ -30,9 +33,17 @@ function App() {
         <Route path="/steps" element={<StepsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/certificates" element={<CertificatesPage />} />
-        <Route path="/rewardspage" element={<RewardsPage isTeacher={isTeacher} />} />
+        <Route path="/reward-store" element={<RewardsPage />} />
         <Route path="/badges" element={<BadgesPage />} />
-        <Route path="/celebration" element={<CelebrationPage />} />
+        <Route
+          path="/celebration"
+          element={
+            <CelebrationPage
+              housePoints={housePoints}
+              students={students}
+            />
+          }
+        />
         <Route path="/behavior-log" element={<BehaviorLogPage />} />
         {/* Optionally, add a catch-all route for 404s */}
         {/* <Route path="*" element={<NotFoundPage />} /> */}
