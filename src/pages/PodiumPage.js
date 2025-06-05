@@ -1,180 +1,122 @@
-// src/pages/PodiumPage.js - Hall of Fame-style Confetti via react-confetti
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
-import Confetti from 'react-confetti';
-import { useWindowSize } from 'react-use';
 import { db } from '../firebase.js';
 import './PodiumPage.css';
+// If you use canvas-confetti, install it: npm install canvas-confetti
+import confetti from 'canvas-confetti';
 
-const getDateObj = (ts) => {
-  if (!ts) return null;
-  if (ts.toDate) return ts.toDate();
-  if (ts instanceof Date) return ts;
-  if (typeof ts === 'string') return new Date(ts);
-  return null;
+const getTopThree = (students, key) =>
+  [...students]
+    .sort((a, b) => (b[key] || 0) - (a[key] || 0))
+    .slice(0, 3);
+
+const PodiumSection = ({ title, students, pointsKey, triggerCelebrate }) => {
+  // Play confetti and sound when top 3 changes
+  const prevTop = useRef([]);
+  useEffect(() => {
+    const ids = students.map(s => s.id).join(',');
+    if (ids && prevTop.current !== ids) {
+      triggerCelebrate();
+      prevTop.current = ids;
+    }
+    // eslint-disable-next-line
+  }, [students]);
+  return (
+    <section className="podium-section">
+      <h3>{title}</h3>
+      <ol className="podium-list">
+        {students.length === 0 ? (
+          <li className="podium-empty">No students yet</li>
+        ) : (
+          students.map((student, idx) => (
+            <li key={student.id} className={`podium-place place-${idx + 1}`}>
+              <span className="podium-medal">
+                {idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'}
+              </span>
+              <span className="podium-name">{student.name}</span>
+              <span className="podium-points">{student[pointsKey] || 0} pts</span>
+            </li>
+          ))
+        )}
+      </ol>
+    </section>
+  );
 };
 
 const PodiumPage = () => {
-  const navigate = useNavigate();
-  const { width, height } = useWindowSize();
   const [students, setStudents] = useState([]);
-  const [logs, setLogs] = useState([]);
-  const [visibleRanks, setVisibleRanks] = useState([]);
-  const [showConfetti, setShowConfetti] = useState(false);
   const [loading, setLoading] = useState(true);
-  const victoryAudioRef = useRef(null);
+  const audioRef = useRef(null);
 
-  // Fetch students and logs
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchStudents = async () => {
       setLoading(true);
-      const studentSnap = await getDocs(collection(db, 'students'));
-      setStudents(studentSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-      const logSnap = await getDocs(collection(db, 'behaviorLogs'));
-      setLogs(logSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const snapshot = await getDocs(collection(db, 'students'));
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setStudents(data);
       setLoading(false);
     };
-    fetchData();
+    fetchStudents();
   }, []);
 
-  // Animate podium spots & trigger confetti/audio
-  useEffect(() => {
-    if (!loading && victoryAudioRef.current) {
-      victoryAudioRef.current.play().catch(() => {});
+  // Group students by className
+  const classes = {};
+  students.forEach(student => {
+    if (!classes[student.className]) classes[student.className] = [];
+    classes[student.className].push(student);
+  });
+
+  // Confetti and sound
+  const celebrate = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
     }
-    setShowConfetti(false);
-    setVisibleRanks([]);
-    const delays = [0, 1500, 3000];
-    [2, 1, 0].forEach((rank, i) => {
-      setTimeout(() => setVisibleRanks(prev => [...prev, rank]), delays[i]);
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 }
     });
-    const confettiTimer = setTimeout(() => setShowConfetti(true), 100);
-    const clearTimer = setTimeout(() => setShowConfetti(false), 5000);
-    return () => {
-      clearTimeout(confettiTimer);
-      clearTimeout(clearTimer);
-    };
-  }, [students, logs, loading]);
-
-  // Compute top students for a given range
-  const getTopStudents = (range) => {
-    const now = new Date();
-    const start = new Date(now);
-    if (range === 'week') start.setDate(now.getDate() - 7);
-    if (range === 'quarter') start.setMonth(now.getMonth() - 3);
-    return students
-      .map(stu => ({
-        ...stu,
-        count: logs.filter(log => {
-          const logDate = getDateObj(log.timestamp);
-          return (
-            log.studentId === stu.id &&
-            log.direction === 'positive' &&
-            logDate &&
-            logDate >= start
-          );
-        }).length
-      }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 3);
   };
 
-  // Today's top
-  const todayKey = new Date().toISOString().slice(0, 10);
-  const topToday = useMemo(() =>
-    students
-      .map(stu => ({
-        ...stu,
-        count: logs.filter(log => {
-          const logDate = getDateObj(log.timestamp);
-          return (
-            log.studentId === stu.id &&
-            log.direction === 'positive' &&
-            logDate &&
-            logDate.toISOString().slice(0, 10) === todayKey
-          );
-        }).length
-      }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 3)
-  , [students, logs, todayKey, getTopStudents]);
-
-  const topWeek = useMemo(() => getTopStudents('week'), [students, logs, getTopStudents]);
-  const topQuarter = useMemo(() => getTopStudents('quarter'), [students, logs, getTopStudents]);
-
-  // Replay celebration
-  const replayCelebration = () => {
-    setShowConfetti(false);
-    if (victoryAudioRef.current) {
-      victoryAudioRef.current.currentTime = 0;
-      victoryAudioRef.current.play().catch(() => {});
-    }
-    setTimeout(() => setShowConfetti(true), 300);
-  };
-
-  // Render a podium section
-  const renderPodium = (title, list) => (
-    <section className="podium-section" key={title} aria-labelledby={title.replace(/\s/g, '-')}>
-      <h2 className="section-title" id={title.replace(/\s/g, '-')}>{title}</h2>
-      <div className="podium-container">
-        <div className="podium">
-          {list.length === 0 ? (
-            <div className="no-data" aria-live="polite">No students found for this period.</div>
-          ) : list.map((s, i) => (
-            <div
-              key={s.id}
-              className={`podium-spot spot-${i + 1} ${visibleRanks.includes(i) ? 'animate' : ''}`}
-              style={{ visibility: visibleRanks.includes(i) ? 'visible' : 'hidden' }}
-              tabIndex={0}
-              aria-label={`${s.name || 'Unknown'}, ${s.count} points, rank ${i + 1}`}
-              onKeyDown={e => { if (e.key === 'Enter') alert(`${s.name || 'Unknown'}: ${s.count} points`); }}
-            >
-              <div className="podium-rank">{['🥇', '🥈', '🥉'][i]}</div>
-              <div className="avatar">{s.name?.[0] || '?'}</div>
-              <div className="name">{s.name || 'Unknown'}</div>
-              <div className="score">{s.count} pts</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  const topStudents = useMemo(() => getTopStudents(), []);
 
   return (
-    <div className="dashboard-container podium-page">
-      {/* Visually hidden heading for screen readers */}
-      <h1 className="visually-hidden">Podium Leaders</h1>
-
-      {/* Victory audio */}
-      <audio ref={victoryAudioRef} src="/victory.mp3" preload="auto" />
-
-      {/* Back button */}
-      <button className="back-button" aria-label="Back to Dashboard" onClick={() => navigate('/dashboard')}>← Back to Dashboard</button>
-
-      {/* Replay celebration */}
-      <button style={{margin:'1rem 0'}} onClick={replayCelebration}>Replay Celebration</button>
-
-      {/* Confetti */}
-      {showConfetti && (
-        <>
-          <Confetti width={width} height={height} recycle={false} />
-          <span style={{position:'absolute',left:'-9999px'}} aria-live="polite">Congratulations! 🎉</span>
-        </>
-      )}
-
-      {/* Page Title */}
-      <h1 className="page-title">Podium Leaders</h1>
-
-      {/* Loading state */}
+    <div className="podium-page">
+      <h1>🏆 Podium</h1>
+      <audio ref={audioRef} src="/victory.mp3" preload="auto" />
       {loading ? (
-        <div className="no-data" aria-live="polite">Loading...</div>
+        <p>Loading...</p>
       ) : (
-        <>
-          {renderPodium("Today's Top 3", topToday)}
-          {renderPodium('Top 3 This Week', topWeek)}
-          {renderPodium('Top 3 This Quarter', topQuarter)}
-        </>
+        Object.entries(classes).map(([className, classStudents]) => (
+          <div key={className} className="class-podium">
+            <h2>{className}</h2>
+            <PodiumSection
+              title="Top 3 Today"
+              students={getTopThree(classStudents, 'dayPoints')}
+              pointsKey="dayPoints"
+              triggerCelebrate={celebrate}
+            />
+            <PodiumSection
+              title="Top 3 This Week"
+              students={getTopThree(classStudents, 'weekPoints')}
+              pointsKey="weekPoints"
+              triggerCelebrate={celebrate}
+            />
+            <PodiumSection
+              title="Top 3 This Quarter"
+              students={getTopThree(classStudents, 'quarterPoints')}
+              pointsKey="quarterPoints"
+              triggerCelebrate={celebrate}
+            />
+            <PodiumSection
+              title="Top 3 This Year"
+              students={getTopThree(classStudents, 'yearPoints')}
+              pointsKey="yearPoints"
+              triggerCelebrate={celebrate}
+            />
+          </div>
+        ))
       )}
     </div>
   );
