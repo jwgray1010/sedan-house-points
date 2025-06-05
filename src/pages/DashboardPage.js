@@ -19,8 +19,8 @@ import {
   Trophy,
   LogOut
 } from 'lucide-react';
-import PointModal from '../components/PointModal';
-import BehaviorHistoryModal from '../components/BehaviorHistoryModal';
+import PointModal from '../components/PointModal.js';
+import BehaviorHistoryModal from '../components/BehaviorHistoryModal.js';
 import emailjs from 'emailjs-com';
 import {
   sedanLogo,
@@ -28,7 +28,7 @@ import {
   houseMeadow,
   houseFlint,
   houseEmber
-} from '../assets/assets';
+} from '../assets/assets.js';
 import './DashboardPage.css';
 import Confetti from 'react-confetti'; // npm install react-confetti
 

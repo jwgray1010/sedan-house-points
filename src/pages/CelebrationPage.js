@@ -1,7 +1,7 @@
 // CelebrationPage.js
 import React from 'react';
 import PropTypes from 'prop-types';
-import { houseStorm, houseMeadow, houseFlint, houseEmber } from '../assets/assets';
+import { houseStorm, houseMeadow, houseFlint, houseEmber } from '../assets/assets.js';
 import './CelebrationPage.css';
 
 const houses = [

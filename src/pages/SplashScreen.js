@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SplashScreen.css';
-import { glowingShieldLogo } from '../assets/assets';
+import { glowingShieldLogo } from '../assets/assets.js';
 
 const SplashScreen = () => {
   const navigate = useNavigate();
