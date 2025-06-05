@@ -45,6 +45,17 @@ const BADGE_MILESTONES = [
 const ding = new Audio('/ding.mp3');
 const alertSound = new Audio('/alert.mp3');
 
+const teacherList = ['Teacher A', 'Teacher B'];
+const housePoints = { Storm: 0, Meadow: 0, Flint: 0, Ember: 0 };
+const maxPts = Math.max(...Object.values(housePoints));
+const filteredStudents = []; // or apply your filter logic
+const getCurrentStep = (id) => 1; // Replace with your logic
+const todayStr = new Date().toISOString().slice(5, 10);
+const handlePoint = (student, dir) => {};
+const getTodaysLogs = (id, dir) => [];
+const handleSubmitPoint = () => {};
+const birthdayStudents = [];
+
 const DashboardPage = () => {
   const navigate = useNavigate();
 
