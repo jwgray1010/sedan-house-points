@@ -320,26 +320,21 @@ const DashboardPage = () => {
         })}
       </div>
 
-      {/* ─── Modals ─── */}
-      {selectedStudent && (
-        <PointModal
-          student={selectedStudent}
-          direction={selectedDirection}
-          onClose={() => setSelectedStudent(null)}
-          onSubmit={handleSubmitPoint}
-        />
-      )}
-      {historyStudent && (
-        <BehaviorHistoryModal
-          student={historyStudent}
-          logs={behaviorLogs.filter((l) => l.studentId === historyStudent.id)}
-          onClose={() => setHistoryStudent(null)}
-        />
-      )}
-
-      {isAdmin && (
-        <div className="admin-panel">
-          {/* Admin-only content here */}
+      /* ─── Modals ─── */
+        {selectedStudent && (
+          <PointModal
+            student={selectedStudent}
+            direction={selectedDirection}
+            onClose={() => setSelectedStudent(null)}
+            onSubmit={handleSubmitPoint}
+          />
+        )}
+        {historyStudent && (
+          <BehaviorHistoryModal
+            student={historyStudent}
+            onClose={() => setHistoryStudent(null)}
+          />
+        )}}
         </div>
       )}
 
