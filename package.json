@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "canvas-confetti": "^1.9.3",
     "csv-parser": "^3.2.0",
     "date-fns": "^4.1.0",
     "emailjs-com": "^3.2.0",
@@ -39,7 +40,6 @@
     "predeploy": "npm run build",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
-
     "test": "react-scripts test --env=jsdom --watchAll=false --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .js,.jsx"
