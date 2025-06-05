@@ -81,7 +81,17 @@ const DashboardPage = () => {
   const todayStr = new Date().toISOString().slice(5, 10);
 
   // Example handlePoint function (replace with your real logic)
-  const handlePoint = (student, dir) => {};
+  const handlePoint = (student, dir) => {
+    // ...your logic to update the student's step...
+    const newStep = getCurrentStep(student.id) + (dir === 'positive' ? 1 : -1); // Example logic
+
+    // If the new step is 3, 4, or 5, notify the principal
+    if ([3, 4, 5].includes(newStep)) {
+      sendPrincipalAlert(student, newStep);
+    }
+
+    // ...rest of your logic...
+  };
 
   // Example getTodaysLogs function (replace with your real logic)
   const getTodaysLogs = (studentId, dir) => [];
@@ -101,6 +111,37 @@ const DashboardPage = () => {
       .catch((error) => {
         console.error('Sign out error:', error);
       });
+  };
+
+  const sendPrincipalAlert = (student, step) => {
+    emailjs.send(
+      'service_foefqgl',         // Service ID
+      'template_fgo2hkf',        // Template ID
+      {
+        to_email: ADMIN_EMAIL,   // Principal's email
+        student_name: student.name,
+        step: step,
+        teacher: teacherName,
+      },
+      'Ptwpl0H9suyvtHokY'    // Public Key
+    )
+    .then(() => {
+      playDing();
+      setNotification({ type: 'success', message: `Principal notified for ${student.name} (Step ${step})` });
+    })
+    .catch(() => {
+      playDing();
+      setNotification({ type: 'error', message: 'Failed to notify principal.' });
+    });
+  };
+
+  const playDing = () => {
+    try {
+      ding.currentTime = 0;
+      ding.play();
+    } catch (e) {
+      // Ignore play errors (e.g., user hasn't interacted yet)
+    }
   };
 
   return (
@@ -248,6 +289,7 @@ const DashboardPage = () => {
                     onClick={(e) => {
                       if (atMaxStep) return;
                       e.stopPropagation();
+                      if (dir === 'positive') playDing(); // <-- Play ding for positive
                       handlePoint(student, dir);
                       const el = e.currentTarget;
                       el.classList.add('pop');
@@ -255,6 +297,7 @@ const DashboardPage = () => {
                     }}
                     onKeyDown={e => {
                       if (e.key === 'Enter' && !atMaxStep) {
+                        if (dir === 'positive') playDing(); // <-- Play ding for positive
                         handlePoint(student, dir);
                       }
                     }}
