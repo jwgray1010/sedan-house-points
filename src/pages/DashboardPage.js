@@ -21,7 +21,7 @@ import {
 } from '../assets/assets.js';
 import './DashboardPage.css';
 import Confetti from 'react-confetti';
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import emailjs from 'emailjs-com';
 import { collection, getDocs } from 'firebase/firestore';
 
@@ -36,7 +36,7 @@ const BADGE_MILESTONES = [
 const ding = new Audio('/ding.mp3');
 const alertSound = new Audio('/alert.mp3');
  
-const DashboardPage = () => {
+function DashboardPage() {
   const navigate = useNavigate();
 
   // State for students and teachers
@@ -81,10 +81,10 @@ const DashboardPage = () => {
 
   // Example house points (replace with your real logic)
   const housePoints = {
-    Storm: 0,
-    Meadow: 0,
-    Flint: 0,
-    Ember: 0
+    Storm: students.filter(s => s.house === 'Storm').reduce((sum, s) => sum + (s.step || 1), 0),
+    Meadow: students.filter(s => s.house === 'Meadow').reduce((sum, s) => sum + (s.step || 1), 0),
+    Flint: students.filter(s => s.house === 'Flint').reduce((sum, s) => sum + (s.step || 1), 0),
+    Ember: students.filter(s => s.house === 'Ember').reduce((sum, s) => sum + (s.step || 1), 0),
   };
   const maxPts = Math.max(...Object.values(housePoints));
 
@@ -100,24 +100,25 @@ const DashboardPage = () => {
   const todayStr = new Date().toISOString().slice(5, 10);
 
   // Example handlePoint function (replace with your real logic)
-  const 
-  handlePoint = (student, dir) => {
-    // ...your logic to update the student's step...
-    const newStep = getCurrentStep(student.id) + (dir === 'positive' ? 1 : -1); // Example logic
+  const
+    handlePoint = (student, dir) => {
+      // ...your logic to update the student's step...
+      const newStep = getCurrentStep(student.id) + (dir === 'positive' ? 1 : -1); // Example logic
 
-    // If the new step is 3, 4, or 5, notify the principal
-    if ([3, 4, 5].includes(newStep)) {
-      sendPrincipalAlert(student, newStep);
-    }
 
-    // ...rest of your logic...
-  };
+      // If the new step is 3, 4, or 5, notify the principal
+      if ([3, 4, 5].includes(newStep)) {
+        sendPrincipalAlert(student, newStep);
+      }
+
+      // ...rest of your logic...
+    };
 
   // Example getTodaysLogs function (replace with your real logic)
   const getTodaysLogs = () => [];
 
   // Example handleSubmitPoint function (replace with your real logic)
-  const handleSubmitPoint = () => {};
+  const handleSubmitPoint = () => { };
 
   // Example birthday students (replace with your real logic)
   const birthdayStudents = [];
@@ -135,24 +136,24 @@ const DashboardPage = () => {
 
   const sendPrincipalAlert = (student, step) => {
     emailjs.send(
-      'service_foefqgl',         // Service ID
-      'template_fgo2hkf',        // Template ID
+      'service_foefqgl', // Service ID
+      'template_fgo2hkf', // Template ID
       {
-        to_email: ADMIN_EMAIL,   // Principal's email
+        to_email: ADMIN_EMAIL, // Principal's email
         student_name: student.name,
         step: step,
         teacher: teacherName,
       },
-      'Ptwpl0H9suyvtHokY'    // Public Key
+      'Ptwpl0H9suyvtHokY' // Public Key
     )
-    .then(() => {
-      playDing();
-      setNotification({ type: 'success', message: `Principal notified for ${student.name} (Step ${step})` });
-    })
-    .catch(() => {
-      playDing();
-      setNotification({ type: 'error', message: 'Failed to notify principal.' });
-    });
+      .then(() => {
+        playDing();
+        setNotification({ type: 'success', message: `Principal notified for ${student.name} (Step ${step})` });
+      })
+      .catch(() => {
+        playDing();
+        setNotification({ type: 'error', message: 'Failed to notify principal.' });
+      });
   };
 
   const playDing = () => {
@@ -163,6 +164,16 @@ const DashboardPage = () => {
       // Ignore play errors (e.g., user hasn't interacted yet)
     }
   };
+
+  // Check auth state on mount
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/login'); // or navigate('/') if your login page is at /
+      }
+    });
+    return () => unsubscribe();
+  }, [navigate]);
 
   return (
     <div className="dashboard-container">
@@ -252,12 +263,9 @@ const DashboardPage = () => {
             className={`house-card ${housePoints[h] === maxPts ? 'leader' : ''}`}
           >
             <img
-              src={
-                { Storm: houseStorm, Meadow: houseMeadow, Flint: houseFlint, Ember: houseEmber }[h]
-              }
+              src={{ Storm: houseStorm, Meadow: houseMeadow, Flint: houseFlint, Ember: houseEmber }[h]}
               alt={h}
-              className="shield-img"
-            />
+              className="shield-img" />
             <p>
               {h}: {housePoints[h]} pts
             </p>
@@ -281,7 +289,7 @@ const DashboardPage = () => {
               tabIndex={0}
               aria-label={`View history for ${student.name}`}
               onClick={() => setHistoryStudent(student)}
-              onKeyDown={e => { if (e.key === 'Enter') setHistoryStudent(student); }}
+              onKeyDown={e => { if (e.key === 'Enter') setHistoryStudent(student); } }
             >
               {isBirthday && <Confetti width={window.innerWidth} height={window.innerHeight} />}
               {isBirthday && <div className="birthday-banner">🎉 Happy Birthday! 🎂</div>}
@@ -309,8 +317,7 @@ const DashboardPage = () => {
                   }[student.house]}
                   alt={student.house}
                   className="student-house-shield"
-                  style={{ width: 32, height: 32, marginBottom: 4 }}
-                />
+                  style={{ width: 32, height: 32, marginBottom: 4 }} />
               )}
               <div className="bubble-counters">
                 {['positive', 'negative'].map((dir) => (
@@ -327,15 +334,13 @@ const DashboardPage = () => {
                         try {
                           alertSound.currentTime = 0;
                           alertSound.play();
-                        } catch (e) {
-                          // Ignore play errors
-                        }
+                        } catch (e) {}
                       }
-                      handlePoint(student, dir);
+                      handlePoint(student, dir); // This must update state!
                       const el = e.currentTarget;
                       el.classList.add('pop');
                       setTimeout(() => el.classList.remove('pop'), 300);
-                    }}
+                    } }
                     onKeyDown={e => {
                       if (e.key === 'Enter' && !atMaxStep) {
                         if (dir === 'positive') playDing();
@@ -349,7 +354,7 @@ const DashboardPage = () => {
                         }
                         handlePoint(student, dir);
                       }
-                    }}
+                    } }
                   >
                     {getTodaysLogs(student.id, dir).length}
                   </div>
@@ -369,14 +374,12 @@ const DashboardPage = () => {
           student={selectedStudent}
           direction={selectedDirection}
           onClose={() => setSelectedStudent(null)}
-          onSubmit={handleSubmitPoint}
-        />
+          onSubmit={handleSubmitPoint} />
       )}
       {historyStudent && (
         <BehaviorHistoryModal
           student={historyStudent}
-          onClose={() => setHistoryStudent(null)}
-        />
+          onClose={() => setHistoryStudent(null)} />
       )}
 
       {/* Birthday alert for teacher's students */}
@@ -387,6 +390,6 @@ const DashboardPage = () => {
       )}
     </div>
   );
-};
+}
 
 export default DashboardPage;
