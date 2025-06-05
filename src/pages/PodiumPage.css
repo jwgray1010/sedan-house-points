@@ -230,3 +230,64 @@ button:focus-visible {
   max-width: 900px;
   color: #fff;
 }
+
+.podium-visual {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 2rem 0 1rem 0;
+  gap: 2rem;
+  animation: fadeIn 1s;
+}
+.podium-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  transition: transform 0.3s;
+  position: relative;
+  min-width: 140px;
+}
+.podium-level.first { z-index: 2; transform: scale(1.1); }
+.podium-level.second { z-index: 1; }
+.podium-level.third { z-index: 1; }
+.podium-emoji {
+  font-size: 2.5rem;
+  margin-bottom: -1rem;
+  animation: bounce 1s infinite alternate;
+}
+.podium-box {
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px 12px 0 0;
+  padding: 1.2rem 1.5rem 0.8rem 1.5rem;
+  min-width: 120px;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.podium-rank {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #333;
+}
+.podium-student {
+  margin-top: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #222;
+}
+.podium-points {
+  font-size: 1rem;
+  color: #444;
+  margin-top: 0.2rem;
+}
+.empty {
+  color: #aaa;
+}
+@keyframes bounce {
+  to { transform: translateY(-10px);}
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
