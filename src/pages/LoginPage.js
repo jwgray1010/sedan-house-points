@@ -1,10 +1,10 @@
 // LoginPage.js - With Firestore Save, Google Sign-In Restriction, Session Tracking, and Accessibility/Polish
 import React, { useState, useEffect, useRef } from 'react';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth } from '../firebase.js';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../firebase.js';
 import './LoginPage.css';
 import glowingLogo from '../assets/glowing_logo.png';
 

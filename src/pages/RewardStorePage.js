@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase.js";
 import { useNavigate } from 'react-router-dom';
 import './RewardStorePage.css';
 import { rewards as staticRewards } from "../data/rewards";

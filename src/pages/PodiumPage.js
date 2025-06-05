@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { db } from '../firebase';
+import { db } from '../firebase.js';
 import './PodiumPage.css';
 
 const getDateObj = (ts) => {

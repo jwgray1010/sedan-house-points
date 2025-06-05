@@ -1,6 +1,6 @@
 // src/pages/DashboardPage.js
 import React, { useEffect, useState } from 'react';
-import { db, auth } from '../firebase';
+import { db, auth } from '../firebase.js';
 import {
   collection,
   getDocs,

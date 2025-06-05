@@ -1,6 +1,6 @@
 // src/pages/GraphsPage.js - Behavior Analytics with White Lettering
 import React, { useEffect, useState, useMemo } from 'react';
-import { db } from '../firebase';
+import { db } from '../firebase.js';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import {
   LineChart,

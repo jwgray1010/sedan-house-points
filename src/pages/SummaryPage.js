@@ -1,7 +1,7 @@
 // src/pages/SummaryPage.js - Updated with Summary Container + Mobile Styles and Accessibility/Polish
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
