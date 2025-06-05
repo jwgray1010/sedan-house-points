@@ -16,6 +16,15 @@
   margin: 3rem 0;
 }
 
+.podium-section h3 {
+  font-size: 2.2rem;
+  color: #ffd700;
+  text-align: center;
+  margin-bottom: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
 .section-title {
   text-align: center;
   font-size: 1.5rem;
@@ -370,6 +379,9 @@ button:focus-visible {
 }
 
 .back-dashboard-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
   background: #222;
   color: #ffd700;
   border: 2px solid #ffd700;
@@ -377,8 +389,9 @@ button:focus-visible {
   padding: 0.7rem 2rem;
   font-size: 1.1rem;
   font-weight: bold;
-  margin: 2rem auto 0 auto;
-  display: block;
+  z-index: 100;
+  margin: 0;
+  display: inline-block;
   cursor: pointer;
   box-shadow: 0 2px 8px #ffd70033;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
@@ -403,7 +416,7 @@ button:focus-visible {
 .podium-img-single {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -30px; /* Move podium image down by 30px */
   width: 100%;
   max-width: 420px;
   z-index: 0;

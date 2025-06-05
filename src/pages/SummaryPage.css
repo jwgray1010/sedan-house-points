@@ -16,6 +16,13 @@
   color: #333;
 }
 
+.summary-container h1,
+.summary-container h2,
+.summary-container h3 {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
 .summary-container h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -182,26 +189,33 @@
   }
 }
 
-h1, h2, h3 {
-  color: #fff;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+/* Make all text in the summary container black */
+.summary-container,
+.summary-container h1,
+.summary-container h2,
+.summary-container h3,
+.summary-container p,
+.summary-container li,
+.summary-container th,
+.summary-container td {
+  color: #111 !important;
+  text-shadow: none !important;
 }
 
-button {
-  background: #222;
-  color: #fff;
-  border: 1px solid #ffd700;
-  border-radius: 5px;
-  padding: 0.5rem 1.2rem;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  cursor: pointer;
+/* Also ensure table text is black */
+.behavior-table th,
+.behavior-table td {
+  color: #111 !important;
+  text-shadow: none !important;
 }
-button:hover,
-button:focus-visible {
-  background: #ffd700;
-  color: #222;
-  box-shadow: 0 0 0 2px #fff, 0 0 8px #ffd70088;
+
+/* Remove glow from headings */
+.summary-container h1,
+.summary-container h2,
+.summary-container h3 {
+  text-shadow: none !important;
 }
+
 /* Example for SummaryPage.css */
 .summary-container,
 .summary {
@@ -212,4 +226,18 @@ button:focus-visible {
   margin: 2rem auto;
   max-width: 900px;
   color: #fff;
+}
+
+/* Make Back to Dashboard button black text only on Summary page */
+.back-dashboard-btn {
+  color: #111 !important;
+  background: #fff !important;
+  border: 2px solid #111 !important;
+}
+
+.back-dashboard-btn:hover,
+.back-dashboard-btn:focus-visible {
+  background: #ffd700 !important;
+  color: #111 !important;
+  border-color: #ffd700 !important;
 }

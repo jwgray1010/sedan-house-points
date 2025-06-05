@@ -326,6 +326,14 @@ const RewardsPage = ({ isTeacher }) => {
           >Next</button>
         </div>
       )}
+      <ul className="reward-simple-list">
+        {rewards.map(reward => (
+          <li key={reward.id}>
+            {reward.name} — {reward.cost} pts<br />
+            <small>{reward.description}</small>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

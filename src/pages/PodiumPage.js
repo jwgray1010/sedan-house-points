@@ -21,9 +21,9 @@ const PodiumVisual = ({ students }) => {
 
   // Podium positions: left (2nd), center (1st), right (3rd)
   const positions = [
-    { left: '10%', bottom: `${heights[0] + 60}px`, zIndex: 1 }, // 2nd
+    { left: '23%', bottom: `${heights[0] + 60}px`, zIndex: 1, transform: 'translateX(-50%)' }, // 2nd
     { left: '50%', bottom: `${heights[1] + 60}px`, zIndex: 2, transform: 'translateX(-50%)' }, // 1st
-    { left: '80%', bottom: `${heights[2] + 60}px`, zIndex: 1 }, // 3rd
+    { left: '77%', bottom: `${heights[2] + 60}px`, zIndex: 1, transform: 'translateX(-50%)' }, // 3rd
   ];
 
   return (
@@ -42,7 +42,9 @@ const PodiumVisual = ({ students }) => {
             aria-label={student?.name || 'Empty'}
           >
             <div className="podium-avatar">{initials}</div>
-            <div className="podium-student">{student?.name || <span className="empty">-</span>}</div>
+            <div className="podium-student">
+              {student?.name ? student.name : null}
+            </div>
           </div>
         );
       })}
@@ -107,6 +109,12 @@ const PodiumPage = () => {
 
   return (
     <div className="podium-page">
+      <button
+        className="back-dashboard-btn"
+        onClick={() => navigate('/dashboard')}
+      >
+        Back to Dashboard
+      </button>
       <h1>🏆 Podium</h1>
       <audio ref={audioRef} src="/victory.mp3" preload="auto" />
       {showConfetti && <Confetti />}
@@ -143,14 +151,6 @@ const PodiumPage = () => {
           </div>
         ))
       )}
-      <div className="page-container">
-        <button
-          className="back-dashboard-btn"
-          onClick={() => navigate('/dashboard')}
-        >
-          Back to Dashboard
-        </button>
-      </div>
     </div>
   );
 };
