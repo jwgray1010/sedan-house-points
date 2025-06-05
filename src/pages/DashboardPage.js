@@ -1,15 +1,6 @@
 // src/pages/DashboardPage.js
-import React, { useEffect, useState } from 'react';
-import { db, auth } from '../firebase.js';
-import {
-  collection,
-  getDocs,
-  addDoc,
-  serverTimestamp,
-  doc,
-  getDoc,
-  updateDoc
-} from 'firebase/firestore';
+import React, { useState } from 'react';
+import { auth } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import {
   Menu,
@@ -21,7 +12,6 @@ import {
 } from 'lucide-react';
 import PointModal from '../components/PointModal.js';
 import BehaviorHistoryModal from '../components/BehaviorHistoryModal.js';
-import emailjs from 'emailjs-com';
 import {
   sedanLogo,
   houseStorm,
