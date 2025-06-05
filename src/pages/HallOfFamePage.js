@@ -6,7 +6,6 @@ import { useWindowSize } from 'react-use';
 import { db } from '../firebase.js';
 import html2pdf from 'html2pdf.js';
 import './HallOfFamePage.css';
-import { useNavigate } from 'react-router-dom';
 
 function HallOfFamePage({ winners = [] }) {
   const { width, height } = useWindowSize();
