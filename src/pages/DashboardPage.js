@@ -280,7 +280,15 @@ const DashboardPage = () => {
                     onClick={(e) => {
                       if (atMaxStep) return;
                       e.stopPropagation();
-                      if (dir === 'positive') playDing(); // <-- Play ding for positive
+                      if (dir === 'positive') playDing();
+                      if (dir === 'negative') {
+                        try {
+                          alertSound.currentTime = 0;
+                          alertSound.play();
+                        } catch (e) {
+                          // Ignore play errors
+                        }
+                      }
                       handlePoint(student, dir);
                       const el = e.currentTarget;
                       el.classList.add('pop');
@@ -288,7 +296,15 @@ const DashboardPage = () => {
                     }}
                     onKeyDown={e => {
                       if (e.key === 'Enter' && !atMaxStep) {
-                        if (dir === 'positive') playDing(); // <-- Play ding for positive
+                        if (dir === 'positive') playDing();
+                        if (dir === 'negative') {
+                          try {
+                            alertSound.currentTime = 0;
+                            alertSound.play();
+                          } catch (e) {
+                            // Ignore play errors
+                          }
+                        }
                         handlePoint(student, dir);
                       }
                     }}
