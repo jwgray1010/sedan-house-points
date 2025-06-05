@@ -7,9 +7,9 @@ import { db } from '../firebase.js';
 import html2pdf from 'html2pdf.js';
 import './HallOfFamePage.css';
 import { useNavigate } from 'react-router-dom';
-import ReactCanvasConfetti from 'react-canvas-confetti';
+import Confetti from 'react-confetti';
 
-const HallOfFamePage = ({ winners = [] }) => {
+function HallOfFamePage({ winners = [] }) {
   const navigate = useNavigate();
   const { width, height } = useWindowSize();
   const [filter, setFilter] = useState('all');
@@ -27,7 +27,7 @@ const HallOfFamePage = ({ winners = [] }) => {
   // Play victory audio on mount
   useEffect(() => {
     if (victoryAudioRef.current) {
-      victoryAudioRef.current.play().catch(() => {});
+      victoryAudioRef.current.play().catch(() => { });
     }
   }, []);
 
@@ -66,14 +66,11 @@ const HallOfFamePage = ({ winners = [] }) => {
     const matchesYear = !yearFilter || d.getFullYear() === Number(yearFilter);
     const matchesMonth = !monthFilter || d.getMonth() + 1 === Number(monthFilter);
     const inWeek = filter === 'week' ? d >= weekAgo : true;
-    const inRange =
-      (!startDate || d >= new Date(startDate)) &&
+    const inRange = (!startDate || d >= new Date(startDate)) &&
       (!endDate || d <= new Date(endDate));
-    const matchesSearch =
-      !search ||
+    const matchesSearch = !search ||
       (w.name && w.name.toLowerCase().includes(search.toLowerCase()));
-    const matchesHouse =
-      !houseFilter || (w.house && w.house === houseFilter);
+    const matchesHouse = !houseFilter || (w.house && w.house === houseFilter);
     return matchesYear && matchesMonth && inWeek && inRange && matchesSearch && matchesHouse;
   });
 
@@ -92,10 +89,9 @@ const HallOfFamePage = ({ winners = [] }) => {
   const allTimeStudents = tally('name');
 
   // Helper for robust date formatting
-  const getDate = (w) =>
-    w.timestamp && w.timestamp.seconds
-      ? new Date(w.timestamp.seconds * 1000).toLocaleDateString()
-      : '';
+  const getDate = (w) => w.timestamp && w.timestamp.seconds
+    ? new Date(w.timestamp.seconds * 1000).toLocaleDateString()
+    : '';
 
   // Export classes data as CSV
   const exportClassesCSV = () => {
@@ -158,7 +154,7 @@ const HallOfFamePage = ({ winners = [] }) => {
     setShowConfetti(false);
     if (victoryAudioRef.current) {
       victoryAudioRef.current.currentTime = 0;
-      victoryAudioRef.current.play().catch(() => {});
+      victoryAudioRef.current.play().catch(() => { });
     }
     setTimeout(() => setShowConfetti(true), 300);
   };
@@ -205,7 +201,7 @@ const HallOfFamePage = ({ winners = [] }) => {
   const houseList = Array.from(new Set(winners.map(w => w.house).filter(Boolean)));
   const years = Array.from(new Set(winners.map(w => new Date(w.timestamp.seconds * 1000).getFullYear())));
   const months = [
-    "January","February","March","April","May","June","July","August","September","October","November","December"
+    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
   ];
 
   return (
@@ -222,18 +218,18 @@ const HallOfFamePage = ({ winners = [] }) => {
       {showConfetti && (
         <>
           <Confetti width={width} height={height} recycle={false} />
-          <span style={{position:'absolute',left:'-9999px'}} aria-live="polite">Congratulations! 🎉</span>
+          <span style={{ position: 'absolute', left: '-9999px' }} aria-live="polite">Congratulations! 🎉</span>
         </>
       )}
 
       {/* Replay celebration */}
-      <button onClick={replayCelebration} style={{margin:'1rem 0'}}>Replay Celebration</button>
+      <button onClick={replayCelebration} style={{ margin: '1rem 0' }}>Replay Celebration</button>
 
       {/* Main Title */}
       <h1 className="page-title">Hall of Fame</h1>
 
       {/* Filter controls */}
-      <div className="filter-toggle" style={{marginBottom:'1rem'}}>
+      <div className="filter-toggle" style={{ marginBottom: '1rem' }}>
         <button onClick={() => setFilter('week')} className={filter === 'week' ? 'active' : ''} aria-label="Show this week's winners">This Week</button>
         <button onClick={() => setFilter('all')} className={filter === 'all' ? 'active' : ''} aria-label="Show all-time winners">All Time</button>
         <input
@@ -241,23 +237,20 @@ const HallOfFamePage = ({ winners = [] }) => {
           value={startDate}
           onChange={e => setStartDate(e.target.value)}
           aria-label="Start date"
-          style={{marginLeft:'1rem'}}
-        />
+          style={{ marginLeft: '1rem' }} />
         <input
           type="date"
           value={endDate}
           onChange={e => setEndDate(e.target.value)}
-          aria-label="End date"
-        />
-        <button onClick={() => { setStartDate(''); setEndDate(''); }}>Clear Dates</button>
+          aria-label="End date" />
+        <button onClick={() => { setStartDate(''); setEndDate(''); } }>Clear Dates</button>
         <input
           type="text"
           placeholder="Search name"
           value={search}
           onChange={e => setSearch(e.target.value)}
           aria-label="Search by name"
-          style={{marginLeft:'1rem'}}
-        />
+          style={{ marginLeft: '1rem' }} />
         <select
           value={houseFilter}
           onChange={e => setHouseFilter(e.target.value)}
@@ -272,12 +265,12 @@ const HallOfFamePage = ({ winners = [] }) => {
         </select>
         <select value={monthFilter} onChange={e => setMonthFilter(e.target.value)} aria-label="Filter by month">
           <option value="">All Months</option>
-          {months.map((m,i) => <option key={m} value={i+1}>{m}</option>)}
+          {months.map((m, i) => <option key={m} value={i + 1}>{m}</option>)}
         </select>
       </div>
 
       {/* Export buttons */}
-      <div style={{marginBottom:'1rem', display:'flex', gap:'1rem', flexWrap:'wrap'}}>
+      <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         <button onClick={exportWinnersCSV}>Export Displayed Winners CSV</button>
         <button onClick={exportClassesCSV}>Export All-Time Classes CSV</button>
         <button onClick={exportStudentsCSV}>Export All-Time Students CSV</button>
@@ -292,11 +285,11 @@ const HallOfFamePage = ({ winners = [] }) => {
             tabIndex={0}
             aria-label={`Details for ${w.name}`}
             onClick={() => setSelectedWinner(w)}
-            onKeyDown={e => { if (e.key === 'Enter') setSelectedWinner(w); }}
-            style={{cursor:'pointer'}}
+            onKeyDown={e => { if (e.key === 'Enter') setSelectedWinner(w); } }
+            style={{ cursor: 'pointer' }}
           >
             {w.id === yesterdayTopId && <div className="trophy-icon">🏆</div>}
-            <div className="medal">{['🥇','🥈','🥉'][w.rank-1]}</div>
+            <div className="medal">{['🥇', '🥈', '🥉'][w.rank - 1]}</div>
             <div className="avatar">{w.name?.[0] || '?'}</div>
             <div className="info">
               <div className="name">{w.name}</div>
@@ -305,9 +298,9 @@ const HallOfFamePage = ({ winners = [] }) => {
             </div>
             <button
               className="download-cert-btn"
-              onClick={e => { e.stopPropagation(); downloadCertificate(w); }}
+              onClick={e => { e.stopPropagation(); downloadCertificate(w); } }
               aria-label={`Download certificate for ${w.name}`}
-              style={{marginTop:'0.5rem'}}
+              style={{ marginTop: '0.5rem' }}
             >
               Download Certificate
             </button>
@@ -322,14 +315,14 @@ const HallOfFamePage = ({ winners = [] }) => {
 
       {/* Leader Section with black headings */}
       <div className="leader-section">
-        <h2 style={{color:'#000', textShadow:'none'}}>All-Time Class Points</h2>
+        <h2 style={{ color: '#000', textShadow: 'none' }}>All-Time Class Points</h2>
         <ul className="leader-list">
           {allTimeClasses.map((c) => <li key={c.name}>{c.name} – {c.pts} pts</li>)}
         </ul>
 
-        <h2 style={{color:'#000', textShadow:'none'}}>Top 3 Student Points of the Year</h2>
+        <h2 style={{ color: '#000', textShadow: 'none' }}>Top 3 Student Points of the Year</h2>
         <ul className="leader-list">
-          {allTimeStudents.slice(0,3).map((s) => <li key={s.name}>{s.name} – {s.pts} pts</li>)}
+          {allTimeStudents.slice(0, 3).map((s) => <li key={s.name}>{s.name} – {s.pts} pts</li>)}
         </ul>
       </div>
 
@@ -385,7 +378,7 @@ const HallOfFamePage = ({ winners = [] }) => {
       </div>
     </div>
   );
-};
+}
 
 function WinnerCard({ student, rank }) {
   const medals = ['🏆', '🥈', '🥉'];
