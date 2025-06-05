@@ -22,6 +22,7 @@ import {
 import './DashboardPage.css';
 import Confetti from 'react-confetti';
 import { signOut } from 'firebase/auth';
+import emailjs from 'emailjs-com';
 
 const EMAIL_ALERT_STEPS = [3, 4, 5];
 const ADMIN_EMAIL = 'john.gray@usd286.org';
