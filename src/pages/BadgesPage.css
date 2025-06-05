@@ -13,10 +13,11 @@
 
 .badge-students {
   display: flex;
-  gap: 1rem;
+  gap: 2rem 1rem; /* more vertical gap */
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .badge-card {
@@ -27,6 +28,7 @@
   width: 140px;
   text-align: center;
   position: relative;
+  margin-bottom: 2rem; /* Add more vertical margin to each badge card */
 }
 
 .medal {
@@ -131,9 +133,41 @@
   display: block;
 }
 
+h1, h2, h3 {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+button {
+  background: #222;
+  color: #fff;
+  border: 1px solid #ffd700;
+  border-radius: 5px;
+  padding: 0.5rem 1.2rem;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+button:hover,
+button:focus-visible {
+  background: #ffd700;
+  color: #222;
+  box-shadow: 0 0 0 2px #fff, 0 0 8px #ffd70088;
+}
+
 @media (max-width: 500px) {
   .badge-card {
     width: 90vw;
     min-width: 0;
   }
+}
+
+/* Example for BadgesPage.css */
+.badges {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 3rem 2rem; /* increase top/bottom padding */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  margin: 3rem auto;
+  max-width: 900px;
+  color: #fff;
 }
