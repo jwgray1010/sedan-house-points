@@ -9,7 +9,6 @@ import './HallOfFamePage.css';
 import { useNavigate } from 'react-router-dom';
 
 function HallOfFamePage({ winners = [] }) {
-  const navigate = useNavigate();
   const { width, height } = useWindowSize();
   const [filter, setFilter] = useState('all');
   const [yesterdayTopId, setYesterdayTopId] = useState(null);
