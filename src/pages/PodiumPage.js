@@ -12,11 +12,8 @@ const getTopThree = (students, key) =>
     .slice(0, 3);
 
 const PodiumVisual = ({ students, pointsKey }) => {
-  // Pad with empty slots if less than 3 students
   const podiums = [null, null, null];
   students.forEach((s, i) => { podiums[i] = s; });
-
-  // Heights for each podium (1st is tallest)
   const heights = [150, 110, 90];
 
   return (
@@ -154,7 +151,10 @@ const PodiumPage = () => {
         ))
       )}
       <div className="page-container">
-        <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
+        <button
+          className="back-dashboard-btn"
+          onClick={() => navigate('/dashboard')}
+        >
           Back to Dashboard
         </button>
       </div>

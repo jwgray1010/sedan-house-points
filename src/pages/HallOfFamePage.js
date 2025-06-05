@@ -6,6 +6,7 @@ import { useWindowSize } from 'react-use';
 import { db } from '../firebase.js';
 import html2pdf from 'html2pdf.js';
 import './HallOfFamePage.css';
+import { column } from '../assets/assets.js';
 
 function HallOfFamePage({ winners = [] }) {
   const { width, height } = useWindowSize();
@@ -377,14 +378,14 @@ function HallOfFamePage({ winners = [] }) {
 
 function WinnerCard({ student }) {
   const initials = student?.name
-    ? student.name.split(' ').map(n => n[0]).join('').toUpperCase()
+    ? student.name.split(' ').map(n => n[0]).toUpperCase()
     : '?';
   return (
     <div className="winner-card column-style">
       <div className="winner-avatar-bounce">
         <div className="winner-avatar">{initials}</div>
       </div>
-      <img src="/assets/column.png" alt="" className="winner-column-img" />
+      <img src={column} alt="" className="winner-column-img" />
       <div className="winner-info">
         <div className="winner-name">{student?.name}</div>
         <div className="winner-medal">🥇</div>
