@@ -203,6 +203,7 @@ button:focus-visible {
   box-shadow: 0 0 0 2px #fff, 0 0 8px #ffd70088;
 }
 /* Example for SummaryPage.css */
+.summary-container,
 .summary {
   background: rgba(0, 0, 0, 0.6);
   padding: 2rem;

@@ -7,11 +7,11 @@ import { db } from '../firebase.js';
 import html2pdf from 'html2pdf.js';
 import './HallOfFamePage.css';
 import { useNavigate } from 'react-router-dom';
+import ReactCanvasConfetti from 'react-canvas-confetti';
 
-const HallOfFamePage = () => {
+const HallOfFamePage = ({ winners = [] }) => {
   const navigate = useNavigate();
   const { width, height } = useWindowSize();
-  const [winners, setWinners] = useState([]);
   const [filter, setFilter] = useState('all');
   const [yesterdayTopId, setYesterdayTopId] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -20,6 +20,8 @@ const HallOfFamePage = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [selectedWinner, setSelectedWinner] = useState(null);
+  const [yearFilter, setYearFilter] = useState('');
+  const [monthFilter, setMonthFilter] = useState('');
   const victoryAudioRef = useRef(null);
 
   // Play victory audio on mount
@@ -35,7 +37,6 @@ const HallOfFamePage = () => {
       const snapshot = await getDocs(collection(db, 'hallOfFame'));
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       const sorted = data.sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds);
-      setWinners(sorted);
 
       // Determine yesterday's top rank 1
       const now = new Date();
@@ -62,6 +63,8 @@ const HallOfFamePage = () => {
   weekAgo.setDate(now.getDate() - 7);
   const displayed = winners.filter(w => {
     const d = new Date(w.timestamp.seconds * 1000);
+    const matchesYear = !yearFilter || d.getFullYear() === Number(yearFilter);
+    const matchesMonth = !monthFilter || d.getMonth() + 1 === Number(monthFilter);
     const inWeek = filter === 'week' ? d >= weekAgo : true;
     const inRange =
       (!startDate || d >= new Date(startDate)) &&
@@ -71,7 +74,7 @@ const HallOfFamePage = () => {
       (w.name && w.name.toLowerCase().includes(search.toLowerCase()));
     const matchesHouse =
       !houseFilter || (w.house && w.house === houseFilter);
-    return inWeek && inRange && matchesSearch && matchesHouse;
+    return matchesYear && matchesMonth && inWeek && inRange && matchesSearch && matchesHouse;
   });
 
   // Tally all-time
@@ -200,6 +203,10 @@ const HallOfFamePage = () => {
 
   // Unique house list for filter
   const houseList = Array.from(new Set(winners.map(w => w.house).filter(Boolean)));
+  const years = Array.from(new Set(winners.map(w => new Date(w.timestamp.seconds * 1000).getFullYear())));
+  const months = [
+    "January","February","March","April","May","June","July","August","September","October","November","December"
+  ];
 
   return (
     <div className="dashboard-container hall-page">
@@ -259,6 +266,14 @@ const HallOfFamePage = () => {
           <option value="">All Houses</option>
           {houseList.map(h => <option key={h} value={h}>{h}</option>)}
         </select>
+        <select value={yearFilter} onChange={e => setYearFilter(e.target.value)} aria-label="Filter by year">
+          <option value="">All Years</option>
+          {years.map(y => <option key={y} value={y}>{y}</option>)}
+        </select>
+        <select value={monthFilter} onChange={e => setMonthFilter(e.target.value)} aria-label="Filter by month">
+          <option value="">All Months</option>
+          {months.map((m,i) => <option key={m} value={i+1}>{m}</option>)}
+        </select>
       </div>
 
       {/* Export buttons */}
@@ -317,8 +332,90 @@ const HallOfFamePage = () => {
           {allTimeStudents.slice(0,3).map((s) => <li key={s.name}>{s.name} – {s.pts} pts</li>)}
         </ul>
       </div>
+
+      <div className="hall-container">
+        <h1 className="page-title">Hall of Fame</h1>
+        <div className="winner-grid">
+          {winners.slice(0, 3).map((student, idx) => (
+            <WinnerCard key={student.id || idx} student={student} rank={idx + 1} />
+          ))}
+        </div>
+        {/* Optionally, show more winners below */}
+        {winners.length > 3 && (
+          <div className="leader-section">
+            <h2>Other Honorees</h2>
+            <ul className="leader-list">
+              {winners.slice(3).map((student, idx) => (
+                <li key={student.id || idx}>
+                  <span className="sparkle">{student.name}</span>
+                  {student.grade && <> – {student.grade} Grade</>}
+                  {student.category && <> ({student.category})</>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {/* Fireworks effect */}
+      <Fireworks active={showConfetti} />
+
+      {/* Hall of Fame Wall */}
+      <div className="hof-wall" aria-label="Hall of Fame Wall">
+        <h2>Hall of Fame Wall</h2>
+        <div className="hof-wall-grid">
+          {winners.map(w => (
+            <div key={w.id} className="hof-wall-card" tabIndex={0} aria-label={`${w.name}, ${w.category}, ${getDate(w)}`}>
+              <span className="avatar">{w.name?.[0]}</span>
+              <span className="name">{w.name}</span>
+              <span className="meta">{w.category} • {getDate(w)}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Fun Facts Section */}
+      <div className="fun-facts">
+        <h2>Fun Facts</h2>
+        <ul>
+          <li>Most Wins: {allTimeStudents[0]?.name} ({allTimeStudents[0]?.pts} pts)</li>
+          <li>Most Points in a Month: {/* calculate and display */}</li>
+          <li>Total Winners: {winners.length}</li>
+        </ul>
+      </div>
     </div>
   );
 };
+
+function WinnerCard({ student, rank }) {
+  const medals = ['🏆', '🥈', '🥉'];
+  const borderClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
+  return (
+    <div className={`winner-card ${borderClass}`}>
+      <div className="medal">{medals[rank - 1] || '⭐'}</div>
+      <div className="trophy-icon">{medals[rank - 1] || '⭐'}</div>
+      <div className="avatar">{student?.name?.[0] || '?'}</div>
+      <div className="info">
+        <div className="name">{student?.name || 'Unknown'}</div>
+        <div className="meta">{student?.grade ? `${student.grade} Grade` : ''}</div>
+        <div className="category">{student?.category || ''}</div>
+      </div>
+    </div>
+  );
+}
+
+function Fireworks({ active }) {
+  const ref = useRef();
+  useEffect(() => {
+    if (active && ref.current) {
+      ref.current({
+        particleCount: 200,
+        spread: 120,
+        origin: { y: 0.7 }
+      });
+    }
+  }, [active]);
+  return <ReactCanvasConfetti refConfetti={ref} style={{position:'fixed',pointerEvents:'none',top:0,left:0,width:'100vw',height:'100vh',zIndex:999}} />;
+}
 
 export default HallOfFamePage;

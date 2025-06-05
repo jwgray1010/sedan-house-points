@@ -27,6 +27,19 @@ import { collection, getDocs } from 'firebase/firestore';
 
 const ADMIN_EMAIL = 'john.gray@usd286.org';
 
+// List of emails that should see all students
+const ALL_ACCESS_EMAILS = [
+  'john.gray@usd286.org',         // Principal
+  'martha.davis@usd286.org',      // Secretary
+  'kyle.thornton@usd286.org',        // PE Teacher
+  'sherri.durbin@usd286.org',     // Music Teacher
+  'jennifer.giles@usd286.org',         // Counselor
+  'kristyn.stettler@usd286.org',      // Social Worker
+  'tisha.brown@usd286.org',        // Reading Specialist
+  'matasha.ellison@usd286.org',    // Math Specialist
+  // Add more as needed
+];
+
 const BADGE_MILESTONES = [
   { days: 20, label: "Blue Devil Champion", color: "#e53935" },
   { days: 10, label: "Self Manager", color: "#1e88e5" },
@@ -88,8 +101,13 @@ function DashboardPage() {
   };
   const maxPts = Math.max(...Object.values(housePoints));
 
+  // When filtering students:
+  const isAdmin = ALL_ACCESS_EMAILS.includes(
+    (auth.currentUser?.email || teacherName || '').toLowerCase()
+  );
+
   // Example filtered students (replace with your real filter logic)
-  const filteredStudents = selectedTeacher === 'All'
+  const filteredStudents = isAdmin || selectedTeacher === 'All'
     ? students
     : students.filter(s => s.teacher === selectedTeacher);
 

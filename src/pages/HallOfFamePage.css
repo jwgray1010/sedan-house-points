@@ -1,9 +1,22 @@
 /* HallOfFamePage.css */
 .hall-page {
   padding: 2rem;
-  background: linear-gradient(to bottom, #ffffff, #e8eaf6);
   min-height: 100vh;
-  text-align: center;
+  background: linear-gradient(120deg, #232526 0%, #414345 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hall-container {
+  background: rgba(0,0,0,0.7);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  padding: 2.5rem 2rem;
+  max-width: 1200px;
+  width: 98vw;
+  margin: 2rem auto;
+  color: #fff;
 }
 
 .filter-toggle {
@@ -34,10 +47,21 @@
 .winner-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
   margin-top: 2rem;
-  animation: fadeInSection 1s;
+}
+
+@media (max-width: 700px) {
+  .winner-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .winner-card {
+    width: 95vw;
+    min-width: 0;
+  }
 }
 
 @keyframes fadeInSection {
@@ -46,60 +70,36 @@
 }
 
 .winner-card {
-  background: rgba(255,255,255,0.95);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  width: 220px;
-  text-align: left;
+  background: rgba(255,255,255,0.10);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #ffd70055, 0 2px 8px rgba(0,0,0,0.2);
+  padding: 1.5rem 1rem 1.2rem 1rem;
+  width: 240px;
+  text-align: center;
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  animation: podiumEnter 0.6s ease forwards;
+  margin: 1rem;
+  border: 2px solid #ffd700;
   transition: transform 0.2s, box-shadow 0.2s;
+  animation: podiumEnter 0.7s cubic-bezier(.68,-0.55,.27,1.55) forwards;
 }
-.winner-card.rank-3 { animation-delay: 0.2s; }
-.winner-card.rank-2 { animation-delay: 0.4s; }
-.winner-card.rank-1 { animation-delay: 0.6s; }
-
 .winner-card:hover, .winner-card:focus {
-  box-shadow: 0 4px 24px #ffd70088, 0 2px 8px rgba(0,0,0,0.1);
-  transform: scale(1.03);
+  box-shadow: 0 8px 32px #ffd700cc, 0 2px 8px rgba(0,0,0,0.2);
+  transform: scale(1.04) rotate(-1deg);
   z-index: 2;
-  outline: 2px solid #3f51b5;
-  outline-offset: 2px;
-}
-
-@keyframes podiumEnter {
-  0% {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  outline: 2px solid #ffd700;
 }
 
 .trophy-icon {
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 28px;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: #ffd700;
+  filter: drop-shadow(0 0 8px #ffd70088);
   animation: bounceGlow 2s infinite;
-  z-index: 1;
 }
-
 @keyframes bounceGlow {
-  0%, 100% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateX(-50%) translateY(-10px);
-    opacity: 1;
-  }
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(-10px) scale(1.1); opacity: 1; }
 }
 
 .medal {
@@ -125,19 +125,19 @@
 }
 
 .avatar {
-  width: 60px;
-  height: 60px;
-  background-color: #3f51b5;
-  color: white;
-  font-size: 28px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #3f51b5 60%, #ffd700 100%);
+  color: #fff;
+  font-size: 2.2rem;
   font-weight: bold;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1rem;
-  position: relative;
-  z-index: 2;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px #ffd70055;
 }
 
 .info {
@@ -145,23 +145,32 @@
 }
 
 .name {
-  font-size: 18px;
+  font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
-  color: #222;
+  color: #ffd700;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 4px #000;
 }
 
 .meta {
-  font-size: 12px;
-  color: #444;
+  font-size: 1rem;
+  color: #fff;
   margin-top: 0.25rem;
+  opacity: 0.85;
 }
 
 .category {
   margin-top: 0.5rem;
-  font-size: 13px;
+  font-size: 1.1rem;
   font-weight: 500;
-  color: #3f51b5;
+  color: #fff;
+  background: #3f51b5;
+  border-radius: 8px;
+  padding: 0.2rem 0.7rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px #3f51b555;
 }
 
 .rank-1 { border: 2px solid gold; }
@@ -274,9 +283,11 @@
 }
 
 /* White headings */
-.page-title, .section-title, .filter-toggle button {
-  color: #fff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+.page-title, .section-title {
+  color: #ffd700;
+  text-shadow: 2px 2px 8px #000, 0 0 12px #ffd70088;
+  font-size: 2.6rem;
+  margin-bottom: 1.5rem;
 }
 
 h1, h2, h3 {
@@ -374,4 +385,32 @@ button:focus, .filter-toggle button:focus {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.hof-wall-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+.hof-wall-card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0.8rem 1.2rem;
+  min-width: 120px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 2px 8px #ffd70033;
+  transition: transform 0.2s;
+}
+.hof-wall-card:focus, .hof-wall-card:hover {
+  outline: 2px solid #ffd700;
+  transform: scale(1.05);
+}
+.random-fun {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 1rem 0;
+  animation: bounce 1.2s infinite alternate;
 }
