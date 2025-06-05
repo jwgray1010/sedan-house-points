@@ -16,6 +16,7 @@ import RewardStorePage from './pages/RewardStorePage.js';
 import BadgesPage from './pages/BadgesPage.js';
 import CelebrationPage from './pages/CelebrationPage.js';
 import BehaviorLogPage from './pages/BehaviorLogPage.js';
+import RewardsPage from './pages/RewardsPage.js';
 
 // TODO: Add authentication/role-based route protection as needed
 
@@ -39,6 +40,7 @@ const AppRouter = () => {
         <Route path="/badges" element={<BadgesPage />} />
         <Route path="/celebration" element={<CelebrationPage />} />
         <Route path="/behavior-log" element={<BehaviorLogPage />} />
+        <Route path="/rewards" element={<RewardsPage />} />
         {/* 404 fallback */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
