@@ -24,7 +24,6 @@ import Confetti from 'react-confetti';
 import { signOut } from 'firebase/auth';
 import emailjs from 'emailjs-com';
 
-const EMAIL_ALERT_STEPS = [3, 4, 5];
 const ADMIN_EMAIL = 'john.gray@usd286.org';
 
 const BADGE_MILESTONES = [
@@ -40,7 +39,6 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   const [students, setStudents] = useState([]);
-  const [behaviorLogs, setBehaviorLogs] = useState([]);
   const [teacherName, setTeacherName] = useState('');
   const [selectedTeacher, setSelectedTeacher] = useState('All');
   const [notification, setNotification] = useState(null);
@@ -66,7 +64,7 @@ const DashboardPage = () => {
   const filteredStudents = students; // or apply filter
 
   // Example current step function (replace with your real logic)
-  const getCurrentStep = (studentId) => 1;
+  const getCurrentStep = () => 1;
 
   // Today's date string (MM-DD)
   const todayStr = new Date().toISOString().slice(5, 10);
@@ -86,7 +84,7 @@ const DashboardPage = () => {
   };
 
   // Example getTodaysLogs function (replace with your real logic)
-  const getTodaysLogs = (studentId, dir) => [];
+  const getTodaysLogs = () => [];
 
   // Example handleSubmitPoint function (replace with your real logic)
   const handleSubmitPoint = () => {};
