@@ -38,15 +38,15 @@ const alertSound = new Audio('/alert.mp3');
 const DashboardPage = () => {
   const navigate = useNavigate();
 
-  const [students, setStudents] = useState([]);
-  const [teacherName, setTeacherName] = useState('');
+  const [students] = useState([]);
+  const [teacherName] = useState('');
   const [selectedTeacher, setSelectedTeacher] = useState('All');
   const [notification, setNotification] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [selectedDirection, setSelectedDirection] = useState(null);
+  const [selectedDirection] = useState(null);
   const [historyStudent, setHistoryStudent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [] = useState(false);
 
   // Example teacher list (replace with your real data if needed)
   const teacherList = ['All', 'Mr. Smith', 'Ms. Johnson', 'Mrs. Lee'];
