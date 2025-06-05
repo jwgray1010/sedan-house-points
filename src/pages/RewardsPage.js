@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './RewardsPage.css';
 import { rewards as staticRewards } from "../data/rewards.js";
 
-const RewardStorePage = ({ isTeacher }) => {
+const RewardsPage = ({ isTeacher }) => {
   const [rewards, setRewards] = useState(staticRewards);
   const [name, setName] = useState('');
   const [cost, setCost] = useState('');
