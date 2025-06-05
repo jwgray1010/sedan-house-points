@@ -1,4 +1,4 @@
-import glowingShieldLogo from './glowing_logo.png';
+import glowingShieldLogo from './glowing_shield_logo.png';
 import houseStorm from './house_storm.png';
 import houseMeadow from './house_meadow.png';
 import houseFlint from './house_flint.png';
