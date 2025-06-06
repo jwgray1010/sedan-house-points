@@ -79,6 +79,7 @@ const BadgesPage = () => {
       <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
         Back to Dashboard
       </button>
+      <button onClick={() => navigate('/')}>Go Home</button>
 
       <h1>🏅 Student Medals</h1>
       {badges.map(badge => (
