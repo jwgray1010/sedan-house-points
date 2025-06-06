@@ -257,11 +257,12 @@ body {
   align-items: center;
   justify-content: center;
 }
+/* Student name: pure black, no glow */
 .name {
-  color: #222;
+  color: #000 !important;
   font-weight: bold;
   font-size: 1.1rem;
-  text-shadow: none !important; /* Ensure NO glow, even for winning house */
+  text-shadow: none !important;
 }
 .leader .name {
   text-shadow: none !important;
