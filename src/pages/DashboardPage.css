@@ -258,7 +258,7 @@ body {
   justify-content: center;
 }
 .name {
-  color: #ffd700; /* or your preferred color */
+  color: #222;
   font-weight: bold;
   font-size: 1.1rem;
   text-shadow: none !important; /* Ensure NO glow, even for winning house */
