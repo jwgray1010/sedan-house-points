@@ -2,18 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-
-    <!-- Add this CSP meta tag to permit unsafe-eval -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="
-        default-src 'self';
-        script-src 'self' 'unsafe-eval';
-        object-src 'none';
-        base-uri 'self';
-      "
-    />
-
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta
       name="viewport"
@@ -27,13 +15,24 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Sedan House Points</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Fredoka+One&family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
+    <!-- CSP for security (customize as needed) -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:;"> -->
+    <!-- Preconnect for faster Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Fredoka+One&family=Pacifico&display=swap" rel="stylesheet">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+      To begin the development, run npm start or yarn start.
+      To create a production bundle, use npm run build or yarn build.
+    -->
   </body>
 </html>
+<!-- filepath: /workspaces/sedan-house-points/public/index.html -->
