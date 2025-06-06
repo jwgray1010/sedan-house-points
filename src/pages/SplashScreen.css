@@ -13,6 +13,10 @@
 }
 
 .splash-logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 200px;
   max-width: 80vw;
   display: block;
