@@ -9,10 +9,10 @@ import SplashScreen from './pages/SplashScreen.js';
 import StepsPage from './pages/StepsPage.js';
 import LoginPage from './pages/LoginPage.js';
 import CertificatesPage from './pages/CertificatesPage.js';
-import RewardsPage from './pages/RewardsPage.js';
 import BadgesPage from './pages/BadgesPage.js';
 import CelebrationPage from './pages/CelebrationPage.js';
 import BehaviorLogPage from './pages/BehaviorLogPage.js';
+import TeacherRewardsPage from './pages/TeacherRewardsPage.js';
 
 // TODO: Replace with actual authentication/role logic
 const isTeacher = true;
@@ -33,8 +33,8 @@ function App() {
         <Route path="/steps" element={<StepsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/certificates" element={<CertificatesPage />} />
-        <Route path="/rewards" element={<RewardsPage />} />
         <Route path="/badges" element={<BadgesPage />} />
+        <Route path="/manage-rewards" element={<TeacherRewardsPage />} />
         <Route
           path="/celebration"
           element={

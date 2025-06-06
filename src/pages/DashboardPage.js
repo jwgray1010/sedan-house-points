@@ -24,6 +24,8 @@ import Confetti from 'react-confetti';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import emailjs from 'emailjs-com';
 import { collection, getDocs } from 'firebase/firestore';
+// Remove this line, as it is incorrect and unnecessary:
+// import TeacherRewardsPage from './pages/TeacherRewardsPage.js';
 
 const ADMIN_EMAIL = 'john.gray@usd286.org';
 
@@ -234,10 +236,10 @@ function DashboardPage() {
                 <BarChart2 size={16} /> Graphs
               </button>
               <button onClick={() => navigate('/podium')}>
-                <Award size={16} /> Podium
+                <Award size={12} /> Podium
               </button>
               <button onClick={() => navigate('/hall-of-fame')}>
-                <Trophy size={16} /> Hall of Fame
+                <Trophy size={12} /> Hall of Fame
               </button>
               <button onClick={() => navigate('/certificates')}>
                 Certificates
@@ -251,7 +253,7 @@ function DashboardPage() {
               <button onClick={() => navigate('/behavior-log')}>
                 Behavior Log
               </button>
-              <button onClick={() => navigate('/reward-store')}>
+              <button onClick={() => navigate('/teacher-rewards')}>
                 Rewards
               </button>
               <button onClick={handleSignOut}>
