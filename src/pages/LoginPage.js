@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase.js';
 import { doc, setDoc } from 'firebase/firestore';
-import logo from '../assets/glowing_logo.png';
+import { glowingShieldLogo } from '../assets/assets.js';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -91,7 +91,7 @@ const LoginPage = () => {
     <div style={{ padding: '2rem', maxWidth: '400px', margin: '0 auto', textAlign: 'center' }}>
       <h2>Teacher Login</h2>
 
-      <img src={logo} alt="Sedan Logo" style={{ width: 100, marginBottom: 20 }} />
+      <img src={glowingShieldLogo} alt="Sedan Logo" style={{ width: 100, marginBottom: 20 }} />
 
       <form onSubmit={handleLogin}>
         <input

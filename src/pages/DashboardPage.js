@@ -17,7 +17,8 @@ import {
   houseStorm,
   houseMeadow,
   houseFlint,
-  houseEmber
+  houseEmber,
+  logo
 } from '../assets/assets.js';
 import './DashboardPage.css';
 import Confetti from 'react-confetti';
@@ -204,7 +205,7 @@ function DashboardPage() {
       {/* ─── Header Bar ─── */}
       <div className="header-bar">
         <div className="page-header">
-          <img src={sedanLogo} className="header-icon" alt="Sedan Logo" />
+          <img src={sedanLogo} alt="Sedan Logo" />
           <div className="header-title">
             <h1>
               Sedan Elementary<br />
