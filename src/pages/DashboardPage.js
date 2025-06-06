@@ -65,22 +65,24 @@ function DashboardPage() {
   const [historyStudent, setHistoryStudent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Fetch students and teachers on mount
+  // 1. Move fetchData OUTSIDE of useEffect so it's accessible
+  const fetchData = async () => {
+    // Fetch students
+    const studentsSnapshot = await getDocs(collection(db, 'students'));
+    setStudents(studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+    // Fetch teachers
+    const teachersSnapshot = await getDocs(collection(db, 'teachers'));
+    setTeachers(teachersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+    // Set teacherName from auth
+    if (auth.currentUser) {
+      setTeacherName(auth.currentUser.displayName || auth.currentUser.email);
+    }
+  };
+
+  // 2. Use fetchData in useEffect
   useEffect(() => {
-    const fetchData = async () => {
-      // Fetch students
-      const studentsSnapshot = await getDocs(collection(db, 'students'));
-      setStudents(studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-
-      // Fetch teachers
-      const teachersSnapshot = await getDocs(collection(db, 'teachers'));
-      setTeachers(teachersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-
-      // Set teacherName from auth
-      if (auth.currentUser) {
-        setTeacherName(auth.currentUser.displayName || auth.currentUser.email);
-      }
-    };
     fetchData();
   }, []);
 
