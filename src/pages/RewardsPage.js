@@ -6,8 +6,13 @@ import { useAuth } from '../hooks/useAuth.js'; // <-- You need a hook or context
 import './RewardsPage.css';
 import { rewards as staticRewards } from "../data/rewards.js";
 
+const ADMIN_EMAIL = 'john.gray@usd286.org';
+
 const RewardsPage = ({ isTeacher }) => {
-  const { user } = useAuth(); // user.uid should be available
+  const { user } = useAuth();
+  const isAdmin = user && user.email === ADMIN_EMAIL;
+  const canEdit = isTeacher || isAdmin;
+
   const [userPoints, setUserPoints] = useState(0);
   const [rewards, setRewards] = useState(staticRewards);
   const [name, setName] = useState('');
@@ -221,7 +226,7 @@ const RewardsPage = ({ isTeacher }) => {
           {filteredRewards.length} rewards
         </span>
       </div>
-      {isTeacher && (
+      {canEdit && (
         <form className="reward-form" onSubmit={handleAdd}>
           <input
             type="text"
@@ -252,9 +257,6 @@ const RewardsPage = ({ isTeacher }) => {
       )}
       {message && <div className="store-message">{message}</div>}
       <div className="reward-list">
-        {paginatedRewards.length === 0 && (
-          <div className="empty-state">No rewards found.</div>
-        )}
         {paginatedRewards.map(reward => (
           <div className={`reward-card${reward.popular ? ' popular' : ''}`} key={reward.id}>
             {reward.popular && <span className="reward-badge">Popular</span>}
@@ -264,7 +266,7 @@ const RewardsPage = ({ isTeacher }) => {
             <div className="reward-cost">{reward.cost} pts</div>
             <div className="reward-desc">{reward.description}</div>
             <div className="reward-actions">
-              {isTeacher ? (
+              {canEdit ? (
                 editId === reward.id ? (
                   <>
                     <input
