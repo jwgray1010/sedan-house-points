@@ -52,7 +52,7 @@
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 2.2rem;
-  text-align: left;
+  text-align: center; /* <-- Center all text inside the box */
   transition: box-shadow 0.2s;
   font-size: 1.15rem;
 }
