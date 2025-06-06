@@ -22,12 +22,6 @@
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
-
-.summary-container h1 {
-  color: #fff !important;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-}
-
 .summary-container h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -248,8 +242,8 @@
 
 /* Make summary page title white */
 .summary-container h1 {
-  color: #fff !important;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  color: #ffffff !important;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
 }
 
 /* Export to CSV button black text */
@@ -257,7 +251,7 @@
   color: #111 !important;
   background: #fff !important;
   border: 2px solid #111 !important;
-}
+}git 
 .export-csv-btn:hover,
 .export-csv-btn:focus-visible {
   background: #ffd700 !important;
