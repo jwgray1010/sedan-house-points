@@ -23,7 +23,7 @@ import './DashboardPage.css';
 import Confetti from 'react-confetti';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import emailjs from 'emailjs-com';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 // Remove this line, as it is incorrect and unnecessary:
 // import TeacherRewardsPage from './pages/TeacherRewardsPage.js';
 
@@ -61,7 +61,7 @@ function DashboardPage() {
   const [selectedTeacher, setSelectedTeacher] = useState('All'); // Default to 'All'
   const [notification, setNotification] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [selectedDirection] = useState(null);
+  const [selectedDirection, setSelectedDirection] = useState(null);
   const [historyStudent, setHistoryStudent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -137,8 +137,27 @@ function DashboardPage() {
   // Example getTodaysLogs function (replace with your real logic)
   const getTodaysLogs = () => [];
 
-  // Example handleSubmitPoint function (replace with your real logic)
-  const handleSubmitPoint = () => { };
+  const handleSubmitPoint = async (student, direction, reason, note) => {
+    // 1. Save the new behavior to Firestore
+    await addDoc(collection(db, 'behaviorLogs'), {
+      studentId: student.id,
+      direction,
+      reason,
+      note,
+      timestamp: new Date(),
+      teacher: teacherName,
+    });
+
+    // 2. Refresh students and logs (fetchData already does this)
+    await fetchData();
+
+    // 3. Close the modal
+    setSelectedStudent(null);
+    setSelectedDirection(null);
+
+    // 4. Optionally show a notification
+    setNotification({ type: 'success', message: 'Point recorded!' });
+  };
 
   // Example birthday students (replace with your real logic)
   const birthdayStudents = [];
@@ -302,7 +321,7 @@ function DashboardPage() {
       <div className="student-grid">
         {filteredStudents.map((student) => {
           const step = getCurrentStep(student.id);
-          const atMaxStep = step >= 5;
+          const atMaxStep = step >= 5 && !isAdmin; // Admins are never blocked
           const streak = student.streakCount || 0;
           const badge = BADGE_MILESTONES.find(b => streak >= b.days);
           const isBirthday = student.birthday && student.birthday.slice(5, 10) === todayStr;
@@ -348,14 +367,14 @@ function DashboardPage() {
                 {['positive', 'negative'].map((dir) => (
                   <div
                     key={dir}
-                    className={`bubble ${dir === 'positive' ? 'green' : 'red'} ${atMaxStep ? 'disabled' : ''}`}
+                    className={`bubble ${dir === 'positive' ? 'green' : 'red'} ${(step >= 5 && !isAdmin) ? 'disabled' : ''}`}
                     tabIndex={0}
                     aria-label={`Add ${dir} point for ${student.name}`}
                     onClick={(e) => {
                       if (atMaxStep) return;
                       e.stopPropagation();
-                      console.log('Clicked', dir, student.name);
-                      // ...rest of your logic
+                      setSelectedStudent(student);
+                      setSelectedDirection(dir); // <-- Set direction ('positive' or 'negative')
                     }}
                     onKeyDown={e => {
                       if (e.key === 'Enter' && !atMaxStep) {
