@@ -18,7 +18,6 @@ import {
   houseMeadow,
   houseFlint,
   houseEmber,
-  sedanLogo
 } from '../assets/assets.js';
 import './DashboardPage.css';
 import Confetti from 'react-confetti';
