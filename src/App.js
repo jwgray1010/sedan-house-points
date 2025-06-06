@@ -14,8 +14,8 @@ import CelebrationPage from './pages/CelebrationPage.js';
 import BehaviorLogPage from './pages/BehaviorLogPage.js';
 import TeacherRewardsPage from './pages/TeacherRewardsPage.js';
 
-// TODO: Replace with actual authentication/role logic
 const isTeacher = true;
+const isADMIN = true;
 
 function App() {
   const housePoints = 100; // Example value, replace with actual state or prop

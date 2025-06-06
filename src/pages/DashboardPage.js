@@ -253,7 +253,7 @@ function DashboardPage() {
               <button onClick={() => navigate('/behavior-log')}>
                 Behavior Log
               </button>
-              <button onClick={() => navigate('/teacher-rewards')}>
+              <button onClick={() => navigate('/manage-rewards')}>
                 Rewards
               </button>
               <button onClick={handleSignOut}>
