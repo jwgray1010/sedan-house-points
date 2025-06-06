@@ -7,6 +7,7 @@ import { db } from '../firebase.js';
 import html2pdf from 'html2pdf.js';
 import './HallOfFamePage.css';
 import { column } from '../assets/assets.js';
+import { useNavigate } from 'react-router-dom';
 
 function HallOfFamePage({ winners = [] }) {
   const { width, height } = useWindowSize();
@@ -21,6 +22,7 @@ function HallOfFamePage({ winners = [] }) {
   const [yearFilter, setYearFilter] = useState('');
   const [monthFilter, setMonthFilter] = useState('');
   const victoryAudioRef = useRef(null);
+  const navigate = useNavigate();
 
   // Play victory audio on mount
   useEffect(() => {
@@ -208,7 +210,13 @@ function HallOfFamePage({ winners = [] }) {
       <audio ref={victoryAudioRef} src="/victory.mp3" preload="auto" />
 
       {/* Back button top-left */}
-      <a className="back-dashboard-btn" href="#/dashboard">Back to Dashboard</a>
+      <button
+        className="back-dashboard-btn"
+        onClick={() => navigate('/dashboard')}
+        type="button"
+      >
+        Back to Dashboard
+      </button>
 
       {/* Confetti overlay */}
       {showConfetti && (
