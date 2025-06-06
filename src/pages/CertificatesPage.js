@@ -5,7 +5,7 @@ import { db } from '../firebase.js';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { format, startOfWeek, endOfWeek, addWeeks } from 'date-fns';
 import './CertificatesPage.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import html2pdf from "html2pdf.js";
 import { getFunctions, httpsCallable } from "firebase/functions";
 
@@ -209,12 +209,11 @@ const CertificatesPage = () => {
   return (
     <div className="certificates-page">
       <button
-        className="back-button"
-        style={{ marginBottom: "1rem" }}
-        onClick={() => navigate("/dashboard")}
-        aria-label="Back to Dashboard"
+        className="back-dashboard-btn"
+        onClick={() => navigate('/dashboard')}
+        type="button"
       >
-        ⬅ Back to Dashboard
+        Back to Dashboard
       </button>
       <h2>Weekly Positive Behavior Certificates</h2>
       <div style={{ marginBottom: "1rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
