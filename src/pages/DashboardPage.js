@@ -64,6 +64,7 @@ function DashboardPage() {
   const [selectedDirection, setSelectedDirection] = useState(null);
   const [historyStudent, setHistoryStudent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [logs, setLogs] = useState([]);
 
   // 1. Move fetchData OUTSIDE of useEffect so it's accessible
   const fetchData = async () => {
@@ -74,6 +75,10 @@ function DashboardPage() {
     // Fetch teachers
     const teachersSnapshot = await getDocs(collection(db, 'teachers'));
     setTeachers(teachersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+    // Fetch logs
+    const logsSnapshot = await getDocs(collection(db, 'behaviorLogs'));
+    setLogs(logsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
     // Set teacherName from auth
     if (auth.currentUser) {
@@ -137,7 +142,21 @@ function DashboardPage() {
     };
 
   // Example getTodaysLogs function (replace with your real logic)
-  const getTodaysLogs = () => [];
+  const getTodaysLogs = (studentId, direction) => {
+    const today = new Date().toISOString().slice(0, 10);
+    return logs.filter(
+      log =>
+        log.studentId === studentId &&
+        log.direction === direction &&
+        (
+          log.timestamp?.toDate?.()
+            ? log.timestamp.toDate().toISOString().slice(0, 10)
+            : typeof log.timestamp === 'string'
+              ? log.timestamp.slice(0, 10)
+              : ''
+        ) === today
+    );
+  };
 
   const handleSubmitPoint = async ({ student, direction, reason, note }) => {
     // 1. Add behavior log
