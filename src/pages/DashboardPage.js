@@ -23,7 +23,7 @@ import './DashboardPage.css';
 import Confetti from 'react-confetti';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import emailjs from 'emailjs-com';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
 // Remove this line, as it is incorrect and unnecessary:
 // import TeacherRewardsPage from './pages/TeacherRewardsPage.js';
 
@@ -140,6 +140,7 @@ function DashboardPage() {
   const getTodaysLogs = () => [];
 
   const handleSubmitPoint = async ({ student, direction, reason, note }) => {
+    // 1. Add behavior log
     await addDoc(collection(db, 'behaviorLogs'), {
       studentId: student.id,
       direction,
@@ -149,14 +150,43 @@ function DashboardPage() {
       teacher: teacherName,
     });
 
-    // Optionally: update student/house points in Firestore here if you store them separately
+    // 2. If negative, increment step
+    if (direction === 'negative') {
+      const studentRef = doc(db, 'students', student.id);
+      // Get the latest student data to avoid race conditions
+      const studentSnap = await getDoc(studentRef);
+      let currentStep = studentSnap.exists() ? (studentSnap.data().step || 1) : 1;
+      let newStep = Math.min(currentStep + 1, 5); // Max step is 5
 
-    // Refresh data so UI updates
+      await updateDoc(studentRef, { step: newStep });
+
+      // 3. Notify principal if step is 3, 4, or 5
+      if ([3, 4, 5].includes(newStep)) {
+        sendPrincipalAlert(student, newStep);
+      }
+    }
+
+    // 4. If positive, you may want to decrease step (optional)
+    // Uncomment below if you want positive points to move students down a step
+    /*
+    if (direction === 'positive') {
+      const studentRef = doc(db, 'students', student.id);
+      const studentSnap = await getDoc(studentRef);
+      let currentStep = studentSnap.exists() ? (studentSnap.data().step || 1) : 1;
+      let newStep = Math.max(currentStep - 1, 1); // Min step is 1
+      await updateDoc(studentRef, { step: newStep });
+    }
+    */
+
+    // 5. Refresh data so UI updates
     await fetchData();
 
+    // 6. Show notification
+    setNotification({ type: 'success', message: 'Point recorded!' });
+
+    // 7. Close modal
     setSelectedStudent(null);
     setSelectedDirection(null);
-    setNotification({ type: 'success', message: 'Point recorded!' });
   };
 
   // Example birthday students (replace with your real logic)
