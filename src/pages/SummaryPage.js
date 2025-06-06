@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import './SummaryPage.css';
-import { glowingShieldLogo } from '../assets/assets.js';
 
 const SummaryPage = () => {
   const [logs, setLogs] = useState([]);
