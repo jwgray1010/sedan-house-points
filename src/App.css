@@ -163,6 +163,10 @@ select {
 }
 
 /* Accessibility & Focus Styles */
+a:hover {
+  text-decoration: underline;
+}
+
 a:focus {
   outline: 2px solid #ffd700;
   outline-offset: 2px;
