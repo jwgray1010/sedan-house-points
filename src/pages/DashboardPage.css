@@ -193,8 +193,10 @@ body {
   margin-bottom: 0.5rem;
 }
 .house-card p {
+  color: #111;
   margin: 0;
   font-weight: bold;
+  display: block;
   font-size: 0.95rem;
   text-align: center;
 }
