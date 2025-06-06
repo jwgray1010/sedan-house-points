@@ -23,6 +23,11 @@
   text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 
+.summary-container h1 {
+  color: #fff !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
 .summary-container h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -237,6 +242,25 @@
 
 .back-dashboard-btn:hover,
 .back-dashboard-btn:focus-visible {
+  background: #ffd700 !important;
+  color: #111 !important;
+  border-color: #ffd700 !important;
+}
+
+/* Make summary page title white */
+.summary-container h1 {
+  color: #fff !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Export to CSV button black text */
+.export-csv-btn {
+  color: #111 !important;
+  background: #fff !important;
+  border: 2px solid #111 !important;
+}
+.export-csv-btn:hover,
+.export-csv-btn:focus-visible {
   background: #ffd700 !important;
   color: #111 !important;
   border-color: #ffd700 !important;
