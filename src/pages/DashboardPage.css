@@ -294,19 +294,34 @@ body {
 /* ─── Notification Banner ────────────────────────────────────────────────── */
 .notification-banner {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem;
-  text-align: center;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  min-width: 350px;
+  max-width: 90vw;
+  padding: 1.5em 2.5em;
+  font-size: 2rem;
   font-weight: bold;
-  font-size: 1rem;
-  z-index: 1000;
-  animation: slide-down 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  text-align: center;
+  color: #fff;
+  background: #1976d2;
+  opacity: 0.97;
+  animation: dojo-pop 0.4s;
 }
-.notification-banner.positive { background-color: #d4edda; color: #155724; }
-.notification-banner.negative { background-color: #f8d7da; color: #721c24; }
-@keyframes slide-down { from{transform:translateY(-100%);}to{transform:translateY(0);} }
+.notification-banner.success {
+  background: #43a047;
+}
+.notification-banner.warning {
+  background: #e53935;
+}
+@keyframes dojo-pop {
+  0% { transform: translateX(-50%) scale(0.8); opacity: 0; }
+  80% { transform: translateX(-50%) scale(1.05); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
 
 /* ─── Responsive Tweaks ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {

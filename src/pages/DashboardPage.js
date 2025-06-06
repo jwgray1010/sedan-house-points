@@ -23,9 +23,7 @@ import './DashboardPage.css';
 import Confetti from 'react-confetti';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import emailjs from 'emailjs-com';
-import { collection, getDocs, addDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
-// Remove this line, as it is incorrect and unnecessary:
-// import TeacherRewardsPage from './pages/TeacherRewardsPage.js';
+import { collection, getDocs, addDoc, doc, updateDoc, getDoc, increment } from 'firebase/firestore';
 
 const ADMIN_EMAIL = 'john.gray@usd286.org';
 
@@ -65,6 +63,7 @@ function DashboardPage() {
   const [historyStudent, setHistoryStudent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [logs, setLogs] = useState([]);
+  const [houseData, setHouseData] = useState({});
 
   // 1. Move fetchData OUTSIDE of useEffect so it's accessible
   const fetchData = async () => {
@@ -79,6 +78,14 @@ function DashboardPage() {
     // Fetch logs
     const logsSnapshot = await getDocs(collection(db, 'behaviorLogs'));
     setLogs(logsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+    // Fetch houses
+    const housesSnapshot = await getDocs(collection(db, 'houses'));
+    const houseObj = {};
+    housesSnapshot.forEach(doc => {
+      houseObj[doc.id] = doc.data().points || 0;
+    });
+    setHouseData(houseObj);
 
     // Set teacherName from auth
     if (auth.currentUser) {
@@ -187,21 +194,29 @@ function DashboardPage() {
 
     // 4. If positive, you may want to decrease step (optional)
     // Uncomment below if you want positive points to move students down a step
-    /*
     if (direction === 'positive') {
+      // Move student down a step (optional, as before)
       const studentRef = doc(db, 'students', student.id);
       const studentSnap = await getDoc(studentRef);
       let currentStep = studentSnap.exists() ? (studentSnap.data().step || 1) : 1;
       let newStep = Math.max(currentStep - 1, 1); // Min step is 1
       await updateDoc(studentRef, { step: newStep });
+
+      // Add a point to the house
+      if (student.house) {
+        const houseRef = doc(db, 'houses', student.house);
+        await updateDoc(houseRef, { points: increment(1) });
+      }
     }
-    */
 
     // 5. Refresh data so UI updates
     await fetchData();
 
     // 6. Show notification
-    setNotification({ type: 'success', message: 'Point recorded!' });
+    setNotification({
+      type: direction === 'positive' ? 'success' : 'warning',
+      message: `${student.name} received a ${direction === 'positive' ? 'positive' : 'negative'} point!`
+    });
 
     // 7. Close modal
     setSelectedStudent(null);
@@ -351,16 +366,10 @@ function DashboardPage() {
       {/* ─── House Cards ─── */}
       <div className="house-card-container">
         {['Storm', 'Meadow', 'Flint', 'Ember'].map((h) => (
-          <div
-            key={h}
-            className={`house-card ${housePoints[h] === maxPts ? 'leader' : ''}`}
-          >
-            <img
-              src={{ Storm: houseStorm, Meadow: houseMeadow, Flint: houseFlint, Ember: houseEmber }[h]}
-              alt={h}
-              className="shield-img" />
+          <div key={h} className={`house-card ${houseData[h] === maxPts ? 'leader' : ''}`}>
+            <img src={{ Storm: houseStorm, Meadow: houseMeadow, Flint: houseFlint, Ember: houseEmber }[h]} alt={h} className="shield-img" />
             <p>
-              {h}: {housePoints[h]} pts
+              {h}: {houseData[h] || 0} pts
             </p>
           </div>
         ))}
@@ -369,7 +378,7 @@ function DashboardPage() {
       {/* ─── Student Grid ─── */}
       <div className="student-grid">
         {filteredStudents.map((student) => {
-          const step = getCurrentStep(student.id);
+          const step = student.step || 1; // <-- Use the actual step from Firestore
           const atMaxStep = step >= 5 && !isAdmin; // Admins are never blocked
           const streak = student.streakCount || 0;
           const badge = BADGE_MILESTONES.find(b => streak >= b.days);
