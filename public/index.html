@@ -37,34 +37,3 @@
     <div id="root"></div>
   </body>
 </html>
-<script>
-  // This script is used to load the main JavaScript file dynamically
-  // It is necessary for the app to function correctly
-  (function () {
-    var script = document.createElement("script");
-    script.src = "%PUBLIC_URL%/static/js/main.js";
-    script.async = true;
-    document.body.appendChild(script);
-  })();
-</script>
-<script>
-  // This script is used to load the service worker for PWA functionality
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () { 
-      navigator.serviceWorker
-        .register("%PUBLIC_URL%/service-worker.js")
-        .then(function (registration) {
-          console.log("ServiceWorker registration successful with scope: ", registration.scope);
-        })
-        .catch(function (error) {
-          console.error("ServiceWorker registration failed: ", error);
-        });
-    });
-  }
-</script>
-<script>
-  // This script is used to load the manifest file for PWA functionality
-  var link = document.createElement("link");
-  link.rel = "manifest";
-  link.href = "%PUBLIC_URL%/manifest.json";
-  document.head.appendChild(link);              
