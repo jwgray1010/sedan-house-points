@@ -204,7 +204,7 @@ function DashboardPage() {
       {/* ─── Header Bar ─── */}
       <div className="header-bar">
         <div className="page-header">
-          <img src={sedanLogo} alt="Sedan Logo" />
+          <img src={sedanLogo} alt="Sedan Logo" className="sedan-logo" />
           <div className="header-title">
             <h1>
               Sedan Elementary<br />

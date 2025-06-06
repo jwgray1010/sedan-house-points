@@ -404,6 +404,12 @@ body {
   height: auto;      /* Maintain aspect ratio */
 }
 
+.dashboard-container .sedan-logo {
+  max-width: 40px !important;
+  width: 40px !important;
+  height: auto !important;
+}
+
 .logo-container {
   display: flex;
   justify-content: center;
