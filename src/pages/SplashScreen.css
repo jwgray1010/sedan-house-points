@@ -1,16 +1,21 @@
 .splash-container {
   display: flex;
-  justify-content: center;  /* centers horizontally */
-  align-items: center;      /* centers vertically */
+  flex-direction: column;      /* Stack children vertically */
+  justify-content: center;     /* Center vertically */
+  align-items: center;         /* Center horizontally */
   width: 100vw;
   min-height: 100vh;
   height: 100vh;            /* full viewport height */
   box-sizing: border-box;
   background: blue;
+  margin: 0;                   /* Remove default margin */
+  padding: 0;                  /* Remove default padding */
 }
 
 .splash-logo {
   width: 200px;
+  margin: 0 auto;              /* Remove any default margin */
+  display: block;
   animation: pulse 2s infinite ease-in-out;
 }
 
