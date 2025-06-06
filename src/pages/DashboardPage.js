@@ -139,8 +139,7 @@ function DashboardPage() {
   // Example getTodaysLogs function (replace with your real logic)
   const getTodaysLogs = () => [];
 
-  const handleSubmitPoint = async (student, direction, reason, note) => {
-    // 1. Save the new behavior to Firestore
+  const handleSubmitPoint = async ({ student, direction, reason, note }) => {
     await addDoc(collection(db, 'behaviorLogs'), {
       studentId: student.id,
       direction,
@@ -150,14 +149,13 @@ function DashboardPage() {
       teacher: teacherName,
     });
 
-    // 2. Refresh students and logs (fetchData already does this)
+    // Optionally: update student/house points in Firestore here if you store them separately
+
+    // Refresh data so UI updates
     await fetchData();
 
-    // 3. Close the modal
     setSelectedStudent(null);
     setSelectedDirection(null);
-
-    // 4. Optionally show a notification
     setNotification({ type: 'success', message: 'Point recorded!' });
   };
 

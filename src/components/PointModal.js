@@ -9,30 +9,28 @@ const PointModal = ({ student, direction, onClose, onSubmit }) => {
 
   // Negative behavior reasons
   const negativeReasons = [
-    'Disruption',              // Off-task, bothering others, continuous talking
-    'Defiance/Disrespect',     // Refusing directions, arguing
-    'Aggression',              // Horseplay, fighting, offensive language
-    'Property Misuse',         // Throwing/breaking materials
-    'Other'                    // Catch-all
+    'Disruption',
+    'Defiance/Disrespect',
+    'Aggression',
+    'Property Misuse',
+    'Other'
   ];
 
-  // Condensed positive reasons
+  // Positive behavior reasons
   const positiveReasons = [
-    'Collaboration',           // Helping peers, teamwork
-    'Effort',                  // Perseverance, excellent work ethic
-    'Leadership',              // Guiding others, initiative
-    'Kindness & Respect',      // Courtesy, inclusivity
-    'Participation',           // Engagement, asking questions
-    'Creativity',              // Innovative ideas, problem-solving
-    'Other'                    // Catch-all
+    'Collaboration',
+    'Effort',
+    'Leadership',
+    'Kindness & Respect',
+    'Participation',
+    'Creativity',
+    'Other'
   ];
 
-  // Accessibility: focus the reason select when modal opens
   useEffect(() => {
     reasonSelectRef.current?.focus();
   }, []);
 
-  // Allow closing modal with Escape key
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') onClose();
