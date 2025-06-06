@@ -193,6 +193,14 @@ function DashboardPage() {
     return () => unsubscribe();
   }, [navigate]);
 
+  // Auto-hide notification after 3 seconds
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
+
   return (
     <div className="dashboard-container">
       {notification && (
@@ -344,18 +352,9 @@ function DashboardPage() {
                     onClick={(e) => {
                       if (atMaxStep) return;
                       e.stopPropagation();
-                      if (dir === 'positive') playDing();
-                      if (dir === 'negative') {
-                        try {
-                          alertSound.currentTime = 0;
-                          alertSound.play();
-                        } catch (e) {}
-                      }
-                      handlePoint(student, dir); // This must update state!
-                      const el = e.currentTarget;
-                      el.classList.add('pop');
-                      setTimeout(() => el.classList.remove('pop'), 300);
-                    } }
+                      console.log('Clicked', dir, student.name);
+                      // ...rest of your logic
+                    }}
                     onKeyDown={e => {
                       if (e.key === 'Enter' && !atMaxStep) {
                         if (dir === 'positive') playDing();
