@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SplashScreen.css';
-import { glowingShieldLogo } from '../assets/assets.js';
+import { logo } from '../assets/assets.js';
 
 const SplashScreen = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const SplashScreen = () => {
 
   return (
     <div className="splash-container">
-      <img src={glowingShieldLogo} alt="Glowing Shield" className="splash-logo" />
+      <img src={logo} alt="Logo" className="splash-logo" />
     </div>
   );
 };

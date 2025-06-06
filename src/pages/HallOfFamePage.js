@@ -230,18 +230,25 @@ function HallOfFamePage({ winners = [] }) {
         <button onClick={() => setFilter('all')} className={filter === 'all' ? 'active' : ''} aria-label="Show all-time winners">All Time</button>
         <input
           type="date"
+          id="hof-start-date"
+          name="hof-start-date"
           value={startDate}
           onChange={e => setStartDate(e.target.value)}
           aria-label="Start date"
           style={{ marginLeft: '1rem' }} />
+
         <input
           type="date"
+          id="hof-end-date"
+          name="hof-end-date"
           value={endDate}
           onChange={e => setEndDate(e.target.value)}
           aria-label="End date" />
-        <button onClick={() => { setStartDate(''); setEndDate(''); } }>Clear Dates</button>
+
         <input
           type="text"
+          id="hof-search"
+          name="hof-search"
           placeholder="Search name"
           value={search}
           onChange={e => setSearch(e.target.value)}

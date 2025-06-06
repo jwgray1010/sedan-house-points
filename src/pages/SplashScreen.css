@@ -1,8 +1,11 @@
 .splash-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  justify-content: center;  /* centers horizontally */
+  align-items: center;      /* centers vertically */
+  width: 100vw;
+  min-height: 100vh;
+  height: 100vh;            /* full viewport height */
+  box-sizing: border-box;
   background: blue;
 }
 
