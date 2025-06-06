@@ -260,7 +260,6 @@ const RewardsPage = ({ isTeacher }) => {
         {paginatedRewards.map(reward => (
           <div className={`reward-card${reward.popular ? ' popular' : ''}`} key={reward.id}>
             {reward.popular && <span className="reward-badge">Popular</span>}
-            <span className="reward-icon">{reward.icon}</span>
             <span className="reward-name">{reward.name}</span>
             <span className="reward-category">{reward.category}</span>
             <div className="reward-cost">{reward.cost} pts</div>

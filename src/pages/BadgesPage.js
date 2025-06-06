@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase.js';
 import './BadgesPage.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const celebrateAudio = new Audio('/celebrate.mp3');
 
@@ -76,9 +76,9 @@ const BadgesPage = () => {
         </div>
       )}
 
-      <button className="back-dashboard-btn" onClick={() => navigate('/dashboard')}>
+      <Link className="back-dashboard-btn" to="/dashboard">
         Back to Dashboard
-      </button>
+      </Link>
       <button onClick={() => navigate('/')}>Go Home</button>
 
       <h1>🏅 Student Medals</h1>
