@@ -223,6 +223,8 @@ const CertificatesPage = () => {
         </span>
         <button onClick={() => setWeekOffset(weekOffset + 1)} aria-label="Next Week">Next Week ➡</button>
         <input
+          id="search-student"
+          name="searchStudent"
           type="text"
           placeholder="Search student"
           value={search}
