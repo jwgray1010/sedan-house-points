@@ -35,10 +35,7 @@ function App() {
         <Route path="/certificates" element={<CertificatesPage />} />
         <Route path="/badges" element={<BadgesPage />} />
         <Route path="/manage-rewards" element={<TeacherRewardsPage />} />
-        <Route
-          path="/celebration"
-          element={
-            <CelebrationPage
+        <Route path="/celebration" element={<CelebrationPage
               housePoints={housePoints}
               students={students}
             />

@@ -8,7 +8,8 @@ import './RewardsPage.css';
 const ADMIN_EMAIL = 'john.gray@usd286.org';
 
 const TeacherRewardsPage = () => {
-  const { user } = useAuth();
+  const authContext = useAuth() || {};
+  const { user } = authContext;
   const isAdmin = user && user.email === ADMIN_EMAIL;
   const isTeacher = user && user.role === 'teacher'; // Adjust this line based on your user model
   const navigate = useNavigate(); // <-- Add this line
@@ -88,6 +89,10 @@ const TeacherRewardsPage = () => {
   const handleEditCancel = () => {
     setEditId(null);
   };
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   if (!isTeacher && !isAdmin) {
     return <div>Access denied.</div>;

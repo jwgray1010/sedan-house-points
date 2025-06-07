@@ -1,7 +1,7 @@
 // src/pages/DashboardPage.js
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../firebase.js';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   Menu,
   List,
@@ -29,15 +29,7 @@ const ADMIN_EMAIL = 'john.gray@usd286.org';
 
 // List of emails that should see all students
 const ALL_ACCESS_EMAILS = [
-  'john.gray@usd286.org',         // Principal
-  'martha.davis@usd286.org',      // Secretary
-  'kyle.thornton@usd286.org',        // PE Teacher
-  'sherri.durbin@usd286.org',     // Music Teacher
-  'jennifer.giles@usd286.org',         // Counselor
-  'kristyn.stettler@usd286.org',      // Social Worker
-  'tisha.brown@usd286.org',        // Reading Specialist
-  'matasha.ellison@usd286.org',    // Math Specialist
-  // Add more as needed
+  'john.gray@usd286.org'
 ];
 
 const BADGE_MILESTONES = [
@@ -106,7 +98,7 @@ function DashboardPage() {
   }, [teacherName, selectedTeacher]);
 
   // Example teacher list from backend data
-  const teacherList = ['All', ...teachers.map(t => t.name)];
+  const teacherList = teachers.map(t => t.name);
 
   // Example house points (replace with your real logic)
   const housePoints = {
@@ -318,6 +310,9 @@ function DashboardPage() {
               <button onClick={() => navigate('/graphs')}>
                 <BarChart2 size={16} /> Graphs
               </button>
+              <button onClick={() => navigate('/teacher-rewards')}>
+                <BarChart2 size={16} /> Rewards
+              </button>
               <button onClick={() => navigate('/podium')}>
                 <Award size={12} /> Podium
               </button>
@@ -369,7 +364,7 @@ function DashboardPage() {
           <div key={h} className={`house-card ${houseData[h] === maxPts ? 'leader' : ''}`}>
             <img src={{ Storm: houseStorm, Meadow: houseMeadow, Flint: houseFlint, Ember: houseEmber }[h]} alt={h} className="shield-img" />
             <p>
-              {h}: {houseData[h] || 0} pts
+              {h}: <span className="house-points-number">{houseData[h] || 0}</span> pts
             </p>
           </div>
         ))}

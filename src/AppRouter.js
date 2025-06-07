@@ -38,7 +38,7 @@ const AppRouter = () => {
         <Route path="/badges" element={<BadgesPage />} />
         <Route path="/celebration" element={<CelebrationPage />} />
         <Route path="/behavior-log" element={<BehaviorLogPage />} />
-        <Route path="/teacher-rewards" element={<TeacherRewardsPage />} />
+        <Route path="/manage-rewards" element={<TeacherRewardsPage />} />
         {/* 404 fallback */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
