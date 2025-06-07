@@ -1,5 +1,7 @@
 // App.js
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import HashRouter from 'react-router-dom/HashRouter';
+import Routes from 'react-router-dom/Routes';
+import Route from 'react-router-dom/Route';
 import DashboardPage from './pages/DashboardPage.js';
 import SummaryPage from './pages/SummaryPage.js';
 import GraphsPage from './pages/GraphsPage.js';
@@ -10,9 +12,9 @@ import StepsPage from './pages/StepsPage.js';
 import LoginPage from './pages/LoginPage.js';
 import CertificatesPage from './pages/CertificatesPage.js';
 import BadgesPage from './pages/BadgesPage.js';
-import CelebrationPage from './pages/CelebrationPage.js';
 import BehaviorLogPage from './pages/BehaviorLogPage.js';
-import TeacherRewardsPage from './pages/TeacherRewardsPage.js';
+import CelebrationPage from './pages/CelebrationPage.js';
+import TeacherRewardsPage from './pages/TeacherRewardsPage.js'
 
 const isTeacher = true;
 const isADMIN = true;
