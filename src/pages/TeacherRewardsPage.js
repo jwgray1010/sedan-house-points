@@ -11,8 +11,11 @@ const TeacherRewardsPage = () => {
   const authContext = useAuth() || {};
   const { user } = authContext;
   const isAdmin = user && user.email === ADMIN_EMAIL;
-  const isTeacher = user && user.role === 'teacher'; // Adjust this line based on your user model
-  const navigate = useNavigate(); // <-- Add this line
+  // You should check the user's role or email domain properly.
+  // The line below is likely incorrect unless your user object has a 'role' field set to '@usd286.org'.
+  // If you want to check if the user's email ends with '@usd286.org', use:
+  const isTeacher = user && user.email && user.email.endsWith('@usd286.org');
+  const navigate = useNavigate();
 
   const [rewards, setRewards] = useState([]);
   const [name, setName] = useState('');

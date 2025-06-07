@@ -310,8 +310,8 @@ function DashboardPage() {
               <button onClick={() => navigate('/graphs')}>
                 <BarChart2 size={16} /> Graphs
               </button>
-              <button onClick={() => navigate('/teacher-rewards')}>
-                <BarChart2 size={16} /> Rewards
+              <button onClick={() => navigate('/manage-rewards')}>
+                Rewards
               </button>
               <button onClick={() => navigate('/podium')}>
                 <Award size={12} /> Podium
